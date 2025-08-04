@@ -1,0 +1,249 @@
+/* Google Fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: "Homemade Apple", cursive;
+}
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+/* Landing page container */
+.landing-page {
+  position: relative;
+  width: 1280px;
+  height: 832px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Background container */
+.background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 434px;
+  width: 420px;
+  height: 832px;
+  background-image: url('../assets/user-landing.png'); /* 배경 이미지 경로 설정 필요 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 434px;
+  width: 420px;
+  height: 832px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Logo container */
+.logo-container {
+  position: absolute;
+  top: -10px;
+  left: 463px;
+  width: 130px;
+  height: 170px;
+  z-index: 3;
+}
+
+.logo-background {
+  position: relative;
+  width: 130px;
+  height: 170px;
+}
+
+.logo-background::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 110px;
+  height: 150px;
+  background-color: #f9f8f4;
+  border-radius: 4px;
+}
+
+/*
+.logo-image {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  width: 68px;
+  height: 80px;
+  background-image: url('../assets/logo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+}
+*/
+
+/* Main content */
+.main-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main text container */
+.main-text-container {
+  position: absolute;
+  top: 302px;
+  left: 451px;
+  width: 377px;
+  height: 193px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-title {
+  font-family: 'Homemade Apple', cursive;
+  font-size: 28px;
+  font-weight: 400;
+  color: #ffffff;
+  text-align: center;
+  line-height: 60px;
+  letter-spacing: 0;
+  margin-bottom: 15px;
+  border: 1px solid #ffffff;
+  padding: 0 20px;
+  border-radius: 4px;
+}
+
+.brand-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 128px;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: left;
+  line-height: 161px;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+/* Button container */
+.button-container {
+  position: absolute;
+  bottom: 156px;
+  left: 536px;
+  width: 215px;
+  height: 39px;
+  display: flex;
+  gap: 15px;
+}
+
+/* Button styles */
+.btn {
+  width: 100px;
+  height: 39px;
+  border-radius: 5px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+  line-height: 19px;
+  letter-spacing: 0;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-login {
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+}
+
+.btn-login:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-signup {
+  background-color: #ffffff;
+  color: #391d0a;
+}
+
+.btn-signup:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-1px);
+}
+
+/* Responsive design */
+@media (max-width: 1280px) {
+  .landing-page {
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .background-image,
+  .background-overlay {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .logo-container {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .main-text-container {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .button-container {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 24px;
+    line-height: 50px;
+  }
+  
+  .brand-name {
+    font-size: 80px;
+    line-height: 100px;
+  }
+  
+  .button-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn {
+    width: 120px;
+  }
+}
