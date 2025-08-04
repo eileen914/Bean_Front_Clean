@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import UserChatbot from '../components/UserChatbot';
+import UserSearch from '../components/UserSearch';
+
 import './UserHome.css';
 
 const UserHome = () => {
@@ -34,7 +35,7 @@ const UserHome = () => {
     if (!isDragging) return;
     
     const newY = e.touches[0].clientY - startY;
-    const maxY = window.innerHeight * 0.8; // 최대 80%까지 올라감
+    const maxY = window.innerHeight * 0.7; // 최대 70%까지 올라감
     
     if (newY <= 0) {
       setCurrentY(0);
@@ -49,7 +50,7 @@ const UserHome = () => {
     if (!isDragging) return;
     
     const newY = e.clientY - startY;
-    const maxY = window.innerHeight * 0.8; // 최대 80%까지 올라감
+    const maxY = window.innerHeight * 0.7; // 최대 70%까지 올라감
     
     if (newY <= 0) {
       setCurrentY(0);
@@ -62,32 +63,32 @@ const UserHome = () => {
 
   const handleTouchEnd = () => {
     setIsDragging(false);
-    const threshold = window.innerHeight * 0.4; // 40% 임계값
+    const threshold = window.innerHeight * 0.35; // 35% 임계값
     
     if (currentY < threshold) {
       setCurrentY(0);
       setIsOpen(true);
     } else {
-      setCurrentY(window.innerHeight * 0.8);
+      setCurrentY(window.innerHeight * 0.7);
       setIsOpen(false);
     }
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
-    const threshold = window.innerHeight * 0.4; // 40% 임계값
+    const threshold = window.innerHeight * 0.35; // 35% 임계값
     
     if (currentY < threshold) {
       setCurrentY(0);
       setIsOpen(true);
     } else {
-      setCurrentY(window.innerHeight * 0.8);
+      setCurrentY(window.innerHeight * 0.7);
       setIsOpen(false);
     }
   };
 
   const handleOverlayClick = () => {
-    setCurrentY(window.innerHeight * 0.8);
+    setCurrentY(window.innerHeight * 0.7);
     setIsOpen(false);
   };
 
@@ -138,12 +139,12 @@ const UserHome = () => {
       </button>
 
       {/* 오버레이 */}
-      {(isOpen || currentY < window.innerHeight * 0.8) && (
+      {(isOpen || currentY < window.innerHeight * 0.7) && (
         <div 
           ref={overlayRef}
           className="bottom-sheet-overlay" 
           onClick={handleOverlayClick}
-          style={{ opacity: Math.max(0, 1 - (currentY / (window.innerHeight * 0.8))) }}
+          style={{ opacity: Math.max(0, 1 - (currentY / (window.innerHeight * 0.7))) }}
         />
       )}
 
@@ -167,7 +168,10 @@ const UserHome = () => {
         
         {/* 헤더 */}
         <div className="bottom-sheet-header">
-          <span className="bottom-sheet-title">Bean AI</span>
+          <div className="header-left">
+            <span className="bottom-sheet-title">Bean AI</span>
+            <div className="header-divider"></div>
+          </div>
           <button className="close-btn" onClick={handleOverlayClick}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#391d0a"/>
@@ -177,7 +181,7 @@ const UserHome = () => {
         
         {/* 콘텐츠 */}
         <div className="bottom-sheet-content">
-          <UserChatbot />
+          <UserSearch />
         </div>
       </div>
     </div>
