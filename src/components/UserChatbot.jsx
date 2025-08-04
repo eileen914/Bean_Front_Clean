@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './Frame337.css';
+import './UserChatbot.css';
 
-const Frame337 = () => {
+const UserChatbot = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (e) => {
@@ -149,4 +149,4 @@ const Frame337 = () => {
   );
 };
 
-export default Frame337;
+export default UserChatbot;
