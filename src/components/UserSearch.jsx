@@ -20,10 +20,6 @@ const UserSearch = () => {
     <div className="frame-336">
       {/* 메인 컨테이너 */}
       <div className="search-container">
-        {/* 서브타이틀 */}
-        <div className="subtitle">
-          <span className="subtitle-text">나만의 맞춤 카페를 찾아보세요</span>
-        </div>
 
         {/* 추천 검색어 섹션 */}
         <div className="search-section">

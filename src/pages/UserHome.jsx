@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import UserSearch from '../components/UserSearch';
 import './UserHome.css';
 
+
 const UserHome = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [currentY, setCurrentY] = useState(0);
@@ -33,7 +34,7 @@ const UserHome = () => {
     if (!isDragging) return;
     
     const newY = e.touches[0].clientY - startY;
-    const maxY = window.innerHeight - 219; // UserSearch 컴포넌트 높이만큼만 드래그
+    const maxY = window.innerHeight - 81; // UserSearch 컴포넌트 높이만큼만 드래그
     
     if (newY <= 0) {
       setCurrentY(0);
@@ -48,7 +49,7 @@ const UserHome = () => {
     if (!isDragging) return;
     
     const newY = e.clientY - startY;
-    const maxY = window.innerHeight - 219; // UserSearch 컴포넌트 높이만큼만 드래그
+    const maxY = window.innerHeight - 81; // UserSearch 컴포넌트 높이만큼만 드래그
     
     if (newY <= 0) {
       setCurrentY(0);
@@ -61,32 +62,32 @@ const UserHome = () => {
 
   const handleTouchEnd = () => {
     setIsDragging(false);
-    const threshold = (window.innerHeight - 219) * 0.5; // UserSearch 높이의 절반을 임계값으로
+    const threshold = (window.innerHeight - 81) * 0.5; // UserSearch 높이의 절반을 임계값으로
     
     if (currentY < threshold) {
       setCurrentY(0);
       setIsOpen(true);
     } else {
-      setCurrentY(window.innerHeight - 219);
+      setCurrentY(window.innerHeight - 81);
       setIsOpen(false);
     }
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
-    const threshold = (window.innerHeight - 219) * 0.5; // UserSearch 높이의 절반을 임계값으로
+    const threshold = (window.innerHeight - 81) * 0.5; // UserSearch 높이의 절반을 임계값으로
     
     if (currentY < threshold) {
       setCurrentY(0);
       setIsOpen(true);
     } else {
-      setCurrentY(window.innerHeight - 219);
+      setCurrentY(window.innerHeight - 81);
       setIsOpen(false);
     }
   };
 
   const handleOverlayClick = () => {
-    setCurrentY(window.innerHeight - 219);
+    setCurrentY(window.innerHeight - 81);
     setIsOpen(false);
   };
 
@@ -129,15 +130,6 @@ const UserHome = () => {
         </div>
       </main>
 
-      {/* 채팅 버튼 */}
-      <button className="chat-toggle-btn" onClick={toggleBottomSheet}>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z" fill="#391d0a"/>
-        </svg>
-      </button>
-
-
-
       {/* Bottom Sheet */}
       <div 
         ref={bottomSheetRef}
@@ -160,10 +152,11 @@ const UserHome = () => {
         <div className="bottom-sheet-header">
           <div className="header-left">
             <span className="bottom-sheet-title">Bean AI</span>
+            <span className="bottom-sheet-subtitle">나만의 맞춤 카페를 찾아보세요</span>
             <div className="header-divider"></div>
           </div>
         </div>
-        
+                
         {/* 콘텐츠 */}
         <div className="bottom-sheet-content">
           <UserSearch />
