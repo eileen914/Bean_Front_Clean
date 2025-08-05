@@ -1,224 +1,137 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './CafeRegister2.css';
+import React from "react";
+import "./CafeRegister2.css";
+import { useNavigate } from "react-router-dom";
 
 const CafeRegister2 = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    address: '',
-    detailAddress: '',
-    businessHours: '',
-    description: '',
-    website: '',
-    instagram: '',
-    capacity: '',
-    parking: false,
-    wifi: false,
-    powerOutlet: false
-  });
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you would typically validate and save the data
-    console.log('Registration step 2:', formData);
-    navigate('/cafe-map-creating');
-  };
-
-  const handleBackClick = () => {
-    navigate('/cafe-register-1');
+  const handleNextClick = () => {
+    navigate("/cafe-map-creating");
   };
 
   return (
-    <div className="cafe-register-2">
-      <div className="register-container">
-        <div className="register-header">
-          <button className="back-btn" onClick={handleBackClick}>
-            ← 뒤로가기
-          </button>
-          <h1 className="register-title">업체 등록</h1>
-          <div className="progress-bar">
-            <div className="progress-step completed">1</div>
-            <div className="progress-line completed"></div>
-            <div className="progress-step active">2</div>
-          </div>
+    <div className="cafe-register">
+      {/* 고정 헤더 */}
+      <header className="register-fixed-header">
+        <div className="header-content">
+          <img src="/logo.png" alt="Bean Logo" className="header-logo" />
+          <h1 className="header-text">Bean</h1>
         </div>
+      </header>
 
-        <div className="register-form-container">
-          <div className="form-header">
-            <h2>상세 정보 입력</h2>
-            <p>업체의 상세 정보를 입력해주세요</p>
+      {/* 메인 컨텐츠 */}
+      <div className="register2-container">
+        <h2 className="register2-title">업체 등록하기</h2>
+
+        <section className="register2-step">
+          <div className="register2-step-header-wrapper">
+            <div className="register2-step-header">
+              <div className="step-label-box">
+                <span>Step 1</span>
+                <span>필수 정보 입력하기</span>
+              </div>
+              <div className="step-header-text">
+                업체명, 상세설명, 대표키워드 등 우리 가게 정보를 알려주세요.{" "}
+                <br />
+                이외 상세정보는 업체 등록 이후 수정하실 수 있습니다.
+              </div>
+            </div>
           </div>
 
-          <form className="register-form" onSubmit={handleSubmit}>
-            <div className="form-section">
-              <h3>📍 위치 정보</h3>
-              <div className="form-row">
-                <div className="form-group full-width">
-                  <label htmlFor="address">주소 *</label>
-                  <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    placeholder="주소를 입력하세요"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group full-width">
-                  <label htmlFor="detailAddress">상세주소</label>
-                  <input
-                    type="text"
-                    id="detailAddress"
-                    name="detailAddress"
-                    value={formData.detailAddress}
-                    onChange={handleInputChange}
-                    placeholder="상세주소를 입력하세요"
-                  />
-                </div>
-              </div>
+          <form className="register2-form">
+            <div className="register2-form-row">
+              <label>업체명</label>
+              <input type="text" placeholder="최대 30자" />
             </div>
-
-            <div className="form-section">
-              <h3>🕒 운영 정보</h3>
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="businessHours">영업시간 *</label>
-                  <input
-                    type="text"
-                    id="businessHours"
-                    name="businessHours"
-                    value={formData.businessHours}
-                    onChange={handleInputChange}
-                    placeholder="예: 09:00-18:00"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="capacity">수용 인원</label>
-                  <input
-                    type="number"
-                    id="capacity"
-                    name="capacity"
-                    value={formData.capacity}
-                    onChange={handleInputChange}
-                    placeholder="예: 30"
-                  />
-                </div>
-              </div>
+            <div className="register2-form-row">
+              <label>아이디</label>
+              <input
+                type="text"
+                placeholder="빈자리 서비스에 활용할 아이디를 입력해주세요"
+              />
             </div>
-
-            <div className="form-section">
-              <h3>📝 업체 소개</h3>
-              <div className="form-row">
-                <div className="form-group full-width">
-                  <label htmlFor="description">업체 소개</label>
-                  <textarea
-                    id="description"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    placeholder="업체에 대한 소개를 작성해주세요"
-                    rows="4"
-                  ></textarea>
-                </div>
-              </div>
+            <div className="register2-form-row">
+              <label>비밀번호</label>
+              <input
+                type="password"
+                placeholder="빈자리 서비스에 활용할 비밀번호를 입력해주세요"
+              />
             </div>
-
-            <div className="form-section">
-              <h3>🌐 온라인 정보</h3>
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="website">웹사이트</label>
-                  <input
-                    type="url"
-                    id="website"
-                    name="website"
-                    value={formData.website}
-                    onChange={handleInputChange}
-                    placeholder="https://example.com"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="instagram">인스타그램</label>
-                  <input
-                    type="text"
-                    id="instagram"
-                    name="instagram"
-                    value={formData.instagram}
-                    onChange={handleInputChange}
-                    placeholder="@username"
-                  />
-                </div>
-              </div>
+            <div className="register2-form-row">
+              <label>전화번호</label>
+              <input type="tel" placeholder="숫자만 입력해주세요" />
             </div>
-
-            <div className="form-section">
-              <h3>✅ 편의시설</h3>
-              <div className="facilities-grid">
-                <label className="facility-item">
-                  <input
-                    type="checkbox"
-                    name="parking"
-                    checked={formData.parking}
-                    onChange={handleInputChange}
-                  />
-                  <span className="facility-icon">🚗</span>
-                  <span className="facility-text">주차 가능</span>
-                </label>
-                <label className="facility-item">
-                  <input
-                    type="checkbox"
-                    name="wifi"
-                    checked={formData.wifi}
-                    onChange={handleInputChange}
-                  />
-                  <span className="facility-icon">📶</span>
-                  <span className="facility-text">Wi-Fi</span>
-                </label>
-                <label className="facility-item">
-                  <input
-                    type="checkbox"
-                    name="powerOutlet"
-                    checked={formData.powerOutlet}
-                    onChange={handleInputChange}
-                  />
-                  <span className="facility-icon">🔌</span>
-                  <span className="facility-text">콘센트</span>
-                </label>
-              </div>
+            <div className="register2-form-row">
+              <label>업체 주소</label>
+              <input
+                type="text"
+                placeholder="상세 주소까지 한 줄로 입력해주세요"
+              />
             </div>
-
-            <div className="form-actions">
-              <button type="submit" className="register-submit-btn">
-                업체 등록 완료하기
-              </button>
+            <div className="register2-form-row">
+              <label>카페 설명</label>
+              <textarea
+                placeholder="카페에 대한 한줄 설명을 적어주세요"
+                rows={3}
+              ></textarea>
             </div>
           </form>
+        </section>
 
-          <div className="register-info">
-            <h3>📋 등록 완료 안내</h3>
-            <ul>
-              <li>입력한 정보는 업체 등록 후 수정할 수 있습니다</li>
-              <li>등록 완료 후 업체 인증 절차를 진행합니다</li>
-              <li>인증 완료 후 Bean 서비스를 이용할 수 있습니다</li>
-              <li>추가 문의사항은 고객센터로 연락해주세요</li>
-            </ul>
+        <section className="register2-step">
+          <div className="register2-step-header-wrapper">
+            <div className="register2-step-header">
+              <div className="step-label-box">
+                <span>Step 2</span>
+                <span>매장 사진 업로드하기</span>
+              </div>
+              <div className="step-header-text">
+                테이블 및 좌석 정보를 알 수 있는 매장 도면 사진을
+                업로드해주세요.
+              </div>
+            </div>
           </div>
+
+          <div className="upload-section">
+            <div className="upload-box">
+              <div className="upload-icon">
+                <img src="/icons/upload-icon.png" alt="업로드 아이콘" />
+              </div>
+              <p>파일을 여기로 드래그하여 업로드하세요.</p>
+              <p className="upload-hint">(파일 형식: PNG, JPG)</p>
+              <button className="upload-btn">파일 선택</button>
+            </div>
+
+            <div className="file-list-section">
+              <div className="file-item">
+                <span className="file-name">cafe01.png</span>
+                <span className="file-size">1487.2 KB</span>
+                <button className="file-view-btn">파일 보기</button>
+              </div>
+              <div className="file-item">
+                <span className="file-name">cafe01.png</span>
+                <span className="file-size">1487.2 KB</span>
+                <button className="file-view-btn">파일 보기</button>
+              </div>
+              <div className="file-item">
+                <span className="file-name">cafe01.png</span>
+                <span className="file-size">1487.2 KB</span>
+                <button className="file-view-btn">파일 보기</button>
+              </div>
+              {/* 추가 파일 항목 반복 */}
+              <button className="reset-btn">초기화하기</button>
+            </div>
+          </div>
+        </section>
+
+        <div className="register2-footer">
+          <button className="register-button" onClick={handleNextClick}>
+            업체 등록 완료하기
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default CafeRegister2; 
+export default CafeRegister2;
