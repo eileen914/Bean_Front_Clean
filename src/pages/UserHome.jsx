@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import UserSearch from '../components/UserSearch';
-
 import './UserHome.css';
 
 const UserHome = () => {
@@ -9,7 +8,6 @@ const UserHome = () => {
   const [startY, setStartY] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const bottomSheetRef = useRef(null);
-  const overlayRef = useRef(null);
 
   const handleMenuClick = () => {
     console.log('메뉴 버튼 클릭');
@@ -35,7 +33,7 @@ const UserHome = () => {
     if (!isDragging) return;
     
     const newY = e.touches[0].clientY - startY;
-    const maxY = window.innerHeight * 0.7; // 최대 70%까지 올라감
+    const maxY = window.innerHeight - 219; // UserSearch 컴포넌트 높이만큼만 드래그
     
     if (newY <= 0) {
       setCurrentY(0);
@@ -50,7 +48,7 @@ const UserHome = () => {
     if (!isDragging) return;
     
     const newY = e.clientY - startY;
-    const maxY = window.innerHeight * 0.7; // 최대 70%까지 올라감
+    const maxY = window.innerHeight - 219; // UserSearch 컴포넌트 높이만큼만 드래그
     
     if (newY <= 0) {
       setCurrentY(0);
@@ -63,32 +61,32 @@ const UserHome = () => {
 
   const handleTouchEnd = () => {
     setIsDragging(false);
-    const threshold = window.innerHeight * 0.35; // 35% 임계값
+    const threshold = (window.innerHeight - 219) * 0.5; // UserSearch 높이의 절반을 임계값으로
     
     if (currentY < threshold) {
       setCurrentY(0);
       setIsOpen(true);
     } else {
-      setCurrentY(window.innerHeight * 0.7);
+      setCurrentY(window.innerHeight - 219);
       setIsOpen(false);
     }
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
-    const threshold = window.innerHeight * 0.35; // 35% 임계값
+    const threshold = (window.innerHeight - 219) * 0.5; // UserSearch 높이의 절반을 임계값으로
     
     if (currentY < threshold) {
       setCurrentY(0);
       setIsOpen(true);
     } else {
-      setCurrentY(window.innerHeight * 0.7);
+      setCurrentY(window.innerHeight - 219);
       setIsOpen(false);
     }
   };
 
   const handleOverlayClick = () => {
-    setCurrentY(window.innerHeight * 0.7);
+    setCurrentY(window.innerHeight - 219);
     setIsOpen(false);
   };
 
@@ -138,15 +136,7 @@ const UserHome = () => {
         </svg>
       </button>
 
-      {/* 오버레이 */}
-      {(isOpen || currentY < window.innerHeight * 0.7) && (
-        <div 
-          ref={overlayRef}
-          className="bottom-sheet-overlay" 
-          onClick={handleOverlayClick}
-          style={{ opacity: Math.max(0, 1 - (currentY / (window.innerHeight * 0.7))) }}
-        />
-      )}
+
 
       {/* Bottom Sheet */}
       <div 

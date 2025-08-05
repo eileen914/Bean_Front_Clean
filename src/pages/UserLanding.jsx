@@ -1,51 +1,41 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './UserLanding.css';
+import group1 from '../assets/user-landing.png';
 
-const UserLanding = () => {
-  const handleLogin = () => {
-    console.log('로그인 버튼 클릭');
-    // 로그인 로직 구현
-  };
-
-  const handleSignup = () => {
-    console.log('회원가입 버튼 클릭');
-    // 회원가입 로직 구현
-  };
-
+export const UserLanding = () => {
   return (
-    <div className="landing-page">
-      {/* 배경 이미지와 오버레이 */}
-      <div className="background-container">
-        <div className="background-image"></div>
-        <div className="background-overlay"></div>
-      </div>
+    <div className="landing-page-before">
+      <div className="overlap-group-wrapper">
+        <div className="overlap-group">
+          <img className="group" alt="Group" src={group1} />
 
-      {/* 로고 영역 */}
-      <div className="logo-container">
-        <div className="logo-background">
-          <div className="logo-image">
-            <img src="/logo.png" alt="logo" style={{ width: '68px', height: '80px', position: 'absolute', top: '50px', left: '20px' }} />
+          <div className="frame">
+            <div className="div-wrapper">
+              <div className="text-wrapper">로그인</div>
+            </div>
+
+            <div className="div">
+              <div className="text-wrapper-2">회원가입</div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* 메인 콘텐츠 */}
-      <div className="main-content">
-        {/* 메인 텍스트 */}
-        <div className="main-text-container">
-          <h1 className="main-title">Spot your day, here in</h1>
-          <h2 className="brand-name">Bean</h2>
-        </div>
+          <div className="frame-2">
+            <div className="rectangle-wrapper">
+              <div className="rectangle" />
+            </div>
+            <img src="/logo.png" alt="로고" className="img"/>
+          </div>
 
-        {/* 버튼 영역 */}
-        <div className="button-container">
-          <button className="btn btn-login" onClick={handleLogin}>
-            로그인
-          </button>
-          <button className="btn btn-signup" onClick={handleSignup}>
-            회원가입
-          </button>
+          <div className="frame-3">
+            <div className="frame-4">
+              <p className="p">Spot your day, here in</p>
+            </div>
+
+            <div className="frame-5">
+              <div className="text-wrapper-3">Bean</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

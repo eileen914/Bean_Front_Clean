@@ -20,16 +20,6 @@ const UserSearch = () => {
     <div className="frame-336">
       {/* 메인 컨테이너 */}
       <div className="search-container">
-        {/* 헤더 */}
-        <div className="header">
-          <div className="header-content">
-            <div className="divider"></div>
-            <div className="logo-section">
-              <span className="logo-text">Bean AI</span>
-            </div>
-          </div>
-        </div>
-
         {/* 서브타이틀 */}
         <div className="subtitle">
           <span className="subtitle-text">나만의 맞춤 카페를 찾아보세요</span>
@@ -114,4 +104,5 @@ const UserSearch = () => {
     </div>
   );
 };
-export default UserSearch;
+
+export default UserSearch; 
