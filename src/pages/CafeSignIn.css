@@ -1,263 +1,108 @@
 .cafe-signin {
+  background-color: #f9f7f2;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding-top: 100px; /* 헤더 높이만큼 아래로 밀기 */
   display: flex;
+  /* justify-content: center; */
   align-items: center;
-  justify-content: center;
-  padding: 20px;
+  flex-direction: column;
 }
 
-.signin-container {
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+.register-fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #f9f8f4;
+  border-bottom: 1px solid #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 100px;
+  z-index: 1000;
+}
+
+.header-content {
+  width: 1280px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-logo {
+  width: 60px;
+  height: auto;
+  object-fit: contain;
+}
+
+.header-text {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #4c3800;
+  margin: 0;
+}
+
+/* 로그인 박스 */
+.signin-box {
   width: 100%;
   max-width: 500px;
-  overflow: hidden;
-}
-
-.signin-header {
-  background: linear-gradient(45deg, #3498db, #2980b9);
-  color: white;
-  padding: 30px;
-  text-align: center;
-  position: relative;
-}
-
-.back-btn {
-  position: absolute;
-  left: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  color: white;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: opacity 0.3s ease;
-}
-
-.back-btn:hover {
-  opacity: 0.8;
-}
-
-.signin-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-.signin-form-container {
-  padding: 40px;
-}
-
-.form-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.form-header h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 10px;
-}
-
-.form-header p {
-  color: #7f8c8d;
-  font-size: 1rem;
-}
-
-.signin-form {
-  margin-bottom: 30px;
-}
-
-.form-group {
-  margin-bottom: 25px;
-}
-
-.form-group label {
-  display: block;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 15px;
-  border: 2px solid #ecf0f1;
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-  background: #f8f9fa;
-}
-
-.form-group input:focus {
-  border-color: #3498db;
-  background: white;
-  outline: none;
-}
-
-.form-group input::placeholder {
-  color: #bdc3c7;
-}
-
-.form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: #7f8c8d;
-  cursor: pointer;
-}
-
-.checkbox-label input[type="checkbox"] {
-  width: auto;
-  margin: 0;
-}
-
-.forgot-password {
-  background: none;
-  color: #3498db;
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-decoration: underline;
-  transition: color 0.3s ease;
-}
-
-.forgot-password:hover {
-  color: #2980b9;
-}
-
-.signin-submit-btn {
-  width: 100%;
-  padding: 15px;
-  background: linear-gradient(45deg, #3498db, #2980b9);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  margin-bottom: 30px;
-}
-
-.signin-submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
-}
-
-.signin-divider {
-  text-align: center;
-  margin: 30px 0;
-  position: relative;
-}
-
-.signin-divider::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: #ecf0f1;
-}
-
-.signin-divider span {
-  background: white;
-  padding: 0 20px;
-  color: #7f8c8d;
-  font-size: 0.9rem;
-}
-
-.social-login {
+  padding: 60px 30px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-bottom: 30px;
-}
-
-.social-btn {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 15px;
-  border: 2px solid #ecf0f1;
-  border-radius: 10px;
-  background: white;
+}
+
+.signin-box h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 100px;
+  margin-top: 50px;
+}
+
+.signin-input {
+  width: 100%;
+  padding: 14px;
   font-size: 1rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  background-color: white;
 }
 
-.social-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.signin-subtext {
+  font-size: 0.85rem;
+  color: #444;
+  margin-bottom: 36px;
+  align-self: flex-end;
+  margin-top: 20px;
 }
 
-.google-btn {
-  color: #2c3e50;
+.cafe-signin-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 50px;
 }
 
-.kakao-btn {
-  color: #f39c12;
-}
-
-.social-icon {
-  font-size: 1.2rem;
-}
-
-.signup-link {
-  text-align: center;
-  padding-top: 20px;
-  border-top: 1px solid #ecf0f1;
-}
-
-.signup-link p {
-  color: #7f8c8d;
-  margin-bottom: 15px;
-}
-
-.signup-btn {
-  background: none;
-  color: #3498db;
-  font-weight: 600;
+.cafe-signin-btn {
+  padding: 16px;
   font-size: 1rem;
-  text-decoration: underline;
-  transition: color 0.3s ease;
+  font-weight: bold;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
 }
 
-.signup-btn:hover {
-  color: #2980b9;
+.cafe-signin-btn.login {
+  background-color: #c2bbad;
+  color: black;
 }
 
-@media (max-width: 768px) {
-  .signin-container {
-    margin: 20px;
-  }
-  
-  .signin-form-container {
-    padding: 30px 20px;
-  }
-  
-  .signin-header {
-    padding: 20px;
-  }
-  
-  .back-btn {
-    left: 20px;
-  }
-  
-  .signin-title {
-    font-size: 1.5rem;
-  }
-} 
+.cafe-signin-btn.register {
+  background-color: #f9f8f4;
+  color: black;
+  border: 1px solid #bab3a5;
+}
