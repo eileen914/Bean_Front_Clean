@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import UserSearch from '../components/UserSearch';
+import Kakaomap from '../components/Kakaomap';
 import './UserHome.css';
 
 
@@ -126,7 +127,9 @@ const UserHome = () => {
       {/* 메인 콘텐츠 */}
       <main className="main-content">
         <div className="image-container">
-          <div className="main-image"></div>
+          <div className="main-image">
+            <Kakaomap />
+          </div>
         </div>
       </main>
 
