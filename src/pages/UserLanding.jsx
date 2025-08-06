@@ -4,6 +4,16 @@ import './UserLanding.css';
 import group1 from '../assets/user-landing.png';
 
 export const UserLanding = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate('/user-home');
+  };
+
+  const handleSignUp = () => {
+    navigate('/user-home');
+  };
+
   return (
     <div className="landing-page-before">
       <div className="overlap-group-wrapper">
@@ -11,11 +21,11 @@ export const UserLanding = () => {
           <img className="group" alt="Group" src={group1} />
 
           <div className="frame">
-            <div className="div-wrapper">
+            <div className="div-wrapper" onClick={handleLogin}>
               <div className="text-wrapper">로그인</div>
             </div>
 
-            <div className="div">
+            <div className="div" onClick={handleLogin}>
               <div className="text-wrapper-2">회원가입</div>
             </div>
           </div>
