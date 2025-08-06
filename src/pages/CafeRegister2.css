@@ -1,0 +1,257 @@
+.cafe-register {
+  background-color: #f9f7f2;
+  min-height: 100vh;
+  padding-top: 100px;
+}
+
+.register-fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #f9f8f4;
+  border-bottom: 1px solid #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 100px;
+  z-index: 1000;
+}
+
+.header-content {
+  width: 1280px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-logo {
+  width: 60px;
+  height: auto;
+  object-fit: contain;
+}
+
+.header-text {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #4c3800;
+  margin: 0;
+}
+
+.register2-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+.register2-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 60px;
+}
+
+.register2-step {
+  margin-bottom: 60px;
+}
+
+.register2-step-header-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 900px;
+  padding-bottom: 30px;
+}
+
+.register2-step-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 1100px; /* 또는 원하는 너비 */
+}
+
+.step-label-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #d3cec4;
+  padding: 20px 75px;
+  border-radius: 999px;
+  font-size: 1.35rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.step-header-text {
+  font-size: 1rem;
+  color: #4c3b2a;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.register2-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.register2-form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.register2-form-row label {
+  width: 130px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #3a2b1b;
+  white-space: nowrap;
+}
+
+.register2-form-row input,
+.register2-form-row textarea {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.95rem;
+  background-color: white;
+}
+
+.upload-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 40px;
+  align-items: flex-start;
+}
+
+.upload-box {
+  width: 450px;
+  height: 450px;
+  border: 2px dashed #ccc;
+  border-radius: 6px;
+  /* background-color: #fff; */
+
+  display: flex; /* ✅ 중앙 정렬 적용 */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  color: #444;
+}
+.upload-icon {
+  margin-bottom: 12px;
+  height: 48px;
+}
+
+.upload-icon img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  display: inline-block;
+}
+
+.upload-hint {
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 45px;
+}
+
+.upload-btn {
+  padding: 12px 100px;
+  border: 1px solid #6c5f46;
+  background-color: #f9f8f4;
+  color: #6c5f46;
+  font-weight: 450;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.upload-btn:hover {
+  background-color: #f4f1ea;
+}
+
+.file-list-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.file-item {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f2f3f3;
+  padding: 14px 50px;
+  border: 1px solid #c7c7c7;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.file-size {
+  color: #949494;
+}
+
+.file-view-btn {
+  background-color: #f2f3f3;
+  border: none;
+  padding: 8px 14px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.reset-btn {
+  align-self: flex-end;
+  margin-top: 12px;
+  padding: 10px 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  background: #6c5f46;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.register2-footer {
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  margin-top: 40px;
+  margin-bottom: 60px; /* 하단 여백 */
+}
+
+.register-button {
+  background: none;
+  border: 2px solid #bab3a5;
+  color: #222;
+  font-weight: 500;
+  padding: 12px 80px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: fit-content;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
+  background-color: #f9f8f4;
+}
+
+.register-button:hover {
+  background-color: #f4f1ea;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  color: #222;
+}
