@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "./CafeRegister2.css";
 import { useNavigate } from "react-router-dom";
 
 const CafeRegister2 = () => {
   const navigate = useNavigate();
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const fileInputRef = useRef(null);
 
   const handleNextClick = () => {
     navigate("/cafe-map-creating");
   };
 
+  const handleFileChange = (e) => {
+    const newFiles = Array.from(e.target.files);
+    setUploadedFiles((prev) => [...prev, ...newFiles]);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    setUploadedFiles((prev) => [...prev, ...droppedFiles]);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleReset = () => {
+    setUploadedFiles([]);
+  };
+
   return (
     <div className="cafe-register">
-      {/* 고정 헤더 */}
       <header className="register-fixed-header">
         <div className="header-content">
           <img src="/logo.png" alt="Bean Logo" className="header-logo" />
@@ -19,7 +39,6 @@ const CafeRegister2 = () => {
         </div>
       </header>
 
-      {/* 메인 컨텐츠 */}
       <div className="register2-container">
         <h2 className="register2-title">업체 등록하기</h2>
 
@@ -31,7 +50,7 @@ const CafeRegister2 = () => {
                 <span>필수 정보 입력하기</span>
               </div>
               <div className="step-header-text">
-                업체명, 상세설명, 대표키워드 등 우리 가게 정보를 알려주세요.{" "}
+                업체명, 상세설명, 대표키워드 등 우리 가게 정보를 알려주세요.
                 <br />
                 이외 상세정보는 업체 등록 이후 수정하실 수 있습니다.
               </div>
@@ -93,33 +112,48 @@ const CafeRegister2 = () => {
           </div>
 
           <div className="upload-section">
-            <div className="upload-box">
+            <div
+              className="upload-box"
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+            >
               <div className="upload-icon">
                 <img src="/icons/upload-icon.png" alt="업로드 아이콘" />
               </div>
               <p>파일을 여기로 드래그하여 업로드하세요.</p>
               <p className="upload-hint">(파일 형식: PNG, JPG)</p>
-              <button className="upload-btn">파일 선택</button>
+              <button
+                className="upload-btn"
+                type="button"
+                onClick={() => fileInputRef.current.click()}
+              >
+                파일 선택
+              </button>
+              <input
+                type="file"
+                ref={fileInputRef}
+                multiple
+                accept=".png, .jpg, .jpeg"
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
             </div>
 
             <div className="file-list-section">
-              <div className="file-item">
-                <span className="file-name">cafe01.png</span>
-                <span className="file-size">1487.2 KB</span>
-                <button className="file-view-btn">파일 보기</button>
-              </div>
-              <div className="file-item">
-                <span className="file-name">cafe01.png</span>
-                <span className="file-size">1487.2 KB</span>
-                <button className="file-view-btn">파일 보기</button>
-              </div>
-              <div className="file-item">
-                <span className="file-name">cafe01.png</span>
-                <span className="file-size">1487.2 KB</span>
-                <button className="file-view-btn">파일 보기</button>
-              </div>
-              {/* 추가 파일 항목 반복 */}
-              <button className="reset-btn">초기화하기</button>
+              {uploadedFiles.map((file, index) => (
+                <div className="file-item" key={index}>
+                  <span className="file-name">{file.name}</span>
+                  <span className="file-size">
+                    {(file.size / 1024).toFixed(1)} KB
+                  </span>
+                  <button className="file-view-btn">파일 보기</button>
+                </div>
+              ))}
+              {uploadedFiles.length > 0 && (
+                <button className="reset-btn" onClick={handleReset}>
+                  초기화하기
+                </button>
+              )}
             </div>
           </div>
         </section>
@@ -135,3 +169,10 @@ const CafeRegister2 = () => {
 };
 
 export default CafeRegister2;
+
+// 여기 참고: https://as-you-say.tistory.com/380
+
+// 백엔드 연동 시 다음 부분을 서버로 전달하도록 수정 필요:
+// 1. uploadedFiles 상태를 서버로 POST 요청으로 전송
+// 2. 파일 업로드를 위한 API endpoint (예: /api/upload) 구현 및 axios 또는 fetch 사용
+// 3. drag & drop 또는 input 변경 시 서버와 실시간 연동이 필요하다면 업로드 직후 handleFileChange 안에서 서버 호출
