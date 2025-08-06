@@ -10,8 +10,7 @@ const DefaultLanding = () => {
   };
 
   const handleCustomerClick = () => {
-    // 고객용 페이지로 이동 (현재는 알림만 표시)
-    alert("고객용 서비스는 준비 중입니다.");
+    navigate("/user-landing");
   };
 
   return (
