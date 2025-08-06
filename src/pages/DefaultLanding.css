@@ -1,6 +1,6 @@
 .default-landing {
   min-height: 100vh;
-  background-color: #E3E0D8; /* 색상 테이블의 배경색 */
+  background-color: #e3e0d8; /* 색상 테이블의 배경색 */
   display: flex;
   flex-direction: column;
   padding: 10px; /* 패딩 줄임 */
@@ -32,10 +32,10 @@
 
 .header-btn {
   padding: 12px 20px;
-  border: 2px solid #4C3800; /* 색상 테이블의 버튼 테두리/텍스트 색상 */
+  border: 2px solid #4c3800; /* 색상 테이블의 버튼 테두리/텍스트 색상 */
   border-radius: 25px;
-  background: #E3E0D8; /* 색상 테이블의 버튼 배경색 */
-  color: #4C3800; /* 색상 테이블의 버튼 텍스트 색상 */
+  background: #e3e0d8; /* 색상 테이블의 버튼 배경색 */
+  color: #4c3800; /* 색상 테이블의 버튼 텍스트 색상 */
   font-size: 1.3rem;
   font-weight: 500;
   cursor: pointer;
@@ -44,8 +44,8 @@
 }
 
 .header-btn:hover {
-  background: #4C3800; /* 색상 테이블의 hover 배경색 */
-  color: #FFFFFF; /* 색상 테이블의 hover 텍스트 색상 */
+  background: #4c3800; /* 색상 테이블의 hover 배경색 */
+  color: #ffffff; /* 색상 테이블의 hover 텍스트 색상 */
 }
 
 /* 메인 콘텐츠 */
@@ -71,8 +71,8 @@
 .main-logo {
   font-size: 12rem;
   font-weight: 700;
-  font-family: 'Tilt Warp', cursive; /* Tilt Warp 폰트 적용 */
-  color: #4C3800; /* 색상 테이블의 BEAN 텍스트 색상 */
+  font-family: "Tilt Warp", cursive; /* Tilt Warp 폰트 적용 */
+  color: #4c3800; /* 색상 테이블의 BEAN 텍스트 색상 */
   margin: 0;
   line-height: 1;
 }
@@ -108,24 +108,24 @@
     text-align: center;
     padding: 20px 10px; /* 모바일에서 패딩 줄임 */
   }
-  
+
   .header-buttons {
     flex-direction: row;
     gap: 15px;
   }
-  
+
   .main-logo {
     font-size: 6rem; /* 모바일에서도 크게 유지 */
   }
-  
+
   .bean-logo {
     width: 80px;
   }
-  
+
   .cafe-image-container {
     height: 50vh;
   }
-  
+
   .landing-main {
     padding-left: 20px; /* 모바일에서 패딩 줄임 */
     padding-right: 20px;
@@ -136,21 +136,21 @@
   .header-buttons {
     flex-direction: column;
   }
-  
+
   .main-logo {
     font-size: 4rem;
   }
-  
+
   .bean-logo {
     width: 60px;
   }
-  
+
   .cafe-image-container {
     height: 40vh;
   }
-  
+
   .landing-main {
     padding-left: 10px; /* 작은 화면에서 패딩 최소화 */
     padding-right: 10px;
   }
-} 
+}
