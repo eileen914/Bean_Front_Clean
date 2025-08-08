@@ -9,6 +9,7 @@ import CafeMapCreating from './pages/CafeMapCreating';
 import CafeMapCreated from './pages/CafeMapCreated';
 import UserLanding from './pages/UserLanding';
 import UserHome from './pages/UserHome';
+import UserAfterSearch from './pages/UserAfterSearch';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/cafe-map-created" element={<CafeMapCreated />} />
           <Route path="/user-landing" element={<UserLanding />} />
           <Route path="/user-home" element={<UserHome />} />
+          <Route path="/user-after-search" element={<UserAfterSearch />} />
         </Routes>
       </div>
     </Router>
