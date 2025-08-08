@@ -1,44 +1,66 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Kakaomap from '../components/Kakaomap';
-import frame343 from '../assets/frame343.png';
-import majesticons from '../assets/majesticons:search.svg';
+import majesticons from '../assets/majesticons_search.svg';
+import logo_white from '../assets/logo_white.png';
 import './UserAfterSearch.css';
+import CafeList from '../components/CafeList'
 
 const UserAfterSearch = () => {
-  const [dragY, setDragY] = useState(0);
+  const initialSheetHeight = window.innerHeight * 0.5;
+  const [dragY, setDragY] = useState(initialSheetHeight); // 초기 위치: 절반 아래
   const [isDragging, setIsDragging] = useState(false);
   const bottomRef = useRef(null);
 
   const startYRef = useRef(0);
-  const initialYRef = useRef(0);
+  const initialYRef = useRef(dragY);
 
+  // 드래그 시작
   const handleDragStart = (e) => {
     setIsDragging(true);
     startYRef.current = e.touches ? e.touches[0].clientY : e.clientY;
     initialYRef.current = dragY;
   };
 
-  const handleDragMove = (e) => {
-    if (!isDragging) return;
-    const currentY = e.touches ? e.touches[0].clientY : e.clientY;
-    const delta = currentY - startYRef.current;
-    const newY = Math.min(Math.max(initialYRef.current + delta, -500), 0); // 제한
-    setDragY(newY);
-  };
-
+  // 드래그 종료
   const handleDragEnd = () => {
     setIsDragging(false);
-    // 스냅 포인트
-    if (dragY > -150) setDragY(0);
-    else setDragY(-500);
+    const threshold = initialSheetHeight / 2;
+    if (dragY < threshold) {
+      setDragY(0); // 완전히 열기
+    } else {
+      setDragY(initialSheetHeight); // 절반만 보이기
+    }
   };
 
+  // 마우스 전역 이벤트 처리
   useEffect(() => {
-    const bottomEl = bottomRef.current;
-    if (bottomEl) {
-      bottomEl.style.transform = `translateY(${dragY}px)`;
+    const handleMouseMove = (e) => {
+      if (!isDragging) return;
+      const deltaY = e.clientY - startYRef.current;
+      const newY = Math.min(Math.max(initialYRef.current + deltaY, 0), initialSheetHeight);
+      setDragY(newY);
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+      const threshold = initialSheetHeight / 2;
+      if (dragY < threshold) {
+        setDragY(0);
+      } else {
+        setDragY(initialSheetHeight);
+      }
+    };
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
     }
-  }, [dragY]);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragY]);
 
   return (
     <div className="home-page">
@@ -68,28 +90,63 @@ const UserAfterSearch = () => {
         <div
           className="after-search-bottom"
           ref={bottomRef}
+          style={{
+            transform: `translateX(-50%) translateY(${dragY}px)`,
+            transition: isDragging ? 'none' : 'transform 0.3s ease',
+          }}
           onMouseDown={handleDragStart}
-          onMouseMove={handleDragMove}
+
           onMouseUp={handleDragEnd}
           onTouchStart={handleDragStart}
-          onTouchMove={handleDragMove}
           onTouchEnd={handleDragEnd}
         >
           <div className="after-search-frame">
-            <img className="after-search-img" alt="Frame" src={frame343} />
-            <div className="after-search-container">
-              <div className="rectangle" />
-              <div className="rectangle" />
-            </div>
-            <div className="user-frame-wrapper">
-              <div className="user-div-wrapper">
-                <div className="after-search-2">
-                  <div className="div-wrapper-2">
-                    <div className="after-search-text-wrapper">검색어를 입력하세요.</div>
+            {/* Bean AI 섹션 */}
+            <div className="chat-ai-frame">
+              <div className="chat-ai-section">
+                <div className="chat-ai-top">
+                  <div className="chat-ai-label-wrapper">
+                    <div className="chat-ai-label">Bean AI</div>
+                  </div>
+                  <div className="chat-ai-bubble-wrapper">
+                    <p className="chat-ai-bubble">" 서울대입구역 <br /> 케이크 맛집 알려줘 "</p>
                   </div>
                 </div>
-                <div className="majesticons-search">
-                  <img className="after-search-vector" alt="Search icon" src={majesticons}/>
+                <div className="chat-ai-reply-section">
+                  <div className="chat-ai-profile-wrapper">
+                    <img className="chat-ai-profile" alt="AI" src={logo_white} />
+                  </div>
+                  <div className="chat-ai-message-area">
+                    <div className="chat-ai-message-text">
+                      <p className="chat-ai-message">
+                        서울대입구역 근처에 있는 케이크 맛집을 추천해드릴게요. <br />
+                        잠시만 기다려주세요.
+                      </p>
+                    </div>
+                    <div className="chat-ai-loading">
+                      <div className="chat-ai-dots">...</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 콘텐츠들 */}
+            <div className="after-search-container">
+              <CafeList />
+              <CafeList />
+            </div>
+
+            {/* 검색 입력 */}
+            <div className="user-frame-wrapper">
+              <div className="user-div-wrapper">
+                <div className="search-bar">
+                  <input
+                    type="text"
+                    className="search-input"
+                    placeholder=" 검색어를 입력하세요. "
+                  />
+                  <img className="search-icon" alt="Search icon" src={majesticons} />
                 </div>
               </div>
             </div>

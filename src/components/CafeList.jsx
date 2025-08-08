@@ -7,6 +7,7 @@ import ion_location from '../assets/ion_location.svg';
 import bookmark from '../assets/bookmark_sharp.svg';
 import coffee from '../assets/coffee-bean.svg';
 import mdi_clock from '../assets/mdi_clock.svg';
+import './UserChatbot.css';
 
 
 export const CafeList = ({
