@@ -21,9 +21,9 @@ export const CafeList = ({
 }) => {
   return (
     <div className="cafe-list">
-      <div className="frame">
-        <div className="div">
-          <div className="text-wrapper">{text}</div>
+      <div className="cafe-list-frame">
+        <div className="cafe-list-div">
+          <div className="cafe-list-text-wrapper">{text}</div>
 
           <div className="frame-2">
             <img className="ellipse" alt="Ellipse" src={ellipse} />
@@ -99,9 +99,9 @@ export const CafeList = ({
       </div>
 
       <div className="frame-10">
-        <div className="rectangle" />
+        <div className="list-rectangle" />
         
-        <div className="rectangle" />
+        <div className="list-rectangle" />
       </div>
     </div>
   );

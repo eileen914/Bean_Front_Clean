@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Kakaomap from '../components/Kakaomap';
 import majesticons from '../assets/majesticons_search.svg';
 import logo_white from '../assets/logo_white.png';
@@ -6,6 +7,9 @@ import './UserAfterSearch.css';
 import CafeList from '../components/CafeList'
 
 const UserAfterSearch = () => {
+  const location = useLocation();
+  const passedQuery = location.state?.query || '';
+
   const initialSheetHeight = window.innerHeight * 0.5;
   const [dragY, setDragY] = useState(initialSheetHeight); // 초기 위치: 절반 아래
   const [isDragging, setIsDragging] = useState(false);
@@ -13,6 +17,23 @@ const UserAfterSearch = () => {
 
   const startYRef = useRef(0);
   const initialYRef = useRef(dragY);
+
+  const [bubbleText, setBubbleText] = useState(
+    passedQuery || '" 서울대입구역 케이크 맛집 알려줘 "'
+  );
+  const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    if (passedQuery) {
+      setBubbleText(passedQuery);
+      setInputValue('');
+    }
+  }, [passedQuery]);
+
+  const applyQueryToBubble = () => {
+    const text = inputValue.trim();
+    if (text) setBubbleText(text);
+  };
 
   // 드래그 시작
   const handleDragStart = (e) => {
@@ -109,7 +130,7 @@ const UserAfterSearch = () => {
                     <div className="chat-ai-label">Bean AI</div>
                   </div>
                   <div className="chat-ai-bubble-wrapper">
-                    <p className="chat-ai-bubble">" 서울대입구역 <br /> 케이크 맛집 알려줘 "</p>
+                    <p className="chat-ai-bubble">{bubbleText}</p>
                   </div>
                 </div>
                 <div className="chat-ai-reply-section">
@@ -119,8 +140,7 @@ const UserAfterSearch = () => {
                   <div className="chat-ai-message-area">
                     <div className="chat-ai-message-text">
                       <p className="chat-ai-message">
-                        서울대입구역 근처에 있는 케이크 맛집을 추천해드릴게요. <br />
-                        잠시만 기다려주세요.
+                        "{bubbleText}"에 대한 검색결과입니다. 잠시만 기다려주세요.
                       </p>
                     </div>
                     <div className="chat-ai-loading">
@@ -144,9 +164,19 @@ const UserAfterSearch = () => {
                   <input
                     type="text"
                     className="search-input"
-                    placeholder=" 검색어를 입력하세요. "
+                    placeholder="검색어를 입력하세요."
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') applyQueryToBubble(); }}
                   />
-                  <img className="search-icon" alt="Search icon" src={majesticons} />
+                  <img
+                    className="search-icon"
+                    alt="Search icon"
+                    src={majesticons}
+                    onClick={applyQueryToBubble}
+                    onMouseDown={(e) => e.stopPropagation()}   // ★ 드래그 방지
+                    style={{ cursor: 'pointer' }}
+                  />
                 </div>
               </div>
             </div>

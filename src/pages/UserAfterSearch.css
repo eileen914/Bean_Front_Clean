@@ -323,6 +323,8 @@ body {
 
 .chat-ai-bubble {
   font-family: "Limelight-Regular", Helvetica;
+  max-width: 200px;
+  white-space: normal;
   font-size: 13px;
   color: #4c3800;
   text-align: center;
@@ -368,6 +370,7 @@ body {
 .chat-ai-message {
   font-family: "Outfit-Regular", Helvetica;
   font-size: 13px;
+  white-space: normal;
   color: #f9f8f4;
   margin: 0;
 }

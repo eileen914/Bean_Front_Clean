@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import './UserSearch.css';
+import { useNavigate } from 'react-router-dom';
 import majesticons from '../assets/majesticons_search.svg';
 
 const UserSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log('검색:', searchQuery);
-    // 검색 로직 구현
+  const goAfterSearch = () => {
+    navigate('/user-after-search', { state: { query: searchQuery } });
   };
-
   const handleSearchTermClick = (term) => {
     setSearchQuery(term);
-    console.log('검색어 선택:', term);
-    // 선택된 검색어로 검색 실행
   };
+
 
   return (
     <div className="frame-336">
@@ -30,7 +28,13 @@ const UserSearch = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="search-input"
             />
-            <img className="search-icon" alt="Search icon" src={majesticons} />
+          <img
+            className="search-icon"
+            alt="Search icon"
+            src={majesticons}
+            onClick={goAfterSearch}      // 통일해서 사용
+            style={{ cursor: 'pointer' }}
+          />
         </div>
 
         {/* 추천 검색어 섹션 */}
