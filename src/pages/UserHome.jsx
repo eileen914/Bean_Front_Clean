@@ -3,61 +3,75 @@ import UserSearch from '../components/UserSearch';
 import Kakaomap from '../components/Kakaomap';
 import './UserHome.css';
 
+const SHEET_HEIGHT = 389;        // 풀 오픈 시 보이는 높이
+const INITIAL_VISIBLE = 115;     // 초기 상태에서 보이는 높이
+const INITIAL_DRAG_Y = SHEET_HEIGHT - INITIAL_VISIBLE; // = 389 - 115 = 274
+const MAX_DRAG_Y = SHEET_HEIGHT; // 완전 숨김까지 허용 (필요시 389 대신 365 등으로 핸들 피크 고정 가능)
 
 const UserHome = () => {
-  const initialSheetHeight = window.innerHeight * 0.5;
-  const [dragY, setDragY] = useState(initialSheetHeight); // 초기 위치: 절반 아래
+  const [dragY, setDragY] = useState(INITIAL_DRAG_Y); // 초기: 115px만 보이게
   const [isDragging, setIsDragging] = useState(false);
   const bottomSheetRef = useRef(null);
 
-  const startYRef = useRef(0);
-  const initialYRef = useRef(dragY);
+  const startYRef = useRef(0);     // 드래그 시작 시점의 포인터 Y
+  const initialYRef = useRef(dragY); // 드래그 시작 시점의 dragY 값
+
+  // 공통: 좌표 추출
+  const getClientY = (e) => {
+    if (e.touches && e.touches[0]) return e.touches[0].clientY;
+    if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].clientY;
+    return e.clientY;
+  };
 
   // 드래그 시작
   const handleDragStart = (e) => {
     setIsDragging(true);
-    startYRef.current = e.touches ? e.touches[0].clientY : e.clientY;
+    startYRef.current = getClientY(e);
     initialYRef.current = dragY;
   };
 
-  // 드래그 종료
+  // 드래그 종료(스냅)
   const handleDragEnd = () => {
     setIsDragging(false);
-    const threshold = initialSheetHeight / 2;
-    if (dragY < threshold) {
+    // 0(풀오픈)과 초기 위치(INITIAL_DRAG_Y) 사이의 중간값을 임계값으로 사용
+    const snapThreshold = INITIAL_DRAG_Y / 2;
+    if (dragY < snapThreshold) {
       setDragY(0); // 완전히 열기
     } else {
-      setDragY(initialSheetHeight); // 절반만 보이기
+      setDragY(INITIAL_DRAG_Y); // 초기 위치로 되돌리기(115px 보이도록)
     }
   };
 
-  // 마우스 전역 이벤트 처리
+  // 전역 드래그 처리 (마우스+터치)
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMove = (e) => {
       if (!isDragging) return;
-      const deltaY = e.clientY - startYRef.current;
-      const newY = Math.min(Math.max(initialYRef.current + deltaY, 0), initialSheetHeight);
-      setDragY(newY);
+      const currentY = getClientY(e);
+      const deltaY = currentY - startYRef.current;
+      // 0(풀오픈) ~ MAX_DRAG_Y(완전 숨김) 사이로 클램프
+      const next = Math.min(Math.max(initialYRef.current + deltaY, 0), MAX_DRAG_Y);
+      setDragY(next);
     };
 
-    const handleMouseUp = () => {
-      setIsDragging(false);
-      const threshold = initialSheetHeight / 2;
-      if (dragY < threshold) {
-        setDragY(0);
-      } else {
-        setDragY(initialSheetHeight);
-      }
+    const handleUp = () => {
+      if (!isDragging) return;
+      handleDragEnd();
     };
 
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('mousemove', handleMove, { passive: false });
+      document.addEventListener('mouseup', handleUp, { passive: false });
+      document.addEventListener('touchmove', handleMove, { passive: false });
+      document.addEventListener('touchend', handleUp, { passive: false });
+      document.addEventListener('touchcancel', handleUp, { passive: false });
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mousemove', handleMove);
+      document.removeEventListener('mouseup', handleUp);
+      document.removeEventListener('touchmove', handleMove);
+      document.removeEventListener('touchend', handleUp);
+      document.removeEventListener('touchcancel', handleUp);
     };
   }, [isDragging, dragY]);
 
@@ -87,12 +101,12 @@ const UserHome = () => {
       </main>
 
       {/* Bottom Sheet */}
-      <div 
+      <div
         ref={bottomSheetRef}
-        /*className={`bottom-sheet ${isOpen ? 'open' : ''}`}*/
-        style={{ 
+        className="bottom-sheet"
+        style={{
           transform: `translateX(-50%) translateY(${dragY}px)`,
-          transition: isDragging ? 'none' : 'transform 0.3s ease'
+          transition: isDragging ? 'none' : 'transform 0.25s ease'
         }}
         onMouseDown={handleDragStart}
         onMouseUp={handleDragEnd}
@@ -103,7 +117,7 @@ const UserHome = () => {
         <div className="drag-handle">
           <div className="handle-bar"></div>
         </div>
-        
+
         {/* 헤더 */}
         <div className="bottom-sheet-header">
           <div className="header-left">
@@ -112,7 +126,7 @@ const UserHome = () => {
             <div className="header-divider"></div>
           </div>
         </div>
-                
+
         {/* 콘텐츠 */}
         <div className="bottom-sheet-content">
           <UserSearch />

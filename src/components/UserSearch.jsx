@@ -23,7 +23,6 @@ const UserSearch = () => {
       <div className="search-container">
                 {/* 검색 바 */}
         <div className="search-bar">
-          <form onSubmit={handleSearch} className="search-form">
             <input
               type="text"
               placeholder="검색어를 입력하세요."
@@ -32,7 +31,6 @@ const UserSearch = () => {
               className="search-input"
             />
             <img className="search-icon" alt="Search icon" src={majesticons} />
-          </form>
         </div>
 
         {/* 추천 검색어 섹션 */}
