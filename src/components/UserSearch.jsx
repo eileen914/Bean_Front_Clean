@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './UserSearch.css';
+import majesticons from '../assets/majesticons_search.svg';
 
 const UserSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -20,6 +21,19 @@ const UserSearch = () => {
     <div className="frame-336">
       {/* 메인 컨테이너 */}
       <div className="search-container">
+                {/* 검색 바 */}
+        <div className="search-bar">
+          <form onSubmit={handleSearch} className="search-form">
+            <input
+              type="text"
+              placeholder="검색어를 입력하세요."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
+            />
+            <img className="search-icon" alt="Search icon" src={majesticons} />
+          </form>
+        </div>
 
         {/* 추천 검색어 섹션 */}
         <div className="search-section">
@@ -79,22 +93,6 @@ const UserSearch = () => {
               닫는 카페 "
             </button>
           </div>
-        </div>
-
-        {/* 검색 바 */}
-        <div className="search-bar">
-          <form onSubmit={handleSearch} className="search-form">
-            <input
-              type="text"
-              placeholder="검색어를 입력하세요."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input"
-            />
-            <button type="submit" className="search-button">
-              🔍
-            </button>
-          </form>
         </div>
       </div>
     </div>

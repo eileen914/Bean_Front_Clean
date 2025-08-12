@@ -5,108 +5,61 @@ import './UserHome.css';
 
 
 const UserHome = () => {
+  const initialSheetHeight = window.innerHeight * 0.5;
+  const [dragY, setDragY] = useState(initialSheetHeight); // 초기 위치: 절반 아래
   const [isDragging, setIsDragging] = useState(false);
-  const [currentY, setCurrentY] = useState(0);
-  const [startY, setStartY] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
   const bottomSheetRef = useRef(null);
 
-  const handleMenuClick = () => {
-    console.log('메뉴 버튼 클릭');
-    // 메뉴 로직 구현
-  };
+  const startYRef = useRef(0);
+  const initialYRef = useRef(dragY);
 
-  const toggleBottomSheet = () => {
-    setIsOpen(!isOpen);
-    setCurrentY(isOpen ? 0 : 0);
-  };
-
-  const handleTouchStart = (e) => {
+  // 드래그 시작
+  const handleDragStart = (e) => {
     setIsDragging(true);
-    setStartY(e.touches[0].clientY - currentY);
+    startYRef.current = e.touches ? e.touches[0].clientY : e.clientY;
+    initialYRef.current = dragY;
   };
 
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartY(e.clientY - currentY);
-  };
-
-  const handleTouchMove = (e) => {
-    if (!isDragging) return;
-    
-    const newY = e.touches[0].clientY - startY;
-    const maxY = window.innerHeight - 81; // UserSearch 컴포넌트 높이만큼만 드래그
-    
-    if (newY <= 0) {
-      setCurrentY(0);
-    } else if (newY >= maxY) {
-      setCurrentY(maxY);
-    } else {
-      setCurrentY(newY);
-    }
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    
-    const newY = e.clientY - startY;
-    const maxY = window.innerHeight - 81; // UserSearch 컴포넌트 높이만큼만 드래그
-    
-    if (newY <= 0) {
-      setCurrentY(0);
-    } else if (newY >= maxY) {
-      setCurrentY(maxY);
-    } else {
-      setCurrentY(newY);
-    }
-  };
-
-  const handleTouchEnd = () => {
+  // 드래그 종료
+  const handleDragEnd = () => {
     setIsDragging(false);
-    const threshold = (window.innerHeight - 81) * 0.5; // UserSearch 높이의 절반을 임계값으로
-    
-    if (currentY < threshold) {
-      setCurrentY(0);
-      setIsOpen(true);
+    const threshold = initialSheetHeight / 2;
+    if (dragY < threshold) {
+      setDragY(0); // 완전히 열기
     } else {
-      setCurrentY(window.innerHeight - 81);
-      setIsOpen(false);
+      setDragY(initialSheetHeight); // 절반만 보이기
     }
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    const threshold = (window.innerHeight - 81) * 0.5; // UserSearch 높이의 절반을 임계값으로
-    
-    if (currentY < threshold) {
-      setCurrentY(0);
-      setIsOpen(true);
-    } else {
-      setCurrentY(window.innerHeight - 81);
-      setIsOpen(false);
-    }
-  };
-
-  const handleOverlayClick = () => {
-    setCurrentY(window.innerHeight - 81);
-    setIsOpen(false);
-  };
-
-  // 마우스 이벤트 리스너
+  // 마우스 전역 이벤트 처리
   useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!isDragging) return;
+      const deltaY = e.clientY - startYRef.current;
+      const newY = Math.min(Math.max(initialYRef.current + deltaY, 0), initialSheetHeight);
+      setDragY(newY);
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+      const threshold = initialSheetHeight / 2;
+      if (dragY < threshold) {
+        setDragY(0);
+      } else {
+        setDragY(initialSheetHeight);
+      }
+    };
+
     if (isDragging) {
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
-    } else {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
     }
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging, startY, currentY]);
+  }, [isDragging, dragY]);
 
   return (
     <div className="home-page">
@@ -116,7 +69,7 @@ const UserHome = () => {
           <div className="logo">
             <span className="logo-text">Bean</span>
           </div>
-          <button className="menu-button" onClick={handleMenuClick}>
+          <button className="menu-button">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z" fill="#391d0a"/>
             </svg>
@@ -136,15 +89,15 @@ const UserHome = () => {
       {/* Bottom Sheet */}
       <div 
         ref={bottomSheetRef}
-        className={`bottom-sheet ${isOpen ? 'open' : ''}`}
+        /*className={`bottom-sheet ${isOpen ? 'open' : ''}`}*/
         style={{ 
-          transform: `translateX(-50%) translateY(${currentY}px)`,
+          transform: `translateX(-50%) translateY(${dragY}px)`,
           transition: isDragging ? 'none' : 'transform 0.3s ease'
         }}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onMouseDown={handleMouseDown}
+        onMouseDown={handleDragStart}
+        onMouseUp={handleDragEnd}
+        onTouchStart={handleDragStart}
+        onTouchEnd={handleDragEnd}
       >
         {/* 드래그 핸들 */}
         <div className="drag-handle">

@@ -100,7 +100,7 @@ export const CafeList = ({
 
       <div className="frame-10">
         <div className="rectangle" />
-
+        
         <div className="rectangle" />
       </div>
     </div>
