@@ -1,62 +1,51 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './CafeMapCreating.css';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./CafeMapCreating.css";
 
 const CafeMapCreating = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/cafe-map-created');
-    }, 3000);
+      navigate("/cafe-map-created");
+    }, 5000); // 일단은 일정 시간 지나고 화면 전환되게 해놨음
 
     return () => clearTimeout(timer);
   }, [navigate]);
 
+  const handleLogoClick = () => {
+    navigate("/cafe-landing");
+  };
+
   return (
-    <div className="cafe-map-creating">
-      <div className="creating-container">
-        <div className="creating-content">
-          <div className="loading-animation">
-            <div className="loading-spinner"></div>
-            <div className="loading-dots">
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-            </div>
-          </div>
-          
-          <h1 className="creating-title">지도 생성 중...</h1>
-          <p className="creating-description">
-            업체 위치를 지도에 등록하고 있습니다.<br />
-            잠시만 기다려주세요.
-          </p>
-          
-          <div className="creating-progress">
-            <div className="progress-bar">
-              <div className="progress-fill"></div>
-            </div>
-            <p className="progress-text">업체 정보 처리 중...</p>
-          </div>
-          
-          <div className="creating-steps">
-            <div className="step-item completed">
-              <div className="step-icon">✅</div>
-              <div className="step-text">업체 정보 입력 완료</div>
-            </div>
-            <div className="step-item active">
-              <div className="step-icon">🗺️</div>
-              <div className="step-text">지도 위치 등록 중</div>
-            </div>
-            <div className="step-item">
-              <div className="step-icon">📋</div>
-              <div className="step-text">업체 등록 완료</div>
-            </div>
-          </div>
+    <main className="creating-page" role="main" aria-busy="true">
+      {/* 고정 헤더 */}
+      <header className="register-fixed-header">
+        <div className="header-content">
+          <img src="/logo.png" alt="Bean Logo" className="header-logo" />
+          <h1 className="header-text" onClick={handleLogoClick}>
+            Bean
+          </h1>
         </div>
-      </div>
-    </div>
+      </header>
+
+      <section className="creating-center">
+        <div
+          className="creating-spinner"
+          aria-label="빈자리 배치도를 생성 중입니다"
+        />
+        <h1 className="creating-heading">
+          우리 가게의 <strong>빈자리 배치도</strong>가<br />
+          생성되고 있어요
+        </h1>
+        {
+          <p className="creating-sub">
+            점주님이 올린 사진을 분석해 좌석 배치를 자동으로 만들고 있어요.
+          </p>
+        }
+      </section>
+    </main>
   );
 };
 
-export default CafeMapCreating; 
+export default CafeMapCreating;
