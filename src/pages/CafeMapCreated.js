@@ -6,7 +6,7 @@ const CafeMapCreated = () => {
   const navigate = useNavigate();
 
   const handleDashboardClick = () => {
-    alert("대시보드로 이동합니다!");
+    navigate("/cafe-home-bean-update");
   };
 
   const handleBackToLanding = () => {
