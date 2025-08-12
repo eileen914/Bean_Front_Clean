@@ -9,13 +9,19 @@ const CafeRegister1 = () => {
     navigate("/cafe-register-2"); // 다음 단계 페이지로 이동
   };
 
+  const handleLogoClick = () => {
+    navigate("/cafe-landing");
+  };
+
   return (
     <div className="cafe-register">
       {/* 고정 헤더 */}
       <header className="register-fixed-header">
         <div className="header-content">
           <img src="/logo.png" alt="Bean Logo" className="header-logo" />
-          <h1 className="header-text">Bean</h1>
+          <h1 className="header-text" onClick={handleLogoClick}>
+            Bean
+          </h1>
         </div>
       </header>
 

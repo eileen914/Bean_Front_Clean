@@ -11,6 +11,10 @@ const CafeRegister2 = () => {
     navigate("/cafe-map-creating");
   };
 
+  const handleLogoClick = () => {
+    navigate("/cafe-landing");
+  };
+
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
     setUploadedFiles((prev) => [...prev, ...newFiles]);
@@ -35,7 +39,9 @@ const CafeRegister2 = () => {
       <header className="register-fixed-header">
         <div className="header-content">
           <img src="/logo.png" alt="Bean Logo" className="header-logo" />
-          <h1 className="header-text">Bean</h1>
+          <h1 className="header-text" onClick={handleLogoClick}>
+            Bean
+          </h1>
         </div>
       </header>
 
