@@ -1,0 +1,327 @@
+/* Google Fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: #ffffff;
+}
+
+/* 전체 페이지 - 흰 바탕 */
+.home-page {
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* 메인 컨테이너 - 420px 중앙정렬 (피그마 디자인과 동일) */
+.main-container {
+  width: 420px;
+  height: 844px;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Header - 420px 컨테이너 내부 */
+.header {
+  width: 420px;
+  height: 97px;
+  background-color: #f9f8f4;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.header-content {
+  width: 420px;
+  height: 58px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: #391d0a;
+  line-height: 37.8px;
+  letter-spacing: 0;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.menu-button:hover {
+  background-color: rgba(57, 29, 10, 0.1);
+}
+
+/* Main content - 피그마 디자인과 동일한 레이아웃 */
+.main-content {
+  width: 420px;
+  height: 747px;
+  position: fixed;
+  top: 97px;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+
+.image-container {
+  width: 420px;
+  height: 747px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.main-image {
+  width: 420px;
+  height: 747px;
+  background-color: #f6f6f6;
+  border: 1px solid #f6f6f6;
+  border-radius: 8px;
+  background-image: url('../assets/home-map.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Chat toggle button - 420px 컨테이너 내부 */
+.chat-toggle-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(calc(-50% + 165px));
+  width: 60px;
+  height: 60px;
+  background-color: #f9f8f4;
+  border: 2px solid #391d0a;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.chat-toggle-btn:hover {
+  background-color: #391d0a;
+  transform: scale(1.05);
+}
+
+.chat-toggle-btn:hover svg path {
+  fill: #f9f8f4;
+}
+
+
+
+/* Bottom Sheet - 피그마 디자인에 맞게 수정 */
+.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(70vh);
+  width: 420px;
+  height: 389px; /* ← 369px → 389px */
+  background-color: rgba(104, 93, 74, 0.93);
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.12);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  touch-action: none;
+}
+
+.bottom-sheet.open {
+  transform: translateX(-50%) translateY(calc(100vh - 319px));
+}
+
+/* Drag Handle - 피그마 디자인에 맞게 수정 */
+.drag-handle {
+  width: 100%;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 0;
+  cursor: grab;
+  background-color: rgba(104, 93, 74, 0.93);
+  border-radius: 24px 24px 0 0;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.handle-bar {
+  width: 32px;
+  height: 3px;
+  background-color: rgba(104, 93, 74, 0.93);
+  border-radius: 2px;
+  transition: background-color 0.2s;
+}
+
+.drag-handle:hover .handle-bar {
+  background-color: #c0c0c0;
+}
+
+/* Bottom Sheet Header - 피그마 디자인에 맞게 수정 */
+.bottom-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 72px;
+  background-color: transparent;
+}
+
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* ← 가로 정렬을 중앙으로 */
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.bottom-sheet-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #EBE9E4;
+  line-height: 1.2;
+}
+
+.bottom-sheet-subtitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #EBE9E4;
+  text-align: center;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.header-divider {
+  width: 24px;
+  height: 1px;
+  background-color: #d0c8c0;
+  border-radius: 0.5px;
+}
+
+
+/* Bottom Sheet Content - 피그마 디자인에 맞게 수정 */
+.bottom-sheet-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .main-container {
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    transform: none;
+  }
+  
+  .header,
+  .header-content {
+    width: 100%;
+    left: 0;
+    transform: none;
+  }
+  
+  .main-content {
+    width: 100%;
+    height: calc(100vh - 97px);
+    left: 0;
+    transform: none;
+  }
+  
+  .image-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+  
+  .main-image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .bottom-sheet {
+    width: 100%;
+    height: 389px;
+    left: 0;
+    transform: translateY(calc(100vh - 389px));
+  }
+  
+  .bottom-sheet.open {
+    transform: translateY(calc(100vh - 389px));
+  }
+  
+  .bottom-sheet-content {
+    padding: 0;
+  }
+  
+  .drag-handle {
+    height: 20px;
+  }
+  
+  .handle-bar {
+    width: 28px;
+    height: 2px;
+  }
+  
+  .bottom-sheet-header {
+    padding: 0 20px;
+  }
+} 

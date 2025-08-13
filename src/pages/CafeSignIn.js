@@ -17,10 +17,10 @@ const CafeSignIn = () => {
   return (
     <div className="cafe-signin">
       {/* 고정 헤더 */}
-      <header className="register-fixed-header">
-        <div className="header-content">
-          <img src="/logo.png" alt="Bean Logo" className="header-logo" />
-          <h1 className="header-text">Bean</h1>
+      <header className="cafe-fixed-header">
+        <div className="cafe-header-content">
+          <img src="/logo.png" alt="Bean Logo" className="cafe-header-logo" />
+          <h1 className="cafe-header-text">Bean</h1>
         </div>
       </header>
 

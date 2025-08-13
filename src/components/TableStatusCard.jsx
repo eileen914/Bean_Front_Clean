@@ -1,6 +1,5 @@
 import React from "react";
 import "./TableStatusCard.css";
-
 /**
  * TableStatusCard
  * @param {number|string} tableNo           - 테이블 번호

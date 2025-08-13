@@ -1,7 +1,7 @@
 import React from "react";
 import TableStatusCard from "../components/TableStatusCard";
 
-export default function TestTableStatusCard() {
+export default function TestTableStatusCard(props) {
   return (
     <div
       style={{
@@ -9,7 +9,8 @@ export default function TestTableStatusCard() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#f9f8f4",
+
+        background: "#F9F8F4",
       }}
     >
       <TableStatusCard
