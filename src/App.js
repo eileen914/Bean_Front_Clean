@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import DefaultLanding from './pages/DefaultLanding';
@@ -10,6 +11,7 @@ import CafeMapCreated from './pages/CafeMapCreated';
 import UserLanding from './pages/UserLanding';
 import UserHome from './pages/UserHome';
 import UserAfterSearch from './pages/UserAfterSearch';
+import CafeHomeBeanUpdate from "./pages/CafeHomeBeanUpdate";
 
 
 function App() {
@@ -24,13 +26,20 @@ function App() {
           <Route path="/cafe-register-2" element={<CafeRegister2 />} />
           <Route path="/cafe-map-creating" element={<CafeMapCreating />} />
           <Route path="/cafe-map-created" element={<CafeMapCreated />} />
+
           <Route path="/user-landing" element={<UserLanding />} />
           <Route path="/user-home" element={<UserHome />} />
           <Route path="/user-after-search" element={<UserAfterSearch />} />
+          <Route
+            path="/cafe-home-bean-update"
+            element={<CafeHomeBeanUpdate />}
+          />
         </Routes>
       </div>
     </Router>
   );
 }
 
+
 export default App; 
+

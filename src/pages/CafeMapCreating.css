@@ -1,0 +1,97 @@
+.creating-page {
+  min-height: 100vh;
+  background: #f9f8f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+/* FIXED 헤더 */
+.register-fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #f9f8f4;
+  border-bottom: 1px solid #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* 왼쪽 정렬로 변경 */
+  padding-left: 100px; /* 원하는 만큼 왼쪽 여백 */
+  z-index: 1000;
+}
+
+.header-content {
+  width: 1280px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-logo {
+  width: 60px;
+  height: auto;
+  object-fit: contain;
+}
+
+.header-text {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #4c3800;
+  margin: 0;
+}
+
+/* 중앙 콘텐트 래퍼 */
+.creating-center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 스피너: 심플한 도넛 회전 */
+.creating-spinner {
+  width: 28px;
+  height: 28px;
+  border: 2.5px solid rgba(0, 0, 0, 0.12);
+  border-top-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  animation: creating-spin 0.9s linear infinite;
+}
+
+@keyframes creating-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 메시지: 스크린샷 느낌의 또렷한 한 줄(두 줄 줄바꿈) */
+.creating-heading {
+  margin: 0;
+  font-size: clamp(28px, 4.2vw, 34px);
+  line-height: 1.5;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -0.2px;
+}
+
+.creating-heading strong {
+  font-weight: 720;
+}
+
+/* 보조 문구(선택) */
+.creating-sub {
+  margin: 0;
+  color: #666;
+  font-size: 20px;
+}
+
+/* 동작 최소화 선호 사용자 접근성 */
+@media (prefers-reduced-motion: reduce) {
+  .creating-spinner {
+    animation: none;
+  }
+}
