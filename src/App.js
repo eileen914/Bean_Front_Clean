@@ -8,6 +8,7 @@ import CafeRegister2 from "./pages/CafeRegister2";
 import CafeMapCreating from "./pages/CafeMapCreating";
 import CafeMapCreated from "./pages/CafeMapCreated";
 import CafeHomeBeanUpdate from "./pages/CafeHomeBeanUpdate";
+import TestTableStatusCard from "./pages/TestTableStatusCard";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             element={<CafeHomeBeanUpdate />}
           />
         </Routes>
+        <Route path="/test-card" element={<TestTableStatusCard />} />
       </div>
     </Router>
   );
