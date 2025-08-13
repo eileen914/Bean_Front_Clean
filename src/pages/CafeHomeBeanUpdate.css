@@ -181,13 +181,12 @@
   height: 100%;
   overflow: hidden;
   cursor: grab;
-  touch-action: none;        
-  overscroll-behavior: contain;
 }
 .zoompan-viewport:active {
   cursor: grabbing;
 }
 .zoompan-content {
+  display: inline-block;     
   will-change: transform;
   user-select: none;
   pointer-events: auto;
