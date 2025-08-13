@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CafeHomeBeanUpdate.css";
 import MenuDropdown from "../components/MenuDropdown";
+import testDraft from "../assets/test_draft.png";
+import ZoomPan from "../components/ZoomPan";
 
 const CafeHomeBeanUpdate = () => {
   const navigate = useNavigate();
@@ -67,7 +69,9 @@ const CafeHomeBeanUpdate = () => {
         </div>
 
         <div className="canvas-box" role="region" aria-label="좌석 배치도 영역">
-          {/* 좌석 배치도 들어갈 영역 */}
+          <ZoomPan min={0.5} max={4} step={0.2}>
+            <img src={testDraft} alt="좌석 배치도" className="canvas-image" draggable={false} />
+          </ZoomPan>
         </div>
       </section>
     </main>
