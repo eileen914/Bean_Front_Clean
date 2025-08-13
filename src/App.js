@@ -12,6 +12,7 @@ import UserLanding from './pages/UserLanding';
 import UserHome from './pages/UserHome';
 import UserAfterSearch from './pages/UserAfterSearch';
 import CafeHomeBeanUpdate from "./pages/CafeHomeBeanUpdate";
+import TestTableStatusCard from "./pages/TestTableStatusCard";
 
 
 function App() {
@@ -34,7 +35,9 @@ function App() {
             path="/cafe-home-bean-update"
             element={<CafeHomeBeanUpdate />}
           />
+          <Route path="/test-card" element={<TestTableStatusCard />} />
         </Routes>
+      
       </div>
     </Router>
   );
