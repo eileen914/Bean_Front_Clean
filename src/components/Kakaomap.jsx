@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import cafe_list from '../assets/cafe_list.jsx';
 import MapPins from '../assets/seats_pin2.jsx'; 
-import createSeatsPinImage from '../assets/new_seat_pin.jsx'
+import createSeatsPinImage from '../assets/seats_pin.jsx'
 
 function Kakaomap() {
   const mapRef = useRef(null);

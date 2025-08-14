@@ -4,19 +4,21 @@ import Kakaomap from '../components/Kakaomap';
 import majesticons from '../assets/majesticons_search.svg';
 import logo_white from '../assets/logo_white.png';
 import './UserAfterSearch.css';
-import CafeList from '../components/CafeList'
+import CafeList from '../components/CafeList';
+
+const SHEET_HEIGHT = 746;             // 풀오픈 높이
+const MIN_VISIBLE = 70;               // 접었을 때 상단에 남길 높이
+const COLLAPSED_DRAG_Y = SHEET_HEIGHT - MIN_VISIBLE; // 746 - 70 = 676
+const INITIAL_DRAG_Y = 0;             // 초기: 풀오픈
 
 const UserAfterSearch = () => {
   const location = useLocation();
-
   const navigate = useNavigate();
-  const navHome = () => {
-    navigate('/user-home');
-  };
+  const navHome = () => navigate('/user-home');
+
   const passedQuery = location.state?.query || '';
 
-  const initialSheetHeight = window.innerHeight * 0.5;
-  const [dragY, setDragY] = useState(initialSheetHeight); // 초기 위치: 절반 아래
+  const [dragY, setDragY] = useState(INITIAL_DRAG_Y);  // 0 = 풀오픈
   const [isDragging, setIsDragging] = useState(false);
   const bottomRef = useRef(null);
 
@@ -40,51 +42,59 @@ const UserAfterSearch = () => {
     if (text) setBubbleText(text);
   };
 
+  // 공통: Y 좌표
+  const getClientY = (e) => {
+    if (e.touches && e.touches[0]) return e.touches[0].clientY;
+    if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].clientY;
+    return e.clientY;
+  };
+
   // 드래그 시작
   const handleDragStart = (e) => {
     setIsDragging(true);
-    startYRef.current = e.touches ? e.touches[0].clientY : e.clientY;
+    startYRef.current = getClientY(e);
     initialYRef.current = dragY;
   };
 
-  // 드래그 종료
+  // 드래그 종료(스냅)
   const handleDragEnd = () => {
     setIsDragging(false);
-    const threshold = initialSheetHeight / 2;
-    if (dragY < threshold) {
-      setDragY(0); // 완전히 열기
-    } else {
-      setDragY(initialSheetHeight); // 절반만 보이기
-    }
+    const threshold = COLLAPSED_DRAG_Y / 2; // 338px
+    if (dragY < threshold) setDragY(0);                   // 풀오픈으로 스냅
+    else setDragY(COLLAPSED_DRAG_Y);                      // 70px만 보이도록 스냅
   };
 
-  // 마우스 전역 이벤트 처리
+  // 전역 드래그 처리 (마우스+터치)
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMove = (e) => {
       if (!isDragging) return;
-      const deltaY = e.clientY - startYRef.current;
-      const newY = Math.min(Math.max(initialYRef.current + deltaY, 0), initialSheetHeight);
-      setDragY(newY);
+      const currentY = getClientY(e);
+      const deltaY = currentY - startYRef.current;
+      const next = Math.min(
+        Math.max(initialYRef.current + deltaY, 0),
+        COLLAPSED_DRAG_Y
+      );
+      setDragY(next);
     };
 
-    const handleMouseUp = () => {
-      setIsDragging(false);
-      const threshold = initialSheetHeight / 2;
-      if (dragY < threshold) {
-        setDragY(0);
-      } else {
-        setDragY(initialSheetHeight);
-      }
+    const handleUp = () => {
+      if (!isDragging) return;
+      handleDragEnd();
     };
 
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('mousemove', handleMove, { passive: false });
+      document.addEventListener('mouseup', handleUp, { passive: false });
+      document.addEventListener('touchmove', handleMove, { passive: false });
+      document.addEventListener('touchend', handleUp, { passive: false });
+      document.addEventListener('touchcancel', handleUp, { passive: false });
     }
-
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mousemove', handleMove);
+      document.removeEventListener('mouseup', handleUp);
+      document.removeEventListener('touchmove', handleMove);
+      document.removeEventListener('touchend', handleUp);
+      document.removeEventListener('touchcancel', handleUp);
     };
   }, [isDragging, dragY]);
 
@@ -121,7 +131,6 @@ const UserAfterSearch = () => {
             transition: isDragging ? 'none' : 'transform 0.3s ease',
           }}
           onMouseDown={handleDragStart}
-
           onMouseUp={handleDragEnd}
           onTouchStart={handleDragStart}
           onTouchEnd={handleDragEnd}
@@ -165,7 +174,11 @@ const UserAfterSearch = () => {
             {/* 검색 입력 */}
             <div className="user-frame-wrapper">
               <div className="user-div-wrapper">
-                <div className="search-bar">
+                <div
+                  className="search-bar"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()} // 드래그 방지
+                >
                   <input
                     type="text"
                     className="search-input"
@@ -173,13 +186,16 @@ const UserAfterSearch = () => {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => { if (e.key === 'Enter') applyQueryToBubble(); }}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
                   />
                   <img
                     className="search-icon"
                     alt="Search icon"
                     src={majesticons}
                     onClick={applyQueryToBubble}
-                    onMouseDown={(e) => e.stopPropagation()}   // ★ 드래그 방지
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
                     style={{ cursor: 'pointer' }}
                   />
                 </div>

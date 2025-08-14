@@ -1,34 +1,62 @@
 import mappin from "../assets/mappin.svg";
 import coffee_bean from "../assets/coffee-bean.svg";
 import coffee_mug from "../assets/coffee-mug.svg";
+import filled_bean_pin from "../assets/fillbeanpin.png";
 
-/**
- * MapPins
- * - text: "3/10" 같은 표시 텍스트
- * - palette: { bg, fg, border } 색상 반영
- * - options.injectStyle: true면 스타일 1회 주입
- * 반환: CustomOverlay content로 넣을 DOM 노드
- */
-export default function MapPins(text = "", palette = {}, options = { injectStyle: true }) {
-  if (options?.injectStyle !== false) injectPinStyleOnce();
-  const fg = palette.fg ?? "#2b1407ff";
+export default function MapPins(text = "", palette = {}, options = {}) {
+  const {
+    injectStyle = true,
+    pinSize = 23,
+    fontSize = 15,
+  } = options || {};
 
+  if (injectStyle) injectPinStyleOnce();
+
+  const fg = palette.fg ?? "#4b2000";
+
+  // 루트
   const root = document.createElement("div");
   root.className = "pins-frame";
-  root.style.backgroundColor = 'transparent';
-  root.style.border = "none";
-  root.style.borderRadius = "10px";
+  root.style.setProperty("--pin-size", `${pinSize}px`);
+  root.style.setProperty("--pin-font", `${fontSize}px`);
 
-  // 텍스트
+  // 라벨 (필요 시 다색 처리)
   const label = document.createElement("div");
   label.className = "pins-text-wrapper";
-  label.textContent = text;
-  label.style.color = fg;
 
-  // 아이콘
+  const match = String(text).match(/^\s*(\d+)\s*\/\s*(\d+)\s*$/);
+  const RED = "#930c00ff";
+  const BROWN = "#4b2000ff";
+
+  if (match && typeof fg === "string" && fg.toLowerCase() === RED) {
+    // ≤2 케이스는 palette.fg가 RED로 들어옴 → 숫자만 RED, 나머진 BROWN
+    const avail = match[1];
+    const total = match[2];
+
+    const spanAvail = document.createElement("span");
+    spanAvail.textContent = avail;
+    spanAvail.style.color = RED;
+
+    const spanSlash = document.createElement("span");
+    spanSlash.textContent = "/";
+    spanSlash.style.color = BROWN;
+
+    const spanTotal = document.createElement("span");
+    spanTotal.textContent = total;
+    spanTotal.style.color = BROWN;
+
+    label.appendChild(spanAvail);
+    label.appendChild(spanSlash);
+    label.appendChild(spanTotal);
+  } else {
+    // 그 외에는 단색(기존 동작)
+    label.textContent = text;
+    label.style.color = fg;
+  }
+
+  // 아이콘 (mask 사용 X, 완성 이미지를 그대로 표시)
   const icon = document.createElement("div");
   icon.className = "pins-icon";
-  icon.style.backgroundColor = fg; // fg 색상 적용
 
   root.appendChild(label);
   root.appendChild(icon);
@@ -37,7 +65,7 @@ export default function MapPins(text = "", palette = {}, options = { injectStyle
 
 /** 한 번만 스타일 주입 */
 function injectPinStyleOnce() {
-  const STYLE_ID = "pins-style-v1";
+  const STYLE_ID = "pins-style-v7"; // 버전업으로 캐시 무효화
   if (document.getElementById(STYLE_ID)) return;
 
   const css = `
@@ -48,16 +76,16 @@ function injectPinStyleOnce() {
   font-style: normal;
 }
 
-  /* === Pins styles (CustomOverlay DOM용) === */
+/* === Pins styles (CustomOverlay DOM용) === */
 .pins-frame {
   align-items: center;
   display: flex;
   flex-direction: column;
   position: relative;
 
-  /* 프레임 크기(아이콘 폭 기준). 필요시 조정 */
-  width: 40px;
-  padding: 2px 3px; /* 텍스트 여백 조금 */
+  /* 프레임 폭 = 아이콘폭 + 여백 */
+  width: calc(var(--pin-size, 22px) + 10px);
+  padding: 2px 3px;
   pointer-events: auto;
   user-select: none;
   transform: translateZ(0);
@@ -66,26 +94,28 @@ function injectPinStyleOnce() {
 
 .pins-frame .pins-text-wrapper {
   font-family: "Inter", "Lexend", Helvetica, Arial, sans-serif;
-  font-size: 17px;
+  font-size: var(--pin-font, 13px);
   background-color: #ffffff;
-  padding: 3px;
+  border-radius: 8px;
+  padding: 1px 3px;
   font-weight: 600;
   line-height: 1;
   margin-top: -1px;
   text-align: center;
   white-space: nowrap;
 
-  max-width: 50px;
+  /* 라벨 최대폭은 아이콘 크기 비례 */
+  max-width: calc(var(--pin-size, 22px) * 1.9);
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* 아이콘: 콩 포함된 완성 이미지를 그대로 표시 */
 .pins-frame .pins-icon {
-  width: 30px;
-  height: 30px;
-  background-color: currentColor;
-  -webkit-mask: url(${coffee_mug}) center/contain no-repeat;
-  mask: url(${coffee_mug}) center/contain no-repeat;
+  width: var(--pin-size, 22px);
+  aspect-ratio: 45 / 63; /* mappin 비율에 맞게 자동 높이 */
+  background: url(${filled_bean_pin}) center / contain no-repeat;
+  pointer-events: none;
 }
 `.trim();
 
