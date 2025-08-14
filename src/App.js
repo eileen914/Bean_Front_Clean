@@ -29,10 +29,7 @@ function App() {
           <Route path="/user-landing" element={<UserLanding />} />
           <Route path="/user-home" element={<UserHome />} />
           <Route path="/user-after-search" element={<UserAfterSearch />} />
-          <Route
-            path="/cafe-home-bean-update"
-            element={<CafeHomeBeanUpdate />}
-          />
+          <Route path="/cafe-update" element={<CafeHomeBeanUpdate />} />
           <Route path="/test-card" element={<TestTableStatusCard />} />
         </Routes>
       </div>

@@ -7,7 +7,7 @@ const CafeSignIn = () => {
 
   const handleSignIn = () => {
     // TODO: 백엔드 연동 시 여기에 로그인 요청 코드 추가
-    navigate("/cafe-home-bean-update");
+    navigate("/cafe-update");
   };
 
   const goToRegister = () => {

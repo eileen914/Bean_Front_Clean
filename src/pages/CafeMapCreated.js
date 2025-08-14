@@ -6,7 +6,7 @@ const CafeMapCreated = () => {
   const navigate = useNavigate();
 
   const handleDashboardClick = () => {
-    navigate("/cafe-home-bean-update");
+    navigate("/cafe-update");
   };
 
   const handleBackToLanding = () => {
