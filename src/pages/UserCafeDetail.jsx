@@ -102,19 +102,19 @@ const UserCafeDetail = () => {
       </div>
 
       <div className="seating-legend">
-        <span>좌석 현황:</span>
+        <div className="seating-text-wrapper">좌석 현황:</div>
         <div className="legend-items">
           <div className="legend-item">
             <div className="legend-color available"></div>
-            <span>빈자리</span>
+            <div className="seating-text-wrapper2">빈자리</div>
           </div>
           <div className="legend-item">
             <div className="legend-color occupied"></div>
-            <span>이용중</span>
+            <div className="seating-text-wrapper2">이용중</div>
           </div>
           <div className="legend-item">
             <div className="legend-color selected"></div>
-            <span>선택 자리</span>
+            <div className="seating-text-wrapper2">선택 자리</div>
           </div>
         </div>
       </div>

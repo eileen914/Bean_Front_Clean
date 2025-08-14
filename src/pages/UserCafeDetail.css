@@ -90,6 +90,7 @@
   background-color: #f9f8f4;
   padding: 0 20px;
   position: relative;
+  border-bottom: 1px solid #ddd
 }
 
 .detail-nav-tab {
@@ -356,9 +357,23 @@
 .seating-legend {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 3px 10px;
   gap: 15px;
   font-size: 13px;
+}
+
+.seating-text-wrapper {
+  color: #000000;
+  font-family: "Inter-Semibold", Helvetica;
   font-weight: 600;
+  letter-spacing: 0;
+}
+.seating-text-wrapper {
+  color: #000000;
+  font-family: "Inter-Semibold", Helvetica;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 .legend-items {
