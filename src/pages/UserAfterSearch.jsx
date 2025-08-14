@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Kakaomap from '../components/Kakaomap';
 import majesticons from '../assets/majesticons_search.svg';
 import logo_white from '../assets/logo_white.png';
@@ -8,6 +8,11 @@ import CafeList from '../components/CafeList'
 
 const UserAfterSearch = () => {
   const location = useLocation();
+
+  const navigate = useNavigate();
+  const navHome = () => {
+    navigate('/user-home');
+  };
   const passedQuery = location.state?.query || '';
 
   const initialSheetHeight = window.innerHeight * 0.5;
@@ -89,7 +94,7 @@ const UserAfterSearch = () => {
       <header className="header">
         <div className="header-content">
           <div className="logo">
-            <span className="logo-text">Bean</span>
+            <span className="logo-text" onClick={navHome}>Bean</span>
           </div>
           <button className="menu-button">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">

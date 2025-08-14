@@ -1,4 +1,6 @@
 import mappin from "../assets/mappin.svg";
+import coffee_bean from "../assets/coffee-bean.svg";
+import coffee_mug from "../assets/coffee-mug.svg";
 
 /**
  * MapPins
@@ -82,8 +84,8 @@ function injectPinStyleOnce() {
   width: 30px;
   height: 30px;
   background-color: currentColor;
-  -webkit-mask: url(${mappin}) center/contain no-repeat;
-  mask: url(${mappin}) center/contain no-repeat;
+  -webkit-mask: url(${coffee_mug}) center/contain no-repeat;
+  mask: url(${coffee_mug}) center/contain no-repeat;
 }
 `.trim();
 

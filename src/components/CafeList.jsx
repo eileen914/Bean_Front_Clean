@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import "./CafeList.css";
 import ellipse from '../assets/Ellipse.svg';
 import star_rating from '../assets/star_rating.svg';
@@ -19,8 +20,12 @@ export const CafeList = ({
   vector2 = "image.svg",
   vector3 = "vector-2.svg",*/
 }) => {
+  const navigate = useNavigate();
+  const handleEachCafe = () => {
+    navigate('/user-cafe-detail');
+  };
   return (
-    <div className="cafe-list">
+    <div className="cafe-list" onClick={handleEachCafe}>
       <div className="cafe-list-frame">
         <div className="cafe-list-div">
           <div className="cafe-list-text-wrapper">{text}</div>

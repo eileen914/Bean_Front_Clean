@@ -34,10 +34,10 @@ function Kakaomap() {
       if (available === 0) {
         return { fg: 'rgba(53, 53, 53, 0.95)'}; 
       }
-      if (available <= 3) {
+      if (available <= 2) {
         return { fg: '#930c00ff'};           
       }
-      return { fg: '#0d5300ff'};        
+      return { fg: '#4b2000ff'};        
     };
 
     const jobs = cafe_list.map(async (cafe) => {

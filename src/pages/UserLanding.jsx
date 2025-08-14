@@ -5,12 +5,7 @@ import group1 from '../assets/user-landing.png';
 
 export const UserLanding = () => {
   const navigate = useNavigate();
-
   const handleLogin = () => {
-    navigate('/user-home');
-  };
-
-  const handleSignUp = () => {
     navigate('/user-home');
   };
 

@@ -1,0 +1,186 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './UserCafeDetail.css';
+import map_image from '../assets/map-image.jpg';
+import userdraft from '../assets/user-draft.png';
+import locationIcon from '../assets/ion_detail.svg';
+import clockIcon from '../assets/mdi_clock_detail.svg';
+import starRating from '../assets/star_rating.svg';
+import coffeeIcon from '../assets/material-symbols-light_coffee.svg';
+import arrowIcon from '../assets/ep_arrow-up.svg';
+import menuVector from '../assets/menu-vector.svg';
+
+const UserCafeDetail = () => {
+  const [activeTab, setActiveTab] = useState('home');
+  const tabs = ['home', 'seating', 'menu', 'review']
+  const activeIndex = Math.max(0, tabs.indexOf(activeTab));
+
+  const navigate = useNavigate();
+  const handleDetail = () => {
+    navigate(-1);
+  };
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const renderHomeTab = () => (
+    <div className="user-cafe-detail-home-tab">
+      {/* (주의) 이미지 슬라이더는 여기서 제거했음 */}
+      {/* Cafe Information */}
+      <div className="user-cafe-info">
+        <div className="info-header">
+          <div className="user-cafe-tags">
+            <span className="user-tag">#카공</span>
+            <div className="rating">
+              <img src={starRating} className="star-icon" />
+              <span>4.9(1,067)</span>
+            </div>
+          </div>
+          <div className="review-link">전체 리뷰 1,503개 &gt;</div>
+        </div>
+
+        <div className="info-details">
+          <div className="user-detail-item">
+            <img src={locationIcon} alt="위치" className="location-icon" />
+            <div className="user-detail-text">
+              <span className="address">서울 관악구 관악로13길 20</span>
+            </div>
+          </div>
+
+          <div className="user-detail-item">
+            <img src={clockIcon} alt="시간" className="clock-icon" />
+            <div className="user-detail-text">
+              <span className="status-closed">영업종료</span>
+              <span className="open-hours">오늘(월) 12:00 ~ 18:00</span>
+            </div>
+          </div>
+
+          <div className="user-detail-item">
+            <img src={coffeeIcon} alt="커피" className="coffee-icon" />
+            <div className="user-detail-text">
+              <span>아메리카노 4,500원</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="user-cafe-tags">
+          <span className="user-tag">카공맛집</span>
+          <span className="user-tag">에그타르트</span>
+          <span className="user-tag">수제쿠키</span>
+          <span className="user-tag">주차 가능</span>
+        </div>
+      </div>
+      {/* Location Section */}
+      <div className="location-section">
+        <h3>매장 위치</h3>
+        <div className="map-container">
+          <img src={map_image} alt="카페 위치 지도" className="map-image" />
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderSeatingTab = () => (
+    <div className="seating-tab">
+      <div className="seating-info">
+        <div className="seating-header">
+          <div className="seating-count">
+            <span> 빈자리: </span>
+            <span className="available-count">2</span>
+            <span>/</span>
+            <span className="total-count">10</span>
+          </div>
+        </div>
+
+        <div className="seating-description">
+          좌석을 클릭하면<br />예약가능 여부 및 자리 정보를 확인하실 수 있습니다.
+        </div>
+
+        <div className="seating-draft">
+          <img src={userdraft} alt="좌석 도면" className="draft-image" />
+        </div>
+      </div>
+
+      <div className="seating-legend">
+        <span>좌석 현황:</span>
+        <div className="legend-items">
+          <div className="legend-item">
+            <div className="legend-color available"></div>
+            <span>빈자리</span>
+          </div>
+          <div className="legend-item">
+            <div className="legend-color occupied"></div>
+            <span>이용중</span>
+          </div>
+          <div className="legend-item">
+            <div className="legend-color selected"></div>
+            <span>선택 자리</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="cafe-detail-container">
+      {/* Header */}
+      <div className="user-cafe-detail-header">
+        <div className="user-header-left">
+          <div className="user-back-button">
+            <img src={arrowIcon} alt="뒤로가기" className="user-arrow-icon" onClick={handleDetail} />
+          </div>
+          <div className="user-cafe-title">
+            <div className="user-cafe-text-wrapper">카페블라블라</div>
+          </div>
+        </div>
+        <div className="user-cafe-detail-menu-button">
+          <img src={menuVector} alt="메뉴탭" />
+        </div>
+      </div>
+
+      {/* Navigation Tabs (인디케이터는 여기 안에 고정) */}
+      <div className="user-cafe-detail-nav-tabs">
+        <button
+          className={`detail-nav-tab ${activeTab === 'home' ? 'active' : ''}`}
+          onClick={() => handleTabChange('home')}
+        >
+          홈
+        </button>
+        <button
+          className={`detail-nav-tab ${activeTab === 'seating' ? 'active' : ''}`}
+          onClick={() => handleTabChange('seating')}
+        >
+          좌석 현황
+        </button>
+        <button className="detail-nav-tab" onClick={() => handleTabChange('menu')}>
+          메뉴
+        </button>
+        <button className="detail-nav-tab" onClick={() => handleTabChange('review')}>
+          리뷰 1,503
+        </button>
+
+        {/* 탭 텍스트 바로 아래 밑줄 */}
+        <span
+          className="tab-underline"
+          style={{ transform: `translateX(${activeIndex * 100}%)` }}
+        />
+      </div>
+
+      {/* ✅ 홈일 때만, 탭과 tab-content 사이에 이미지 삽입 */}
+      {activeTab === 'home' && (
+        <div className="image-slider">
+          <div className="slider-placeholder">
+            <span>이미지 슬라이더</span>
+          </div>
+        </div>
+      )}
+
+      {/* Tab Content */}
+      <div className="tab-content">
+        {activeTab === 'home' ? renderHomeTab() : renderSeatingTab()}
+      </div>
+    </div>
+  );
+};
+
+export default UserCafeDetail;
