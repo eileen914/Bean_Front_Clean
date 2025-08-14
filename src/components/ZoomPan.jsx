@@ -16,7 +16,6 @@ export default function ZoomPan({ children, min = 0.5, max = 4, step = 0.2 }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ✅ 컨텐츠 실제 크기 구하기 (이미지 natural 크기 우선)
   const getContentSize = () => {
     const img = contentRef.current?.querySelector("img");
     if (img) {

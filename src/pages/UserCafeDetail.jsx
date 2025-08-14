@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './UserCafeDetail.css';
 import map_image from '../assets/map-image.jpg';
-import userdraft from '../assets/user-draft.png';
+import testdraft from '../assets/test_draft.png';
 import locationIcon from '../assets/ion_detail.svg';
 import clockIcon from '../assets/mdi_clock_detail.svg';
 import starRating from '../assets/star_rating.svg';
 import coffeeIcon from '../assets/material-symbols-light_coffee.svg';
 import arrowIcon from '../assets/ep_arrow-up.svg';
 import menuVector from '../assets/menu-vector.svg';
+import ZoomPanUser from '../components/ZoomPanUser'
 
 const UserCafeDetail = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -97,7 +98,7 @@ const UserCafeDetail = () => {
         </div>
 
         <div className="seating-draft">
-          <img src={userdraft} alt="좌석 도면" className="draft-image" />
+          <ZoomPanUser min={0.5} max={4} step={0.2} src={testdraft} />
         </div>
       </div>
 
