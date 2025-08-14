@@ -1,0 +1,127 @@
+:root {
+  --ss-ink: #2c2c2c;
+  --ss-muted: #8a8f98;
+  --ss-line: #e5e5e5;
+  --ss-green: #2f7d32;
+  --ss-green-ink: #2f7d32;
+  --ss-green-bg: #e3efe4;
+  --ss-btn-border: #cfcfcf;
+  --ss-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 6px 22px rgba(0, 0, 0, 0.08);
+}
+
+.ss-card {
+  background: #fff;
+  border: 2px solid var(--ss-line);
+  border-radius: 8px;
+  box-shadow: var(--ss-shadow);
+
+  width: 380px; /* 스샷 맞춤 */
+  min-height: 260px;
+  padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.ss-card.is-disabled {
+  opacity: 0.6;
+}
+
+.ss-header {
+  margin-bottom: 12px;
+}
+.ss-title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 720;
+  color: var(--ss-green);
+}
+.ss-title strong {
+  font-weight: 900;
+}
+
+.ss-now {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 14px;
+}
+.ss-key {
+  color: var(--ss-muted);
+}
+.ss-sep {
+  color: #bdbdbd;
+}
+.ss-val {
+  color: #6e7680;
+}
+
+.ss-section {
+  margin: 16px 0 20px;
+}
+.ss-label {
+  font-weight: 735;
+  color: var(--ss-ink);
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+.ss-hint {
+  font-weight: 700;
+  color: var(--ss-muted);
+}
+
+.ss-options {
+  display: flex;
+  /* justify-content: center; */
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.ss-opt {
+  min-width: 88px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px solid #dddddd;
+  background: #fff;
+  color: var(--ss-ink);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.12s ease,
+    border-color 0.12s ease;
+}
+.ss-opt:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.ss-opt.is-active {
+  background: var(--ss-green-bg);
+  color: var(--ss-green-ink);
+  border-color: #b9d5bb;
+}
+
+.ss-actions {
+  margin-top: auto;
+}
+.ss-btn {
+  width: 100%;
+  background: #fff;
+  color: var(--ss-ink);
+  border: 2px solid var(--ss-btn-border);
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.2s ease;
+}
+.ss-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.ss-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
