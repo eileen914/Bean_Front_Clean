@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import Kakaomap from '../components/Kakaomap';
-import majesticons from '../assets/majesticons_search.svg';
-import logo_white from '../assets/logo_white.png';
-import './UserAfterSearch.css';
-import CafeList from '../components/CafeList'
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import Kakaomap from "../components/Kakaomap";
+import majesticons from "../assets/majesticons_search.svg";
+import logo_white from "../assets/logo_white.png";
+import "./UserAfterSearch.css";
+import CafeList from "../components/CafeList";
 
 const UserAfterSearch = () => {
   const location = useLocation();
-  const passedQuery = location.state?.query || '';
+  const passedQuery = location.state?.query || "";
 
   const initialSheetHeight = window.innerHeight * 0.5;
   const [dragY, setDragY] = useState(initialSheetHeight); // 초기 위치: 절반 아래
@@ -21,12 +21,12 @@ const UserAfterSearch = () => {
   const [bubbleText, setBubbleText] = useState(
     passedQuery || '" 서울대입구역 케이크 맛집 알려줘 "'
   );
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     if (passedQuery) {
       setBubbleText(passedQuery);
-      setInputValue('');
+      setInputValue("");
     }
   }, [passedQuery]);
 
@@ -58,7 +58,10 @@ const UserAfterSearch = () => {
     const handleMouseMove = (e) => {
       if (!isDragging) return;
       const deltaY = e.clientY - startYRef.current;
-      const newY = Math.min(Math.max(initialYRef.current + deltaY, 0), initialSheetHeight);
+      const newY = Math.min(
+        Math.max(initialYRef.current + deltaY, 0),
+        initialSheetHeight
+      );
       setDragY(newY);
     };
 
@@ -73,13 +76,13 @@ const UserAfterSearch = () => {
     };
 
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isDragging, dragY]);
 
@@ -93,7 +96,10 @@ const UserAfterSearch = () => {
           </div>
           <button className="menu-button">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z" fill="#391d0a" />
+              <path
+                d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"
+                fill="#391d0a"
+              />
             </svg>
           </button>
         </div>
@@ -113,10 +119,9 @@ const UserAfterSearch = () => {
           ref={bottomRef}
           style={{
             transform: `translateX(-50%) translateY(${dragY}px)`,
-            transition: isDragging ? 'none' : 'transform 0.3s ease',
+            transition: isDragging ? "none" : "transform 0.3s ease",
           }}
           onMouseDown={handleDragStart}
-
           onMouseUp={handleDragEnd}
           onTouchStart={handleDragStart}
           onTouchEnd={handleDragEnd}
@@ -135,12 +140,17 @@ const UserAfterSearch = () => {
                 </div>
                 <div className="chat-ai-reply-section">
                   <div className="chat-ai-profile-wrapper">
-                    <img className="chat-ai-profile" alt="AI" src={logo_white} />
+                    <img
+                      className="chat-ai-profile"
+                      alt="AI"
+                      src={logo_white}
+                    />
                   </div>
                   <div className="chat-ai-message-area">
                     <div className="chat-ai-message-text">
                       <p className="chat-ai-message">
-                        "{bubbleText}"에 대한 검색결과입니다. 잠시만 기다려주세요.
+                        "{bubbleText}"에 대한 검색결과입니다. 잠시만
+                        기다려주세요.
                       </p>
                     </div>
                     <div className="chat-ai-loading">
@@ -167,15 +177,17 @@ const UserAfterSearch = () => {
                     placeholder="검색어를 입력하세요."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={(e) => { if (e.key === 'Enter') applyQueryToBubble(); }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") applyQueryToBubble();
+                    }}
                   />
                   <img
                     className="search-icon"
                     alt="Search icon"
                     src={majesticons}
                     onClick={applyQueryToBubble}
-                    onMouseDown={(e) => e.stopPropagation()}   // ★ 드래그 방지
-                    style={{ cursor: 'pointer' }}
+                    onMouseDown={(e) => e.stopPropagation()} // ★ 드래그 방지
+                    style={{ cursor: "pointer" }}
                   />
                 </div>
               </div>
