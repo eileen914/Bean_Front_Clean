@@ -20,7 +20,7 @@
   height: 280px;
 
   /* 내부 배치 */
-  padding: 20px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* 위/아래 균등 배치 */
@@ -31,9 +31,8 @@
 }
 
 .ts-title {
-  margin: 0;
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 720;
   color: var(--ts-green);
 }
 .ts-title strong {
@@ -41,13 +40,15 @@
 }
 
 .ts-pill {
-  display: inline-block;
-  padding: 8px 12px;
+  display: block;
+  text-align: center;
+  margin: 20px;
+  padding: 10px 16px;
   background: var(--ts-pill);
-  color: var(--ts-pill-ink);
-  border-radius: 6px;
+  color: #2c2c2c;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 18px;
+  border-radius: 10px;
 }
 
 .ts-meta {
@@ -85,6 +86,7 @@
   border-radius: 8px;
   padding: 10px;
   font-weight: 700;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: transform 0.12s ease, box-shadow 0.2s ease;
 }

@@ -25,11 +25,11 @@ const TableStatusCard = ({
     <section
       className={`ts-card ts-${status}`}
       role="group"
-      aria-label={`${tableNo}번 테이블 상태`}
+      aria-label={`${tableNo}번 좌석 상태`}
     >
       <header className="ts-header">
         <h3 className="ts-title">
-          <strong>{tableNo}</strong> 번 테이블
+          <strong>{tableNo}</strong> 번 좌석
         </h3>
       </header>
 
