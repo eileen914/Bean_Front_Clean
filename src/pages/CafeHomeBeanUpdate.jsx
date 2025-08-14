@@ -10,6 +10,9 @@ const CafeHomeBeanUpdate = () => {
   const handleLogoClick = () => navigate("/cafe-landing");
   const handleMenuToggle = () => setMenuOpen((v) => !v);
   const handleGoto = (path) => navigate(path);
+  const handleLogoutClick = () => {
+    navigate("/cafe-landing");
+  };
 
   return (
     <main className="bean-update" role="main">
@@ -26,7 +29,7 @@ const CafeHomeBeanUpdate = () => {
           </div>
 
           <div className="update-header-right">
-            <button className="logout-btn" onClick={() => alert("로그아웃")}>
+            <button className="logout-btn" onClick={handleLogoutClick}>
               로그아웃
             </button>
 
@@ -56,7 +59,9 @@ const CafeHomeBeanUpdate = () => {
       <section className="page-container">
         <h2 className="page-title">빈자리 관리하기</h2>
         <p className="page-sub">
-          이 화면에서 업데이트되는 빈자리 현황은 고객 앱에도 실시간으로 반영돼요
+          좌석별로 사용 현황을 업데이트할 수 있습니다.
+          <br />이 화면에서 업데이트되는 빈자리 현황은 고객 앱에도 실시간으로
+          반영돼요.
         </p>
 
         <div className="meta-row">

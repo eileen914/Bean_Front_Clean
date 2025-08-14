@@ -6,13 +6,15 @@
   --muted: #7a7a7a;
   --panel: #ffffff;
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --header-h: 100px;
+  --header-gap: 24px; /* 헤더 밑 여유 간격 */
 }
 
 /* 전체 레이아웃 */
 .bean-update {
   min-height: 100vh;
   background: var(--bg);
-  padding-top: 100px; /* 고정 헤더 높이만큼 */
+  padding-top: calc(var(--header-h) + var(--header-gap));
 }
 
 /* 헤더 */
@@ -29,10 +31,20 @@
   z-index: 1000;
 }
 
-.update-header-content {
+/* .update-header-content {
   width: 1200px;
   max-width: calc(100% - 48px);
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+} */
+
+.update-header-content {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 103px; /* 좌우 여백 16px씩 */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -50,11 +62,10 @@
   object-fit: contain;
 }
 .update-header-text {
-  font-size: 2rem;
-  font-weight: 500;
-  color: var(--brand);
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #4c3800;
   margin: 0;
-  letter-spacing: -0.2px;
 }
 
 .update-header-right {
@@ -68,6 +79,7 @@
   border: none;
   color: var(--ink);
   font-weight: 600;
+  font-size: 1.1rem;
   cursor: pointer;
   padding: 8px 10px;
   border-radius: 8px;
@@ -128,21 +140,22 @@
 
 /* 본문 컨테이너 */
 .page-container {
-  width: 1200px;
-  max-width: calc(100% - 48px);
+  width: 100%;
+  max-width: none;
   margin: 24px auto 80px;
+  padding: 0 150px;
 }
 
 .page-title {
-  margin: 0 0 6px;
+  margin: 0 0 12px;
   color: var(--ink);
-  font-size: 24px;
-  font-weight: 800;
+  font-size: 30px;
+  font-weight: 720;
 }
 .page-sub {
-  margin: 0 0 18px;
+  margin: 0 0 40px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 17px;
 }
 
 .meta-row {
@@ -153,16 +166,17 @@
 }
 .meta-left {
   color: var(--ink);
-  font-size: 14px;
+  font-size: 18px;
 }
 .status-live {
   color: #167d2e;
   font-weight: 700;
+  font-size: 19px;
 }
 
 /* 캔버스 박스 */
 .canvas-box {
-  height: 460px;
+  height: 630px;
   background: #fff;
   border: 1px solid #cfcfcf;
   border-radius: 2px;
