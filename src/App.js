@@ -15,6 +15,8 @@ import CafeHomeBeanUpdate from "./pages/CafeHomeBeanUpdate";
 import TestTableStatusCard from "./pages/TestTableStatusCard";
 import UserCafeDetail from "./pages/UserCafeDetail";
 
+import TakenSeat from "./components/TakenSeat";
+
 
 function App() {
   return (
@@ -38,6 +40,7 @@ function App() {
           />
           <Route path="/test-card" element={<TestTableStatusCard />} />
           <Route path="/user-cafe-detail" element={<UserCafeDetail />} />
+          <Route path="/taken-seat" element={<TakenSeat />} />
         </Routes>
       
       </div>

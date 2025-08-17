@@ -11,6 +11,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
  *   alt: 대체 텍스트
  *   min, max, step: 줌 설정(선택)
  *   className: viewport에 추가할 클래스(선택)
+ *   onTap: 클릭/탭 콜백(선택)  ←★ 추가: 클릭(탭) 시 호출
  */
 export default function ZoomPanUser({
   src,
@@ -19,6 +20,7 @@ export default function ZoomPanUser({
   max = 4,
   step = 0.2,
   className = "",
+  onTap, // ★ 추가
 }) {
   const viewportRef = useRef(null);
   const contentRef  = useRef(null);
@@ -26,7 +28,12 @@ export default function ZoomPanUser({
 
   const [scale, setScale] = useState(1);
   const [pos, setPos]     = useState({ x: 0, y: 0 });
+
+  // 드래그 상태
   const [drag, setDrag]   = useState(null);
+
+  // 탭 판정용
+  const downRef = useRef({ x: 0, y: 0, t: 0, moved: false, active: false });
 
   const minScaleRef = useRef(1); // 최소 배율(=fit-height) 보관
 
@@ -130,19 +137,97 @@ export default function ZoomPanUser({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [min, max, step]);
 
-  // 드래그 이동
+  // -----------------------------
+  // 마우스 드래그 & 탭 판정
+  // -----------------------------
+  const TAP_DIST = 8;   // px
+  const TAP_TIME = 250; // ms
+
   const onMouseDown = (e) => {
     e.preventDefault();
     setDrag({ x: e.clientX, y: e.clientY });
+
+    downRef.current = {
+      x: e.clientX,
+      y: e.clientY,
+      t: Date.now(),
+      moved: false,
+      active: true,
+    };
   };
+
   const onMouseMove = (e) => {
     if (!drag) return;
+
     const dx = e.clientX - drag.x;
     const dy = e.clientY - drag.y;
     setPos((p) => ({ x: p.x + dx, y: p.y + dy }));
     setDrag({ x: e.clientX, y: e.clientY });
+
+    // 탭/드래그 구분
+    const mdx = e.clientX - downRef.current.x;
+    const mdy = e.clientY - downRef.current.y;
+    if (Math.hypot(mdx, mdy) > TAP_DIST) {
+      downRef.current.moved = true;
+    }
   };
-  const endDrag = () => setDrag(null);
+
+  const onMouseUp = () => {
+    setDrag(null);
+
+    // 탭 판정
+    const d = downRef.current;
+    if (d.active) {
+      const dt = Date.now() - d.t;
+      if (!d.moved && dt < TAP_TIME) {
+        onTap?.(); // ★ 클릭으로 판단되면 호출(토글 등)
+      }
+    }
+    d.active = false;
+  };
+
+  // -----------------------------
+  // 터치 드래그 & 탭 판정
+  // -----------------------------
+  const onTouchStart = (e) => {
+    if (e.touches.length !== 1) return; // 단일 터치만 처리(멀티터치 확대와 충돌 방지)
+    const t = e.touches[0];
+    setDrag({ x: t.clientX, y: t.clientY });
+    downRef.current = {
+      x: t.clientX,
+      y: t.clientY,
+      t: Date.now(),
+      moved: false,
+      active: true,
+    };
+  };
+
+  const onTouchMove = (e) => {
+    if (e.touches.length !== 1 || !drag) return;
+    const t = e.touches[0];
+    const dx = t.clientX - drag.x;
+    const dy = t.clientY - drag.y;
+    setPos((p) => ({ x: p.x + dx, y: p.y + dy }));
+    setDrag({ x: t.clientX, y: t.clientY });
+
+    const mdx = t.clientX - downRef.current.x;
+    const mdy = t.clientY - downRef.current.y;
+    if (Math.hypot(mdx, mdy) > TAP_DIST) {
+      downRef.current.moved = true;
+    }
+  };
+
+  const onTouchEnd = (e) => {
+    setDrag(null);
+    const d = downRef.current;
+    if (d.active) {
+      const dt = Date.now() - d.t;
+      if (!d.moved && dt < TAP_TIME) {
+        onTap?.(); // ★ 탭으로 판단되면 호출
+      }
+    }
+    d.active = false;
+  };
 
   return (
     <div
@@ -150,8 +235,11 @@ export default function ZoomPanUser({
       className={`zoompan-user-viewport ${className}`}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
-      onMouseUp={endDrag}
-      onMouseLeave={endDrag}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseUp}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
     >
       <div
         ref={contentRef}
@@ -162,6 +250,7 @@ export default function ZoomPanUser({
           willChange: "transform",
           userSelect: "none",
           pointerEvents: "auto",
+          touchAction: "none", // 터치 스크롤 방지(팬 동작 우선)
         }}
       >
         <img

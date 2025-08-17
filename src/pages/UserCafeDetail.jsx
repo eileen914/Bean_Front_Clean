@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './UserCafeDetail.css';
 import map_image from '../assets/map-image.jpg';
@@ -9,10 +9,39 @@ import starRating from '../assets/star_rating.svg';
 import coffeeIcon from '../assets/material-symbols-light_coffee.svg';
 import arrowIcon from '../assets/ep_arrow-up.svg';
 import menuVector from '../assets/menu-vector.svg';
-import ZoomPanUser from '../components/ZoomPanUser'
+import ZoomPanUser from '../components/ZoomPanUser';
+import TakenSeat from '../components/TakenSeat';
 
 const UserCafeDetail = () => {
   const [activeTab, setActiveTab] = useState('home');
+
+  /* 8/17 수정 */
+  const [showTaken, setShowTaken] = useState(false);
+  const toggleTaken = () => setShowTaken(v => !v)
+
+    useEffect(() => {
+    const applyBottomOffset = () => {
+      const h = window.visualViewport?.height || window.innerHeight; // 주소창 높이 반영
+      const bottom = Math.max(0, Math.round(h - 844));               // h > 844이면 그 차이만큼 띄우기
+      document.documentElement.style.setProperty('--sheet-bottom', `${bottom}px`);
+    };
+
+    applyBottomOffset();
+    // 뷰포트 변할 때마다 갱신 (모바일 주소창/회전 등)
+    window.addEventListener('resize', applyBottomOffset);
+    window.visualViewport?.addEventListener('resize', applyBottomOffset);
+    window.visualViewport?.addEventListener('scroll', applyBottomOffset);
+
+    return () => {
+      window.removeEventListener('resize', applyBottomOffset);
+      window.visualViewport?.removeEventListener('resize', applyBottomOffset);
+      window.visualViewport?.removeEventListener('scroll', applyBottomOffset);
+    };
+  }, []);
+
+  /*여기까지*/
+
+
   const tabs = ['home', 'seating', 'menu', 'review']
   const activeIndex = Math.max(0, tabs.indexOf(activeTab));
 
@@ -98,7 +127,7 @@ const UserCafeDetail = () => {
         </div>
 
         <div className="seating-draft">
-          <ZoomPanUser min={0.5} max={4} step={0.2} src={testdraft} />
+          <ZoomPanUser min={0.5} max={4} step={0.2} src={testdraft} onTap={toggleTaken} />
         </div>
       </div>
 
@@ -179,6 +208,10 @@ const UserCafeDetail = () => {
       {/* Tab Content */}
       <div className="tab-content">
         {activeTab === 'home' ? renderHomeTab() : renderSeatingTab()}
+      </div>
+      {/* 바텀 시트: 오버레이 클릭으로도 닫히게 유지(선택사항) */}
+      <div className={`inline-sheet ${showTaken ? 'open' : ''}`}>
+        <TakenSeat />
       </div>
     </div>
   );
