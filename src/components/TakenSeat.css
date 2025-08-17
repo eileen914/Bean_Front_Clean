@@ -159,6 +159,12 @@
   padding: 6px 22px;
   position: relative;
   width: 149px;
+  transition: 'background-color' .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.taken-frame .taken-div-wrapper-3.reserved {
+  background-color: #c0c0c0; /* 배경 */
+  border-color: #8C8C8C;     /* 테두리 */
 }
 
 .taken-frame .taken-text-wrapper-6 {
@@ -170,4 +176,8 @@
   line-height: normal;
   white-space: nowrap;
   width: fit-content;  
+}
+
+.taken-frame .taken-div-wrapper-3.reserved .taken-text-wrapper-6 {
+  color: #3c3c3c;            /* 텍스트 */
 }
