@@ -11,6 +11,7 @@ import arrowIcon from '../assets/ep_arrow-up.svg';
 import menuVector from '../assets/menu-vector.svg';
 import ZoomPanUser from '../components/ZoomPanUser';
 import TakenSeat from '../components/TakenSeat';
+import UntakenSeat from '../components/UntakenSeat';
 
 const UserCafeDetail = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -211,7 +212,7 @@ const UserCafeDetail = () => {
       </div>
       {/* 바텀 시트: 오버레이 클릭으로도 닫히게 유지(선택사항) */}
       <div className={`inline-sheet ${showTaken ? 'open' : ''}`}>
-        <TakenSeat />
+        <UntakenSeat />
       </div>
     </div>
   );
