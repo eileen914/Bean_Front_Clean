@@ -212,7 +212,7 @@ const UserCafeDetail = () => {
       </div>
       {/* 바텀 시트: 오버레이 클릭으로도 닫히게 유지(선택사항) */}
       <div className={`inline-sheet ${showTaken ? 'open' : ''}`}>
-        <UntakenSeat />
+        <TakenSeat />
       </div>
     </div>
   );
