@@ -12,6 +12,7 @@ import menuVector from '../assets/menu-vector.svg';
 import ZoomPanUser from '../components/ZoomPanUser';
 import TakenSeat from '../components/TakenSeat';
 import UntakenSeat from '../components/UntakenSeat';
+import RatingTag from '../components/RatingTag/RatingTag';
 
 const UserCafeDetail = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -61,7 +62,10 @@ const UserCafeDetail = () => {
       <div className="user-cafe-info">
         <div className="info-header">
           <div className="user-cafe-tags">
+            <RatingTag />
+           { /*
             <span className="user-tag">#카공</span>
+           */ }
             <div className="rating">
               <img src={starRating} className="star-icon" />
               <span>4.9(1,067)</span>
@@ -190,14 +194,12 @@ const UserCafeDetail = () => {
           리뷰 1,503
         </button>
 
-        {/* 탭 텍스트 바로 아래 밑줄 */}
         <span
           className="tab-underline"
           style={{ transform: `translateX(${activeIndex * 100}%)` }}
         />
       </div>
 
-      {/* ✅ 홈일 때만, 탭과 tab-content 사이에 이미지 삽입 */}
       {activeTab === 'home' && (
         <div className="image-slider">
           <div className="slider-placeholder">

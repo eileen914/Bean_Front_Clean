@@ -37,12 +37,10 @@ export default function ZoomPan({ children, min = 0.5, max = 4, step = 0.2 }) {
     return { x: (vw - w * s) / 2, y: (vh - h * s) / 2 };
   };
 
-  // ✅ 초기 진입 시 "가운데 정렬" (이미지가 캐시에 있어도 재계산)
+
   useLayoutEffect(() => {
-    // 1) 즉시 한 번 가운데
     setPos(getCenterPos(scale));
 
-    // 2) 이미지 로드 후 natural 크기 확정되면 한 번 더 가운데
     const img = contentRef.current?.querySelector("img");
     if (img) {
       const recenter = () => setPos(getCenterPos(scale));
@@ -50,8 +48,8 @@ export default function ZoomPan({ children, min = 0.5, max = 4, step = 0.2 }) {
       else img.addEventListener("load", recenter, { once: true });
       return () => img.removeEventListener && img.removeEventListener("load", recenter);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // 최초만
+   
+  }, []);
 
   // wheel: non-passive로 등록 (축소 시 '최소 배율 도달'일 때만 중앙 스냅 유지)
   useEffect(() => {

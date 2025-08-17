@@ -54,8 +54,7 @@ import "./TakenSeat.css";
           <span className="taken-text-wrapper-4">&nbsp;</span>
           <span className="taken-text-wrapper-4">(남은 시간 1시간 15분)</span>
         </p>
-
-        {/* ▼ 같은 상자 토글 */}
+        
         <div
           className={`taken-div-wrapper-3 ${reserved ? "reserved" : ""}`}
           role="button"

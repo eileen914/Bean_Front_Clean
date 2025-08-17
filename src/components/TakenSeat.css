@@ -160,6 +160,7 @@
   position: relative;
   width: 149px;
   transition: 'background-color' .2s ease, border-color .2s ease, color .2s ease;
+  cursor: pointer;
 }
 
 .taken-frame .taken-div-wrapper-3.reserved {
