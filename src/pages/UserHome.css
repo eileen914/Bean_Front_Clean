@@ -1,5 +1,8 @@
-/* Google Fonts import */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+@font-face {
+  font-family: 'Lexend';
+  src: url('../assets/fonts/Lexend-VariableFont_wght.ttf') format('truetype');
+  font-display: swap;
+}
 
 /* Reset and base styles */
 * {

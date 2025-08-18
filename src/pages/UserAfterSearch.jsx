@@ -60,8 +60,8 @@ const UserAfterSearch = () => {
   const handleDragEnd = () => {
     setIsDragging(false);
     const threshold = COLLAPSED_DRAG_Y / 2; // 338px
-    if (dragY < threshold) setDragY(0);                   // 풀오픈으로 스냅
-    else setDragY(COLLAPSED_DRAG_Y);                      // 70px만 보이도록 스냅
+    if (dragY < threshold) setDragY(0);        // 풀오픈으로 스냅
+    else setDragY(COLLAPSED_DRAG_Y);           // 70px만 보이도록 스냅
   };
 
   // 전역 드래그 처리 (마우스+터치)
@@ -165,10 +165,17 @@ const UserAfterSearch = () => {
               </div>
             </div>
 
-            {/* 콘텐츠들 */}
-            <div className="after-search-container">
-              <CafeList />
-              <CafeList />
+            {/* 콘텐츠들 (스크롤 리스트) */}
+            <div
+              className="after-search-container"
+              onMouseDown={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
+            >
+              {Array.from({ length: 10 }).map((_, idx) => (
+                <CafeList key={idx} />
+              ))}
             </div>
 
             {/* 검색 입력 */}

@@ -30,80 +30,80 @@ export const CafeList = ({
         <div className="cafe-list-div">
           <div className="cafe-list-text-wrapper">{text}</div>
 
-          <div className="frame-2">
+          <div className="list-frame-2">
             <img className="ellipse" alt="Ellipse" src={ellipse} />
 
-            <div className="frame-3">
+            <div className="list-frame-3">
               <div className="bxs-coffee-bean">
                 <div className="overlap-group">
-                  <img className="vector" alt="Vector" src={coffee} />
+                  <img className="list-vector" alt="Vector" src={coffee} />
 
-                  <img className="img" alt="Vector" src={coffee} />
+                  <img className="list-img" alt="Vector" src={coffee} />
                 </div>
               </div>
 
-              <p className="element">
-                <span className="span">2 </span>
+              <p className="list-element">
+                <span className="list-span">2 </span>
 
-                <span className="text-wrapper-2">/ 10</span>
+                <span className="list-text-wrapper-2">/ 10</span>
               </p>
             </div>
           </div>
         </div>
 
         <div className="material-symbols">
-          <img className="vector-2" alt="bookmark" src={bookmark} />
+          <img className="list-vector-2" alt="bookmark" src={bookmark} />
         </div>
       </div>
 
-      <div className="frame-4">
-        <div className="frame-5">
-          <div className="frame-5">
-            <div className="frame-6">
-              <div className="frame-7">
-                <img className="vector-3" alt="Star" src={star_rating} />
+      <div className="list-frame-4">
+        <div className="list-frame-5">
+          <div className="list-frame-5">
+            <div className="list-frame-6">
+              <div className="list-frame-7">
+                <img className="list-vector-3" alt="Star" src={star_rating} />
 
-                <p className="p">
-                  <span className="text-wrapper-3">4.9 </span>
+                <p className="list-p">
+                  <span className="list-text-wrapper-3">4.9 </span>
 
-                  <span className="text-wrapper-4">(1,067)</span>
+                  <span className="list-text-wrapper-4">(1,067)</span>
                 </p>
               </div>
 
-              <div className="div-wrapper">
-                <p className="div-2">
-                  <span className="text-wrapper-5">#</span>
+              <div className="list-div-wrapper">
+                <p className="list-div-2">
+                  <span className="list-text-wrapper-5">#</span>
 
-                  <span className="text-wrapper-6">&nbsp;</span>
+                  <span className="list-text-wrapper-6">&nbsp;</span>
 
-                  <span className="text-wrapper-5">카공</span>
+                  <span className="list-text-wrapper-5">카공</span>
                 </p>
               </div>
             </div>
 
-            <div className="frame-8">
+            <div className="list-frame-8">
               <div className="ion-location-sharp">
-                <img className="vector-4" alt="location" src={ion_location} />
+                <img className="list-vector-4" alt="location" src={ion_location} />
               </div>
 
-              <div className="frame-8">
-                <div className="text-wrapper-7">서울대입구역</div>
+              <div className="list-frame-8">
+                <div className="list-text-wrapper-7">서울대입구역</div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="frame-9">
+        <div className="list-frame-9">
           <img className="mdi-clock" alt="clock" src={mdi_clock} />
           <div className="frame-6">
-            <div className="text-wrapper-8">영업종료</div>
+            <div className="list-text-wrapper-8">영업종료</div>
           </div>
 
-          <div className="text-wrapper-9">오늘(월) 12:00 ~ 18:00</div>
+          <div className="list-text-wrapper-9">오늘(월) 12:00 ~ 18:00</div>
         </div>
       </div>
 
-      <div className="frame-10">
+      <div className="list-frame-10">
         <div className="list-rectangle" />
         
         <div className="list-rectangle" />
