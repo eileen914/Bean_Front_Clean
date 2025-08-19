@@ -1,15 +1,16 @@
 .cafe-list {
   align-items: flex-start;
-  /* border-color: #000000;
+  border-color: transparent;
   border-top-style: solid;
   border-top-width: 1px; */
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   padding: 0px 0px 10px;
   position: relative;
   width: 100%;
   max-width: 350px;
+  height: fit-content;
 }
 
 .cafe-list .cafe-list-frame {
@@ -75,7 +76,7 @@
   align-items: center;
   display: inline-flex;
   flex: 0 0 auto;
-  gap: 5px;
+  gap: 4px;
   justify-content: center;
   position: relative;
 }
@@ -142,21 +143,40 @@
 }
 
 .cafe-list .list-vector-2 {
-  height: 16px;
+  height: 17px;
   left: 5px;
   position: absolute;
   top: 3px;
-  width: 13px;
+  width: 17px;
 }
 
 .cafe-list .list-frame-4 {
-  align-items: flex-start;
-  display: inline-flex;
-  flex: 0 0 auto;
+  display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 8px;
   padding: 0px 5px;
   position: relative;
+}
+
+.cafe-list .list-rating-tag {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.cafe-list .list-address {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.cafe-list .list-business-time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 }
 
 .cafe-list .list-frame-5 {
@@ -284,12 +304,13 @@
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0;
-  line-height: 10px;
-  margin-top: -1px;
+  line-height: 16px;
+  margin-top: -1.00px;
   position: relative;
-  text-align: center;
-  white-space: nowrap;
-  width: fit-content;
+  text-align: left;
+  white-space: normal;
+  word-break: break-all;
+  width: 100%;
 }
 
 .cafe-list .list-frame-9 {
@@ -394,3 +415,17 @@
   white-space: nowrap;
   width: 33px;
 }
+
+/* 1) 안쪽 컨테이너에 줄바꿈 허용 */
+.cafe-list .list-frame-4 > .list-frame-5 > .list-frame-5 {
+  display: flex;      /* 기존 inline-flex보다 명시적으로 flex */
+  flex-wrap: wrap;    /* 줄바꿈 허용 */
+  gap: 10px;          /* 기존 간격 유지 */
+}
+
+/* 2) 평점/태그(.list-frame-6)가 한 줄 모두 차지 → 주소는 자동으로 다음 줄 */
+.cafe-list .list-frame-6 {
+  flex-basis: 100%;
+}
+
+
