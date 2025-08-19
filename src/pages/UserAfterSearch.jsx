@@ -46,6 +46,7 @@ const UserAfterSearch = () => {
       const data = await getChatbot(bubbleText);
       setCafes(data);
     };
+    console.log(cafes);
     getChatbotAPI();
   }, [bubbleText]);
 
@@ -136,7 +137,7 @@ const UserAfterSearch = () => {
       <main className="main-content">
         <div className="image-container">
           <div className="main-image">
-            <Kakaomap />
+            <Kakaomap cafeList={cafes} />
           </div>
         </div>
 
@@ -197,8 +198,15 @@ const UserAfterSearch = () => {
               onTouchMove={(e) => e.stopPropagation()}
               onWheel={(e) => e.stopPropagation()}
             >
-              {Array.from({ length: 10 }).map((_, idx) => (
-                <CafeList key={idx} />
+              {cafes.map((cafe) => (
+                <CafeList
+                  key={cafe.id}
+                  cafeId={cafe.id}
+                  cafeName={cafe.name}
+                  cafeAddress={cafe.address}
+                  ownerId={cafe.owner}
+                  cafeImages={cafe.photo_urls}
+                />
               ))}
             </div>
 
@@ -216,11 +224,14 @@ const UserAfterSearch = () => {
                     placeholder="검색어를 입력하세요."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    onFocus={(e) => (e.target.placeholder = '')}
+                    onFocus={(e) => (e.target.placeholder = "")}
                     onBlur={(e) => {
-                      if (!inputValue) e.target.placeholder = '검색어를 입력하세요.';
+                      if (!inputValue)
+                        e.target.placeholder = "검색어를 입력하세요.";
                     }}
-                    onKeyDown={(e) => { if (e.key === 'Enter') applyQueryToBubble(); }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") applyQueryToBubble();
+                    }}
                     onMouseDown={(e) => e.stopPropagation()}
                     onTouchStart={(e) => e.stopPropagation()}
                   />
