@@ -14,7 +14,7 @@ const options = [
 
 const RatingTag = ({ onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState("#카공");
+  const [selected, setSelected] = useState("# 카공");
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   const handleSelect = (option) => {

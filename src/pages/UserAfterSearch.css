@@ -132,7 +132,7 @@ body {
   flex-direction: column;
   height: 746px;
   justify-content: space-between;
-  padding: 15px 25px 30px;
+  padding: 15px 25px 10px;
   position: relative;
 }
 

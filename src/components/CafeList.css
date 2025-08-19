@@ -1,8 +1,8 @@
 .cafe-list {
   align-items: flex-start;
-  border-color: #000000;
+  /* border-color: #000000;
   border-top-style: solid;
-  border-top-width: 1px;
+  border-top-width: 1px; */
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -96,11 +96,11 @@
 }
 
 .cafe-list .list-vector {
-  height: 7px;
+  height: 11px;
   left: 0;
   position: absolute;
   top: 0;
-  width: 8px;
+  width: 11px;
 }
 
 .cafe-list .list-img {
