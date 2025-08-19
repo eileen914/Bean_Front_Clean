@@ -1,0 +1,102 @@
+:root {
+  --ts-ink: #2c2c2c;
+  --ts-muted: #8a8f98;
+  --ts-line: #d9d9d9;
+  --ts-green: #2f7d32;
+  --ts-pill: #e3efe4;
+  --ts-pill-ink: #2f7d32;
+  --ts-btn-border: #cfcfcf;
+  --ts-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 6px 22px rgba(0, 0, 0, 0.08);
+}
+
+.ts-card {
+  background: #fff;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: var(--ts-shadow);
+
+  /* 크기 고정 */
+  width: 380px;
+  height: 280px;
+
+  /* 내부 배치 */
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 위/아래 균등 배치 */
+}
+
+.ts-header {
+  margin-bottom: 8px;
+}
+
+.ts-title {
+  font-size: 22px;
+  font-weight: 720;
+  color: var(--ts-green);
+}
+.ts-title strong {
+  font-weight: 900;
+}
+
+.ts-pill {
+  display: block;
+  text-align: center;
+  margin: 20px;
+  padding: 10px 16px;
+  background: var(--ts-pill);
+  color: #2c2c2c;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+.ts-meta {
+  color: var(--ts-muted);
+  font-size: 14px;
+}
+.ts-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 4px 0;
+}
+.ts-key {
+  color: var(--ts-muted);
+}
+.ts-sep {
+  color: #bdbdbd;
+}
+.ts-val {
+  color: #6e7680;
+}
+.ts-remaining {
+  color: #2f7d32;
+  font-weight: 700;
+}
+
+.ts-actions {
+  margin-top: auto;
+}
+.ts-btn {
+  width: 100%;
+  background: #fff;
+  color: var(--ts-ink);
+  border: 2px solid var(--ts-btn-border);
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.2s ease;
+}
+.ts-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.ts-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

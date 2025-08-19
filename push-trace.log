@@ -1,0 +1,9 @@
+18:54:03.572022 git.c:476               trace: built-in: git push -u origin merger-test-0813-junha --progress
+18:54:03.582121 run-command.c:667       trace: run_command: unset GIT_PREFIX; ssh git@github.com 'git-receive-pack '\''eileen914/Bean_Front_Clean.git'\'''
+18:54:03.583245 run-command.c:759       trace: start_command: /usr/bin/ssh git@github.com 'git-receive-pack '\''eileen914/Bean_Front_Clean.git'\'''
+git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+18:54:04.664244 trace.c:417             performance: 1.094556000 s: git command: git push -u origin merger-test-0813-junha --progress

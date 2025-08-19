@@ -1,0 +1,204 @@
+@font-face {
+  font-family: "HomemadeApple";
+  src: url("../assets/fonts/HomemadeApple-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url("../assets/fonts/Outfit-VariableFont_wght.ttf") format("truetype");
+  font-display: swap;
+}
+
+.landing-page-before {
+  align-items: start;
+  background-color: #ffffff;
+  display: grid;
+  height: 100%;
+  justify-items: center;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.landing-page-before .overlap-group-wrapper {
+  background-color: #ffffff;
+  height: 832px;
+  width: 1280px;
+}
+
+.landing-page-before .overlap-group {
+  height: 842px;
+  left: 434px;
+  position: relative;
+  top: -10px;
+  width: 420px;
+}
+
+.landing-page-before .group {
+  height: 832px;
+  left: 0;
+  position: absolute;
+  top: 10px;
+  width: 420px;
+}
+
+.landing-page-before .frame {
+  align-items: center;
+  display: inline-flex;
+  gap: 15px;
+  left: 102px;
+  position: absolute;
+  top: 647px;
+}
+
+.landing-page-before .div-wrapper {
+  align-items: center;
+  border: 1px solid;
+  border-color: #ffffff;
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+  position: relative;
+  width: 100px;
+}
+
+.landing-page-before .text-wrapper {
+  color: #ffffff;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.landing-page-before .div {
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+  position: relative;
+  width: 100px;
+}
+
+.landing-page-before .text-wrapper-2 {
+  color: #391d0a;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.landing-page-before .frame-2 {
+  align-items: flex-end;
+  display: flex;
+  gap: 10px;
+  height: 170px;
+  left: 29px;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  width: 130px;
+}
+
+.landing-page-before .rectangle-wrapper {
+  align-items: center;
+  display: inline-flex;
+  gap: 10px;
+  left: 0;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+}
+
+.landing-page-before .rectangle {
+  background-color: #f9f8f4;
+  border-radius: 0px 0px 50px 50px;
+  height: 150px;
+  position: relative;
+  width: 110px;
+}
+
+.landing-page-before .img {
+  height: 100px;
+  position: relative;
+  width: 88px;
+}
+
+.landing-page-before .frame-3 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  left: 17px;
+  position: absolute;
+  top: 312px;
+  width: 377px;
+}
+
+.landing-page-before .frame-4 {
+  align-items: center;
+  align-self: stretch;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: #ffffff;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.landing-page-before .p {
+  color: #ffffff;
+  font-family: "HomemadeApple", Helvetica;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-left: -29px;
+  margin-right: -29px;
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
+  width: 435px;
+}
+
+.landing-page-before .frame-5 {
+  align-items: center;
+  align-self: stretch;
+  display: inline-flex;
+  gap: 10px;
+  height: 130px;
+  justify-content: center;
+  position: relative;
+}
+
+.landing-page-before .text-wrapper-3 {
+  color: #ffffff;
+  font-family: "Outfit", Helvetica;
+  font-size: 128px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-bottom: -14.5px;
+  margin-top: -16.5px;
+  position: relative;
+  width: fit-content;
+}
