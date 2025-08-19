@@ -8,7 +8,8 @@
   gap: 5px;
   padding: 0px 0px 10px;
   position: relative;
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
 }
 
 .cafe-list .cafe-list-frame {
@@ -50,7 +51,7 @@
   width: fit-content;
 }
 
-.cafe-list .frame-2 {
+.cafe-list .list-frame-2 {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -70,7 +71,7 @@
   width: 70px;
 }
 
-.cafe-list .frame-3 {
+.cafe-list .list-frame-3 {
   align-items: center;
   display: inline-flex;
   flex: 0 0 auto;
@@ -94,7 +95,7 @@
   width: 8px;
 }
 
-.cafe-list .vector {
+.cafe-list .list-vector {
   height: 7px;
   left: 0;
   position: absolute;
@@ -102,7 +103,7 @@
   width: 8px;
 }
 
-.cafe-list .img {
+.cafe-list .list-img {
   height: 7px;
   left: 1px;
   position: absolute;
@@ -110,7 +111,7 @@
   width: 8px;
 }
 
-.cafe-list .element {
+.cafe-list .list-element {
   color: var(--variable-collection-chatbot-bgcolor);
   font-family: "Inter-Regular", Helvetica;
   font-size: 11px;
@@ -123,11 +124,11 @@
   width: fit-content;
 }
 
-.cafe-list .span {
+.cafe-list .list-span {
   color: #d90000;
 }
 
-.cafe-list .text-wrapper-2 {
+.cafe-list .list-text-wrapper-2 {
   color: #685d49ed;
 }
 
@@ -140,7 +141,7 @@
   width: 22px;
 }
 
-.cafe-list .vector-2 {
+.cafe-list .list-vector-2 {
   height: 16px;
   left: 5px;
   position: absolute;
@@ -148,7 +149,7 @@
   width: 13px;
 }
 
-.cafe-list .frame-4 {
+.cafe-list .list-frame-4 {
   align-items: flex-start;
   display: inline-flex;
   flex: 0 0 auto;
@@ -158,7 +159,7 @@
   position: relative;
 }
 
-.cafe-list .frame-5 {
+.cafe-list .list-frame-5 {
   align-items: center;
   display: inline-flex;
   flex: 0 0 auto;
@@ -166,7 +167,7 @@
   position: relative;
 }
 
-.cafe-list .frame-6 {
+.cafe-list .list-frame-6 {
   align-items: center;
   display: inline-flex;
   flex: 0 0 auto;
@@ -174,7 +175,7 @@
   position: relative;
 }
 
-.cafe-list .frame-7 {
+.cafe-list .list-frame-7 {
   align-items: center;
   display: flex;
   gap: 2px;
@@ -182,13 +183,13 @@
   width: 78px;
 }
 
-.cafe-list .vector-3 {
+.cafe-list .list-vector-3 {
   height: 10.22px;
   position: relative;
   width: 10.7px;
 }
 
-.cafe-list .p {
+.cafe-list .list-p {
   color: rgba(249, 248, 244, 1);
   font-family: "Inter-SemiBold", Helvetica;
   font-size: 13px;
@@ -202,18 +203,18 @@
   width: fit-content;
 }
 
-.cafe-list .text-wrapper-3 {
+.cafe-list .list-text-wrapper-3 {
   color: #f9f8f4;
   font-weight: 600;
 }
 
-.cafe-list .text-wrapper-4 {
+.cafe-list .list-text-wrapper-4 {
   color: #d4ceb8;
   font-family: "Inter-Medium", Helvetica;
   font-weight: 500;
 }
 
-.cafe-list .div-wrapper {
+.cafe-list .list-div-wrapper {
   align-items: center;
   align-self: stretch;
   background-color: #786e5ded;
@@ -226,7 +227,7 @@
   position: relative;
 }
 
-.cafe-list .div-2 {
+.cafe-list .list-div-2 {
   align-self: stretch;
   color: rgba(249, 248, 244, 1);
   font-family: "Inter-Medium", Helvetica;
@@ -241,7 +242,7 @@
   width: 34px;
 }
 
-.cafe-list .text-wrapper-5 {
+.cafe-list .list-text-wrapper-5 {
   color: #f9f8f4;
   font-family: "Inter-Medium", Helvetica;
   font-size: 12px;
@@ -250,11 +251,11 @@
   line-height: 10px;
 }
 
-.cafe-list .text-wrapper-6 {
+.cafe-list .list-text-wrapper-6 {
   font-size: 5px;
 }
 
-.cafe-list .frame-8 {
+.cafe-list .list-frame-8 {
   align-items: center;
   display: inline-flex;
   flex: 0 0 auto;
@@ -268,7 +269,7 @@
   width: 14px;
 }
 
-.cafe-list .vector-4 {
+.cafe-list .list-vector-4 {
   height: 12px;
   left: 3px;
   position: absolute;
@@ -276,7 +277,7 @@
   width: 9px;
 }
 
-.cafe-list .text-wrapper-7 {
+.cafe-list .list-text-wrapper-7 {
   color: rgba(249, 248, 244, 1);
   font-family: "Inter-Medium", Helvetica;
   font-size: 13px;
@@ -290,7 +291,7 @@
   width: fit-content;
 }
 
-.cafe-list .frame-9 {
+.cafe-list .list-frame-9 {
   align-items: center;
   align-self: stretch;
   display: flex;
@@ -307,7 +308,7 @@
   width: 13px !important;
 }
 
-.cafe-list .text-wrapper-8 {
+.cafe-list .list-text-wrapper-8 {
   color:rgba(249, 248, 244, 1);
   font-family: "Inter-SemiBold", Helvetica;
   font-size: 13px;
@@ -320,7 +321,7 @@
   width: fit-content;
 }
 
-.cafe-list .text-wrapper-9 {
+.cafe-list .list-text-wrapper-9 {
   color: #ebe9e4;
   font-family: "Inter-Regular", Helvetica;
   font-size: 13px;
@@ -333,7 +334,7 @@
   width: 153px;
 }
 
-.cafe-list .frame-10 {
+.cafe-list .list-frame-10 {
   align-items: center;
   align-self: stretch;
   display: flex;
@@ -342,6 +343,7 @@
   padding: 0px 5px;
   position: relative;
   width: 100%;
+  gap: 10px;
 }
 
 .cafe-list .list-rectangle {

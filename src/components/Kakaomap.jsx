@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import cafe_list from '../assets/cafe_list.jsx';
 import MapPins from '../assets/seats_pin2.jsx'; 
-import createSeatsPinImage from '../assets/new_seat_pin.jsx'
+import createSeatsPinImage from '../assets/seats_pin.jsx'
 
 function Kakaomap() {
   const mapRef = useRef(null);
@@ -34,10 +34,10 @@ function Kakaomap() {
       if (available === 0) {
         return { fg: 'rgba(53, 53, 53, 0.95)'}; 
       }
-      if (available <= 3) {
+      if (available <= 2) {
         return { fg: '#930c00ff'};           
       }
-      return { fg: '#0d5300ff'};        
+      return { fg: '#4b2000ff'};        
     };
 
     const jobs = cafe_list.map(async (cafe) => {

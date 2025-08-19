@@ -1,0 +1,529 @@
+@font-face {
+  font-family: 'LeagueSpartan';
+  src: url('../assets/fonts/LeagueSpartan-VariableFont_wght.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* Cafe Detail Container */
+.cafe-detail-container {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  min-height: 844px;
+  margin: 0 auto;
+  background-color: #f9f8f4;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  flex: 0 0 auto;
+  align-self: center;
+  justify-self: center;
+}
+
+/* Header */
+.user-cafe-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 37px 15px 0px;
+  background-color: #f9f8f4;
+  position: relative;
+  height: 97px;
+  width: 420px;
+  margin: 0 auto;
+}
+
+.user-header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 300px;
+}
+
+.user-back-button {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  position: relative;
+}
+
+.user-arrow-icon {
+  cursor: pointer;
+}
+
+.cafe-title {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 10px;
+  margin-bottom: -10.00px;
+  margin-top: -10.00px;
+  padding: 15px 20px;
+  position: relative;
+}
+
+
+.user-cafe-text-wrapper {
+  color: #000000;
+  font-family: "Spartan-SemiBold", Helvetica;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 30px;
+  margin-top: -1.00px;
+  position: relative;
+  text-align: left;
+  white-space: nowrap;
+  width: fit-content;
+} 
+
+.user-cafe-detail-menu-button {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Navigation Tabs */
+.user-cafe-detail-nav-tabs {
+  display: flex;
+  width: 100%;
+  background-color: #f9f8f4;
+  padding: 0 20px;
+  position: relative;
+  border-bottom: 1px solid #ddd
+}
+
+.detail-nav-tab {
+  flex: 1;
+  text-align: center;
+  background: none;
+  border: none;
+  padding: 8px 3px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.detail-nav-tab.active {
+  font-weight: 700;
+}
+
+.detail-nav-tab:hover {
+  opacity: 0.8;
+}
+
+/* Home Tab */
+.user-cafe-detail-home-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.tab-underline {
+  position: absolute;
+  bottom: 0;
+  left: 20px;                       
+  width: calc((100% - 40px) / 4);  
+  height: 2px;
+  background: #000;
+  transition: transform 0.25s ease;
+  z-index: 1;                      
+}
+
+/* Tab Content */
+.tab-content {
+  padding: 20px;
+}
+
+/* Home Tab */
+.user-cafe-detail-home-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Image Slider */
+.image-slider {
+  width: 100%;
+  height: 232px;
+  background-color: #efefef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-placeholder {
+  color: #717070;
+  font-size: 14px;
+}
+
+/* Cafe Information */
+.user-cafe-info {
+  background-color: #f9f8f4;
+}
+
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.tag {
+  background-color: #f0eee7;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #3f3f3f 
+}
+
+.review-link {
+  color: #717070;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+  margin-left: 7px;
+}
+
+.info-details .user-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.location-icon,
+.clock-icon,
+.coffee-icon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  margin-top: 0;
+  display: block;
+  fill: #717070;
+}
+
+.info-details .user-detail-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.station {
+  color: #000;
+}
+
+.separator {
+  color: #717070;
+}
+
+.address {
+  color: #717070;
+}
+
+.status-closed {
+  color: #d90000;
+}
+
+.open-hours {
+  color: #000;
+}
+
+.user-cafe-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.user-cafe-tags .user-tag {
+  background-color: #e8e8e8;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 5px;
+}
+
+/* Location Section */
+.location-section h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 15px 0;
+}
+
+.map-container {
+  width: 100%;
+  height: 210px;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid #f6f6f6;
+}
+
+.map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Seating Tab */
+.seating-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.seating-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.seating-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.seating-count {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.available-count {
+  color: #d90000; 
+  margin-left: 5px;
+}
+
+.total-count {
+  color: #424242; /* 검정색 */
+}
+
+.seating-description {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
+  line-height: 1.6;
+  padding: 0 20px;
+}
+
+.seating-draft {
+  width: 100%;
+  height: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #726856;
+}
+
+/* Seating Legend */
+.seating-legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 10px;
+  gap: 15px;
+  font-size: 13px;
+}
+
+.seating-text-wrapper {
+  color: #000000;
+  font-family: "Inter-Semibold", Helvetica;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.seating-text-wrapper {
+  color: #000000;
+  font-family: "Inter-Semibold", Helvetica;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.legend-items {
+  display: flex;
+  gap: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid;
+}
+
+.legend-color.available {
+  background-color: #bed3c1;
+  border-color: #1c6a28;
+}
+
+.legend-color.occupied {
+  background-color: #1c6a28;
+  border-color: #1c6a28;
+}
+
+.legend-color.selected {
+  background-color: #d90000;
+  border-color: #d90000;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .cafe-detail-container {
+    max-width: 100%;
+  }
+  
+  .header {
+    padding: 15px 15px 0;
+  }
+  
+  .nav-tabs {
+    padding: 0 15px;
+  }
+  
+  .tab-content {
+    padding: 15px;
+  }
+  
+  .legend-items {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Hover Effects */
+.nav-tab:hover {
+  opacity: 0.8;
+}
+
+.review-link:hover {
+  text-decoration: underline;
+}
+
+.tag:hover {
+  opacity: 0.8;
+}
+
+/* Transitions */
+.nav-tab,
+.tag,
+.review-link {
+  transition: all 0.2s ease;
+}
+
+/* ZoomPanUser 기본 레이아웃: 부모(.seating-draft)가 360px 높이를 제공 */
+.zoompan-user-viewport {
+  width: 100%;
+  height: 100%;     /* 부모 높이에 맞춤 (seating-draft: 360px) */
+  overflow: hidden;
+  position: relative;
+  background: #f6f6f6; /* 여백색 */
+}
+
+.zoompan-user-content {
+  position: absolute; /* translate 기준점 */
+  top: 0;
+  left: 0;
+}
+
+.zoompan-user-img {
+  display: block;
+  /* 줌/배율 계산을 직접 적용하므로 크기 자동 */
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  pointer-events: none; /* 드래그 시 이미지 선택 방지 */
+  user-select: none;
+}
+
+/* (선택) 기존 .draft-image 규칙이 전역에 있다면 충돌 방지 */
+.seating-draft .draft-image { 
+  width: auto !important;
+  height: auto !important;
+  object-fit: initial !important;
+}
+
+
+/* 컨테이너 내부 반투명 배경 (선택) */
+.inline-backdrop {
+  position: absolute;      /* 컨테이너 내부만 덮음 */
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+  z-index: 20;
+}
+.inline-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;    /* 클릭으로 닫기 가능 */
+}
+
+/* 바닥 시트 */
+.inline-sheet {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  bottom: var(--sheet-bottom, 0px);
+  z-index: 9999;             /* backdrop 위로 */
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+
+  background: transparent;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 180ms ease-out, opacity 180ms ease-out;
+}
+
+/* 열릴 때 위로 슥 올라옴 */
+.inline-sheet.open {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}

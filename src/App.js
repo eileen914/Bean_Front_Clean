@@ -15,6 +15,8 @@ import CafeHomeBeanUpdate from "./pages/CafeHomeBeanUpdate";
 import CafeTableInfo from "./pages/CafeTableInfo";
 
 import TestTableStatusCard from "./pages/TestTableStatusCard";
+import UserCafeDetail from "./pages/UserCafeDetail";
+import TakenSeat from "./components/TakenSeat";
 import TestSeatStartCard from "./pages/TestSeatStartCard";
 import TestTableMetaCard from "./pages/TestTableMetaCard.jsx";
 
@@ -39,9 +41,10 @@ function App() {
           <Route path="/cafe-update" element={<CafeHomeBeanUpdate />} />
           <Route path="/cafe-tables" element={<CafeTableInfo />} />
           <Route path="/test-card" element={<TestTableStatusCard />} />
+          <Route path="/user-cafe-detail" element={<UserCafeDetail />} />
+          <Route path="/taken-seat" element={<TakenSeat />} />
           <Route path="/test-seat-start" element={<TestSeatStartCard />} />
           <Route path="/test-table-meta" element={<TestTableMetaCard />} />
-
         </Routes>
       
       </div>
