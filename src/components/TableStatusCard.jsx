@@ -70,3 +70,4 @@ const TableStatusCard = ({
 };
 
 export default TableStatusCard;
+

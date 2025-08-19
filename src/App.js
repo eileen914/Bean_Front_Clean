@@ -1,3 +1,4 @@
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DefaultLanding from "./pages/DefaultLanding";
@@ -17,6 +18,7 @@ import TestTableStatusCard from "./pages/TestTableStatusCard";
 import TestSeatStartCard from "./pages/TestSeatStartCard";
 import TestTableMetaCard from "./pages/TestTableMetaCard.jsx";
 
+
 function App() {
   return (
     <Router>
@@ -33,15 +35,20 @@ function App() {
           <Route path="/user-landing" element={<UserLanding />} />
           <Route path="/user-home" element={<UserHome />} />
           <Route path="/user-after-search" element={<UserAfterSearch />} />
+
           <Route path="/cafe-update" element={<CafeHomeBeanUpdate />} />
           <Route path="/cafe-tables" element={<CafeTableInfo />} />
           <Route path="/test-card" element={<TestTableStatusCard />} />
           <Route path="/test-seat-start" element={<TestSeatStartCard />} />
           <Route path="/test-table-meta" element={<TestTableMetaCard />} />
+
         </Routes>
+      
       </div>
     </Router>
   );
 }
 
-export default App;
+
+export default App; 
+

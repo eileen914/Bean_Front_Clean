@@ -35,6 +35,7 @@ export const UserLanding = () => {
               <div className="rectangle" />
             </div>
             <img src="/logo.png" alt="로고" className="img" />
+
           </div>
 
           <div className="frame-3">

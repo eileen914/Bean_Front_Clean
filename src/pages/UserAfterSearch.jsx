@@ -100,6 +100,7 @@ const UserAfterSearch = () => {
                 d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"
                 fill="#391d0a"
               />
+
             </svg>
           </button>
         </div>
@@ -119,9 +120,11 @@ const UserAfterSearch = () => {
           ref={bottomRef}
           style={{
             transform: `translateX(-50%) translateY(${dragY}px)`,
+
             transition: isDragging ? "none" : "transform 0.3s ease",
           }}
           onMouseDown={handleDragStart}
+
           onMouseUp={handleDragEnd}
           onTouchStart={handleDragStart}
           onTouchEnd={handleDragEnd}
@@ -188,6 +191,7 @@ const UserAfterSearch = () => {
                     onClick={applyQueryToBubble}
                     onMouseDown={(e) => e.stopPropagation()} // ★ 드래그 방지
                     style={{ cursor: "pointer" }}
+
                   />
                 </div>
               </div>
