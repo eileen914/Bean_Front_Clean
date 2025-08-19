@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CafeHomeBeanUpdate.css";
 import MenuDropdown from "../components/MenuDropdown";
+import whitecursor from "../assets/white-cursor.svg";
 import testDraft from "../assets/test_draft.png";
 import ZoomPan from "../components/ZoomPan";
 
