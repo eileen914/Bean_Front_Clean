@@ -1,5 +1,3 @@
-// src/apis/axios.js
-
 import axios from "axios";
 import { getCookie } from "../utils/cookie";
 
@@ -15,8 +13,6 @@ export const instance = axios.create();
 // Token 있어야 접근 가능한 API들 - 얘는 토큰을 넣어줘야 해요
 export const instanceWithToken = axios.create();
 
-// ⬇️ 추가
-// instanceWithToken에는 쿠키에서 토큰을 찾고 담아줍시다!
 instanceWithToken.interceptors.request.use(
   // 요청을 보내기전 수행할 일
   // 사실상 이번 세미나에 사용할 부분은 이거밖에 없어요
