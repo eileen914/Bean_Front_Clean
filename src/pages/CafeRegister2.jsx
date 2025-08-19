@@ -1,16 +1,63 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./CafeRegister2.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { signUp, checkLogin, createCafe } from "../apis/api";
+import { use } from "react";
 
 const CafeRegister2 = () => {
   const navigate = useNavigate();
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const fileInputRef = useRef(null);
+  const [signUpData, setSignUpData] = useState({
+    username: "",
+    password: "",
+  });
+  const [cafeData, setCafeData] = useState({
+    name: "",
+    address: "",
+    description: "",
+  });
+  const [errorMsg, setErrorMsg] = useState("");
+  const [issigningUp, setIssigningUp] = useState(false);
 
-  const handleNextClick = () => {
-    navigate("/cafe-signin");
+  const handleSignUpData = (e) => {
+    const { name, value } = e.target;
+    setSignUpData((prev) => ({ ...prev, [name]: value }));
   };
+  const handleCafeData = (e) => {
+    const { name, value } = e.target;
+    setCafeData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleNextClick = async (e) => {
+    e.preventDefault();
+    setErrorMsg("");
+
+    // 간단한 검증n
+    if (!signUpData.username.trim() || !signUpData.password.trim()) {
+      setErrorMsg("아이디와 비밀번호를 입력해주세요.");
+      return;
+    }
+    if (!cafeData.name.trim() || !cafeData.address.trim()) {
+      setErrorMsg("업체명과 주소는 필수입니다.");
+      return;
+    }
+
+    // 1) 회원가입
+    await signUp(signUpData); // 토큰/유저ID 반환 가정
+
+    setIssigningUp(true);
+  };
+
+  useEffect(async () => {
+    // 2) 카페 생성 (인증 필요 시 헤더에 토큰)
+    if (!issigningUp) return;
+    createCafe(cafeData);
+
+    // 3) 성공 시 카페 로그인 페이지로 이동
+    alert("업체 등록이 완료되었습니다.");
+    navigate("/cafe-signin");
+  }, [issigningUp]);
 
   const handleLogoClick = () => {
     navigate("/cafe-landing");
@@ -47,19 +94,40 @@ const CafeRegister2 = () => {
           <form className="register2-form">
             <div className="register2-form-row">
               <label>업체명</label>
-              <input type="text" placeholder="최대 30자" />
+              <input
+                required
+                type="text"
+                id="name"
+                name="name"
+                className="input"
+                value={cafeData.name}
+                onChange={handleCafeData}
+                placeholder="최대 30자"
+              />
             </div>
             <div className="register2-form-row">
               <label>아이디</label>
               <input
+                required
                 type="text"
+                id="username"
+                name="username"
+                className="input"
+                value={signUpData.username}
+                onChange={handleSignUpData}
                 placeholder="빈자리 서비스에 활용할 아이디를 입력해주세요"
               />
             </div>
             <div className="register2-form-row">
               <label>비밀번호</label>
               <input
+                required
                 type="password"
+                id="password"
+                name="password"
+                className="input"
+                value={signUpData.password}
+                onChange={handleSignUpData}
                 placeholder="빈자리 서비스에 활용할 비밀번호를 입력해주세요"
               />
             </div>
@@ -70,19 +138,30 @@ const CafeRegister2 = () => {
             <div className="register2-form-row">
               <label>업체 주소</label>
               <input
+                required
                 type="text"
+                id="address"
+                name="address"
+                className="input"
+                value={cafeData.address}
+                onChange={handleCafeData}
                 placeholder="상세 주소까지 한 줄로 입력해주세요"
               />
             </div>
             <div className="register2-form-row">
               <label>카페 설명</label>
               <textarea
+                id="description"
+                name="description"
+                className="input"
                 placeholder="카페에 대한 한줄 설명을 적어주세요"
                 rows={3}
+                value={cafeData.description}
+                onChange={handleCafeData}
               ></textarea>
             </div>
           </form>
-        </section>   
+        </section>
 
         <div className="register2-footer">
           <button className="register-button" onClick={handleNextClick}>
