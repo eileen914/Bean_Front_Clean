@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'HomemadeApple';
-  src: url('../assets/fonts/HomemadeApple-Regular.ttf') format('truetype');
+  font-family: "HomemadeApple";
+  src: url("../assets/fonts/HomemadeApple-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
@@ -65,7 +65,7 @@
   font-weight: 500;
   letter-spacing: 0;
   line-height: normal;
-  margin-top: -1.00px;
+  margin-top: -1px;
   position: relative;
   text-align: center;
   white-space: nowrap;
@@ -91,7 +91,7 @@
   font-weight: 500;
   letter-spacing: 0;
   line-height: normal;
-  margin-top: -1.00px;
+  margin-top: -1px;
   position: relative;
   text-align: center;
   white-space: nowrap;
@@ -121,7 +121,7 @@
 }
 
 .landing-page-before .rectangle {
-  background-color: #F9F8F4;
+  background-color: #f9f8f4;
   border-radius: 0px 0px 50px 50px;
   height: 150px;
   position: relative;
@@ -166,9 +166,9 @@
   font-weight: 400;
   letter-spacing: 0;
   line-height: normal;
-  margin-left: -29.00px;
-  margin-right: -29.00px;
-  margin-top: -1.00px;
+  margin-left: -29px;
+  margin-right: -29px;
+  margin-top: -1px;
   position: relative;
   text-align: center;
   width: 435px;
@@ -191,8 +191,8 @@
   font-weight: 500;
   letter-spacing: 0;
   line-height: normal;
-  margin-bottom: -14.50px;
-  margin-top: -16.50px;
+  margin-bottom: -14.5px;
+  margin-top: -16.5px;
   position: relative;
   width: fit-content;
 }

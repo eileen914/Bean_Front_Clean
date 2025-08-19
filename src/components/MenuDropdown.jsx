@@ -15,7 +15,7 @@ const MenuDropdown = ({
   items = [
     { label: "카페 상세정보", path: "/cafe-detail" },
     { label: "테이블 정보 수정하기", path: "/cafe-tables" },
-    { label: "빈자리 관리하기", path: "/cafe-seats" },
+    { label: "빈자리 관리하기", path: "/cafe-update" },
   ],
 }) => {
   const ref = useRef(null);

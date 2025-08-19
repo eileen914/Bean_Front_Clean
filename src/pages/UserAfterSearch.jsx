@@ -28,12 +28,12 @@ const UserAfterSearch = () => {
   const [bubbleText, setBubbleText] = useState(
     passedQuery || '" 서울대입구역 케이크 맛집 알려줘 "'
   );
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     if (passedQuery) {
       setBubbleText(passedQuery);
-      setInputValue('');
+      setInputValue("");
     }
   }, [passedQuery]);
 
@@ -88,13 +88,16 @@ const UserAfterSearch = () => {
       document.addEventListener('touchmove', handleMove, { passive: false });
       document.addEventListener('touchend', handleUp, { passive: false });
       document.addEventListener('touchcancel', handleUp, { passive: false });
+
     }
     return () => {
+
       document.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseup', handleUp);
       document.removeEventListener('touchmove', handleMove);
       document.removeEventListener('touchend', handleUp);
       document.removeEventListener('touchcancel', handleUp);
+
     };
   }, [isDragging, dragY]);
 
@@ -108,7 +111,11 @@ const UserAfterSearch = () => {
           </div>
           <button className="menu-button">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z" fill="#391d0a" />
+              <path
+                d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"
+                fill="#391d0a"
+              />
+
             </svg>
           </button>
         </div>
@@ -128,7 +135,8 @@ const UserAfterSearch = () => {
           ref={bottomRef}
           style={{
             transform: `translateX(-50%) translateY(${dragY}px)`,
-            transition: isDragging ? 'none' : 'transform 0.3s ease',
+
+            transition: isDragging ? "none" : "transform 0.3s ease",
           }}
           onMouseDown={handleDragStart}
           onMouseUp={handleDragEnd}
@@ -149,12 +157,17 @@ const UserAfterSearch = () => {
                 </div>
                 <div className="chat-ai-reply-section">
                   <div className="chat-ai-profile-wrapper">
-                    <img className="chat-ai-profile" alt="AI" src={logo_white} />
+                    <img
+                      className="chat-ai-profile"
+                      alt="AI"
+                      src={logo_white}
+                    />
                   </div>
                   <div className="chat-ai-message-area">
                     <div className="chat-ai-message-text">
                       <p className="chat-ai-message">
-                        "{bubbleText}"에 대한 검색결과입니다. 잠시만 기다려주세요.
+                        "{bubbleText}"에 대한 검색결과입니다. 잠시만
+                        기다려주세요.
                       </p>
                     </div>
                     <div className="chat-ai-loading">
@@ -204,6 +217,7 @@ const UserAfterSearch = () => {
                     onMouseDown={(e) => e.stopPropagation()}
                     onTouchStart={(e) => e.stopPropagation()}
                     style={{ cursor: 'pointer' }}
+
                   />
                 </div>
               </div>

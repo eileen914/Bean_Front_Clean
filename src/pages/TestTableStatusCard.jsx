@@ -12,14 +12,14 @@ export default function TestTableStatusCard(props) {
       }}
     >
       <TableStatusCard
-        tableNumber={7}
-        usageTime="0시간 38분"
-        checkInTime="15:03"
-        expectedCheckOut="17:33"
-        remainingTime="1시간 15분"
-        onLeave={() => alert("퇴장 처리")}
+        tableNo="7-1"
+        elapsedLabel="0시간 38분 동안 사용중"
+        checkinTime="15:03"
+        expectedOutTime="17:33"
+        remainingLabel="남은 시간 1시간 15분"
+        status="in-use"
+        onCheckout={() => alert("퇴장 처리")}
       />
     </div>
   );
 }
-

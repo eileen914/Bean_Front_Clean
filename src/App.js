@@ -1,21 +1,24 @@
 
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import DefaultLanding from './pages/DefaultLanding';
-import CafeLanding from './pages/CafeLanding';
-import CafeSignIn from './pages/CafeSignIn';
-import CafeRegister1 from './pages/CafeRegister1';
-import CafeRegister2 from './pages/CafeRegister2';
-import CafeMapCreating from './pages/CafeMapCreating';
-import CafeMapCreated from './pages/CafeMapCreated';
-import UserLanding from './pages/UserLanding';
-import UserHome from './pages/UserHome';
-import UserAfterSearch from './pages/UserAfterSearch';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DefaultLanding from "./pages/DefaultLanding";
+import CafeLanding from "./pages/CafeLanding";
+import CafeSignIn from "./pages/CafeSignIn";
+import CafeRegister1 from "./pages/CafeRegister1";
+import CafeRegister2 from "./pages/CafeRegister2";
+import CafeMapCreating from "./pages/CafeMapCreating";
+import CafeMapCreated from "./pages/CafeMapCreated";
+import UserLanding from "./pages/UserLanding";
+import UserHome from "./pages/UserHome";
+import UserAfterSearch from "./pages/UserAfterSearch";
 import CafeHomeBeanUpdate from "./pages/CafeHomeBeanUpdate";
+import CafeTableInfo from "./pages/CafeTableInfo";
+
 import TestTableStatusCard from "./pages/TestTableStatusCard";
 import UserCafeDetail from "./pages/UserCafeDetail";
-
 import TakenSeat from "./components/TakenSeat";
+import TestSeatStartCard from "./pages/TestSeatStartCard";
+import TestTableMetaCard from "./pages/TestTableMetaCard.jsx";
 
 
 function App() {
@@ -34,13 +37,14 @@ function App() {
           <Route path="/user-landing" element={<UserLanding />} />
           <Route path="/user-home" element={<UserHome />} />
           <Route path="/user-after-search" element={<UserAfterSearch />} />
-          <Route
-            path="/cafe-home-bean-update"
-            element={<CafeHomeBeanUpdate />}
-          />
+
+          <Route path="/cafe-update" element={<CafeHomeBeanUpdate />} />
+          <Route path="/cafe-tables" element={<CafeTableInfo />} />
           <Route path="/test-card" element={<TestTableStatusCard />} />
           <Route path="/user-cafe-detail" element={<UserCafeDetail />} />
           <Route path="/taken-seat" element={<TakenSeat />} />
+          <Route path="/test-seat-start" element={<TestSeatStartCard />} />
+          <Route path="/test-table-meta" element={<TestTableMetaCard />} />
         </Routes>
       
       </div>
