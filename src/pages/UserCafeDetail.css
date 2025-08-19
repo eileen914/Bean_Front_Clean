@@ -1,6 +1,7 @@
 @font-face {
-  font-family: 'LeagueSpartan';
-  src: url('../assets/fonts/LeagueSpartan-VariableFont_wght.ttf') format('truetype');
+  font-family: "LeagueSpartan";
+  src: url("../assets/fonts/LeagueSpartan-VariableFont_wght.ttf")
+    format("truetype");
   font-display: swap;
 }
 
@@ -14,7 +15,7 @@
   margin: 0 auto;
   background-color: #f9f8f4;
   overflow: hidden;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   flex: 0 0 auto;
   align-self: center;
   justify-self: center;
@@ -57,12 +58,11 @@
   flex: 1;
   flex-grow: 1;
   gap: 10px;
-  margin-bottom: -10.00px;
-  margin-top: -10.00px;
+  margin-bottom: -10px;
+  margin-top: -10px;
   padding: 15px 20px;
   position: relative;
 }
-
 
 .user-cafe-text-wrapper {
   color: #000000;
@@ -71,12 +71,12 @@
   font-weight: 600;
   letter-spacing: 0;
   line-height: 30px;
-  margin-top: -1.00px;
+  margin-top: -1px;
   position: relative;
   text-align: left;
   white-space: nowrap;
   width: fit-content;
-} 
+}
 
 .user-cafe-detail-menu-button {
   width: 24px;
@@ -92,7 +92,7 @@
   background-color: #f9f8f4;
   padding: 0 20px;
   position: relative;
-  border-bottom: 1px solid #ddd
+  border-bottom: 1px solid #ddd;
 }
 
 .detail-nav-tab {
@@ -123,16 +123,15 @@
   gap: 20px;
 }
 
-
 .tab-underline {
   position: absolute;
   bottom: 0;
-  left: 20px;                       
-  width: calc((100% - 40px) / 4);  
+  left: 20px;
+  width: calc((100% - 40px) / 4);
   height: 2px;
   background: #000;
   transition: transform 0.25s ease;
-  z-index: 1;                      
+  z-index: 1;
 }
 
 /* Tab Content */
@@ -155,11 +154,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .slider-placeholder {
-  color: #717070;
-  font-size: 14px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Cafe Information */
@@ -195,7 +198,7 @@
   gap: 5px;
   font-size: 14px;
   font-weight: 500;
-  color: #3f3f3f 
+  color: #3f3f3f;
 }
 
 .review-link {
@@ -249,7 +252,7 @@
 }
 
 .address {
-  color: #717070;
+  color: #000000;
 }
 
 .status-closed {
@@ -324,7 +327,7 @@
 }
 
 .available-count {
-  color: #d90000; 
+  color: #d90000;
   margin-left: 5px;
 }
 
@@ -413,19 +416,19 @@
   .cafe-detail-container {
     max-width: 100%;
   }
-  
+
   .header {
     padding: 15px 15px 0;
   }
-  
+
   .nav-tabs {
     padding: 0 15px;
   }
-  
+
   .tab-content {
     padding: 15px;
   }
-  
+
   .legend-items {
     flex-direction: column;
     gap: 10px;
@@ -455,7 +458,7 @@
 /* ZoomPanUser 기본 레이아웃: 부모(.seating-draft)가 360px 높이를 제공 */
 .zoompan-user-viewport {
   width: 100%;
-  height: 100%;     /* 부모 높이에 맞춤 (seating-draft: 360px) */
+  height: 100%; /* 부모 높이에 맞춤 (seating-draft: 360px) */
   overflow: hidden;
   position: relative;
   background: #f6f6f6; /* 여백색 */
@@ -479,18 +482,17 @@
 }
 
 /* (선택) 기존 .draft-image 규칙이 전역에 있다면 충돌 방지 */
-.seating-draft .draft-image { 
+.seating-draft .draft-image {
   width: auto !important;
   height: auto !important;
   object-fit: initial !important;
 }
 
-
 /* 컨테이너 내부 반투명 배경 (선택) */
 .inline-backdrop {
-  position: absolute;      /* 컨테이너 내부만 덮음 */
+  position: absolute; /* 컨테이너 내부만 덮음 */
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.35);
   opacity: 0;
   pointer-events: none;
   transition: opacity 160ms ease;
@@ -498,7 +500,7 @@
 }
 .inline-backdrop.show {
   opacity: 1;
-  pointer-events: auto;    /* 클릭으로 닫기 가능 */
+  pointer-events: auto; /* 클릭으로 닫기 가능 */
 }
 
 /* 바닥 시트 */
@@ -507,7 +509,7 @@
   left: 50%;
   transform: translate(-50%, 100%);
   bottom: var(--sheet-bottom, 0px);
-  z-index: 9999;             /* backdrop 위로 */
+  z-index: 9999; /* backdrop 위로 */
   width: 100%;
   max-width: 420px;
   margin: 0 auto;
@@ -526,4 +528,12 @@
   transform: translate(-50%, 0);
   opacity: 1;
   pointer-events: auto;
+}
+
+.image-rectangle {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 비율 유지하며 꽉 채움, 넘치면 잘림 */
+  display: block;
+  background: #f0f0f0;
 }

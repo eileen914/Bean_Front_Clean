@@ -9,16 +9,25 @@ import coffee from '../assets/coffee-bean.svg';
 import mdi_clock from '../assets/mdi_clock.svg';
 import "./CafeList.css";
 
-
 export const CafeList = ({
   cafeId = 1,
   ownerId = 1,
-  cafeName = '마인드멜드',
-  cafeAddress = '서울대입구역',
+  cafeName = "마인드멜드",
+  cafeAddress = "서울대입구역",
+  cafeImages = [],
 }) => {
   const navigate = useNavigate();
+
   const handleEachCafe = () => {
-    navigate('/user-cafe-detail');
+    navigate("/user-cafe-detail", {
+      state: {
+        cafeId,
+        ownerId,
+        cafeName,
+        cafeAddress,
+        cafeImages,
+      },
+    });
   };
   return (
     <div className="cafe-list" onClick={handleEachCafe}>
@@ -83,16 +92,32 @@ export const CafeList = ({
         </div>
       </div>
       <div className="list-frame-10">
-        <div className="list-rectangle" />
-        <div className="list-rectangle" />
+        {cafeImages && cafeImages[0] ? (
+          <img
+            className="list-rectangle"
+            src={cafeImages[0]}
+            alt="카페 이미지1"
+          />
+        ) : (
+          <div className="list-rectangle" />
+        )}
+        {cafeImages && cafeImages[1] ? (
+          <img
+            className="list-rectangle"
+            src={cafeImages[1]}
+            alt="카페 이미지2"
+          />
+        ) : (
+          <div className="list-rectangle" />
+        )}
       </div>
     </div>
   );
 };
 
 CafeList.propTypes = {
-  cafeId: PropTypes.string.isRequired,
-  ownerId: PropTypes.string.isRequired,
+  cafeId: PropTypes.number.isRequired,
+  ownerId: PropTypes.number,
   cafeName: PropTypes.string.isRequired,
   cafeAddress: PropTypes.string.isRequired,
 };
