@@ -208,6 +208,41 @@
   max-height: none;
 }
 
+.empty-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;  /* canvas-box 높이만큼 꽉 차게 */
+  width: 100%;
+}
+
+.create-seatmap-btn {
+  padding: 20px 32px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  background-color: #336d39; /* 짙은 초록 */
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease,
+              background-color 0.2s ease;
+}
+
+.create-seatmap-btn:hover {
+  background-color: #28542c; /* hover 시 더 어두운 초록 */
+  transform: translateY(-2px);
+  box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.25);
+}
+
+.create-seatmap-btn:active {
+  transform: translateY(0);
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+
 /* 반응형 */
 @media (max-width: 768px) {
   .header-text {
