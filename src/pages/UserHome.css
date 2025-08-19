@@ -4,6 +4,13 @@
   font-display: swap;
 }
 
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('../assets/fonts/Outfit-VariableFont_wght.ttf') format('truetype');
+  font-display: swap;
+}
+
 /* Reset and base styles */
 * {
   margin: 0;
@@ -184,7 +191,7 @@ body {
   align-items: center;
   padding: 2px 0;
   cursor: grab;
-  background-color: rgba(104, 93, 74, 0.93);
+  background-color: transparent;
   border-radius: 24px 24px 0 0;
 }
 
@@ -228,7 +235,7 @@ body {
 .bottom-sheet-title {
   font-family: "Outfit", sans-serif;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 400;
   color: #ebe9e4;
   line-height: 1.2;
 }

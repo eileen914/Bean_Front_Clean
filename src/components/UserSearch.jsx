@@ -21,13 +21,17 @@ const UserSearch = () => {
       <div className="search-container">
                 {/* 검색 바 */}
         <div className="search-bar">
-            <input
-              type="text"
-              placeholder="검색어를 입력하세요."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input"
-            />
+          <input
+            type="text"
+            placeholder="검색어를 입력하세요."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={(e) => (e.target.placeholder = '')}
+            onBlur={(e) => {
+              if (!searchQuery) e.target.placeholder = '검색어를 입력하세요.';
+            }}
+            className="search-input"
+          />
           <img
             className="search-icon"
             alt="Search icon"

@@ -216,9 +216,11 @@ const UserAfterSearch = () => {
                     placeholder="검색어를 입력하세요."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") applyQueryToBubble();
+                    onFocus={(e) => (e.target.placeholder = '')}
+                    onBlur={(e) => {
+                      if (!inputValue) e.target.placeholder = '검색어를 입력하세요.';
                     }}
+                    onKeyDown={(e) => { if (e.key === 'Enter') applyQueryToBubble(); }}
                     onMouseDown={(e) => e.stopPropagation()}
                     onTouchStart={(e) => e.stopPropagation()}
                   />

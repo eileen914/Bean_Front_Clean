@@ -13,8 +13,14 @@ import ZoomPanUser from '../components/ZoomPanUser';
 import TakenSeat from '../components/TakenSeat';
 import UntakenSeat from '../components/UntakenSeat';
 import RatingTag from '../components/RatingTag/RatingTag';
+import DetailMap from '../components/DetailMap';
 
-const UserCafeDetail = () => {
+const UserCafeDetail = ({
+  cafeId = "1",
+  ownerId = "1",
+  cafeName = "마인드멜드",
+  cafeAddress = "서울 관악구 관악로13길 20"
+}) => {
   const [activeTab, setActiveTab] = useState('home');
 
   /* 8/17 수정 */
@@ -53,19 +59,16 @@ const UserCafeDetail = () => {
   };
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+    if (tab === 'home') setShowTaken(false);
   };
 
   const renderHomeTab = () => (
     <div className="user-cafe-detail-home-tab">
-      {/* (주의) 이미지 슬라이더는 여기서 제거했음 */}
       {/* Cafe Information */}
       <div className="user-cafe-info">
         <div className="info-header">
           <div className="user-cafe-tags">
             <RatingTag />
-           { /*
-            <span className="user-tag">#카공</span>
-           */ }
             <div className="rating">
               <img src={starRating} className="star-icon" />
               <span>4.9(1,067)</span>
@@ -73,12 +76,11 @@ const UserCafeDetail = () => {
           </div>
           <div className="review-link">전체 리뷰 1,503개 &gt;</div>
         </div>
-
         <div className="info-details">
           <div className="user-detail-item">
             <img src={locationIcon} alt="위치" className="location-icon" />
             <div className="user-detail-text">
-              <span className="address">서울 관악구 관악로13길 20</span>
+              <span className="address">{cafeAddress}</span>
             </div>
           </div>
 
@@ -89,7 +91,6 @@ const UserCafeDetail = () => {
               <span className="open-hours">오늘(월) 12:00 ~ 18:00</span>
             </div>
           </div>
-
           <div className="user-detail-item">
             <img src={coffeeIcon} alt="커피" className="coffee-icon" />
             <div className="user-detail-text">
@@ -97,7 +98,6 @@ const UserCafeDetail = () => {
             </div>
           </div>
         </div>
-
         <div className="user-cafe-tags">
           <span className="user-tag">카공맛집</span>
           <span className="user-tag">에그타르트</span>
@@ -109,7 +109,8 @@ const UserCafeDetail = () => {
       <div className="location-section">
         <h3>매장 위치</h3>
         <div className="map-container">
-          <img src={map_image} alt="카페 위치 지도" className="map-image" />
+          {/* <img src={map_image} alt="카페 위치 지도" className="map-image" /> */}
+          <DetailMap className="map-image" />
         </div>
       </div>
     </div>
@@ -165,7 +166,7 @@ const UserCafeDetail = () => {
             <img src={arrowIcon} alt="뒤로가기" className="user-arrow-icon" onClick={handleDetail} />
           </div>
           <div className="user-cafe-title">
-            <div className="user-cafe-text-wrapper">카페블라블라</div>
+            <div className="user-cafe-text-wrapper">{cafeName}</div>
           </div>
         </div>
         <div className="user-cafe-detail-menu-button">
