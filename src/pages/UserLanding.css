@@ -4,6 +4,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Outfit";
+  src: url("../assets/fonts/Outfit-VariableFont_wght.ttf") format("truetype");
+  font-display: swap;
+}
+
 .landing-page-before {
   align-items: start;
   background-color: #ffffff;
@@ -186,7 +192,7 @@
 
 .landing-page-before .text-wrapper-3 {
   color: #ffffff;
-  font-family: "Outfit-Medium", Helvetica;
+  font-family: "Outfit", Helvetica;
   font-size: 128px;
   font-weight: 500;
   letter-spacing: 0;

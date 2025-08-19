@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./DefaultLanding.css";
+import axios from "axios";
+
 
 const DefaultLanding = () => {
   const navigate = useNavigate();

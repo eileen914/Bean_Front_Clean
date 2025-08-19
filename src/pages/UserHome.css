@@ -1,9 +1,14 @@
 @font-face {
-  font-family: 'Lexend';
-  src: url('../assets/fonts/Lexend-VariableFont_wght.ttf') format('truetype');
+  font-family: "Lexend";
+  src: url("../assets/fonts/Lexend-VariableFont_wght.ttf") format("truetype");
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Outfit";
+  src: url("../assets/fonts/Outfit-VariableFont_wght.ttf") format("truetype");
+  font-display: swap;
+}
 
 /* Reset and base styles */
 * {
@@ -185,7 +190,7 @@ body {
   align-items: center;
   padding: 2px 0;
   cursor: grab;
-  background-color: rgba(104, 93, 74, 0.93);
+  background-color: transparent;
   border-radius: 24px 24px 0 0;
 }
 
@@ -229,7 +234,7 @@ body {
 .bottom-sheet-title {
   font-family: "Outfit", sans-serif;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 400;
   color: #ebe9e4;
   line-height: 1.2;
 }
@@ -242,13 +247,6 @@ body {
   text-align: center;
   line-height: 1.2;
   text-align: center;
-}
-
-.header-divider {
-  width: 24px;
-  height: 1px;
-  background-color: #d0c8c0;
-  border-radius: 0.5px;
 }
 
 /* Bottom Sheet Content - 피그마 디자인에 맞게 수정 */
@@ -304,7 +302,7 @@ body {
     left: 0;
     transform: translateY(calc(100vh - 389px));
   }
-  
+
   .bottom-sheet.open {
     transform: translateY(calc(100vh - 389px));
   }
