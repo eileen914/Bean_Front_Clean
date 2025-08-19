@@ -41,7 +41,6 @@ export const CafeList = ({
               <div className="bxs-coffee-bean">
                 <div className="overlap-group">
                   <img className="list-vector" alt="Vector" src={coffee} />
-                  <img className="list-img" alt="Vector" src={coffee} />
                 </div>
               </div>
               <p className="list-element">

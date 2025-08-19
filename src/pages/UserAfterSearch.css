@@ -171,7 +171,6 @@ body {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
 
-  /* ✅ 스크롤바 완전히 숨김 */
   scrollbar-width: none;       /* Firefox */
   -ms-overflow-style: none;    /* IE/Edge 구버전 */
 }
