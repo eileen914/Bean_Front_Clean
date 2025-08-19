@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./CafeRegister2.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CafeRegister2 = () => {
   const navigate = useNavigate();
