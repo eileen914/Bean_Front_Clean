@@ -1,8 +1,8 @@
 .cafe-list {
   align-items: flex-start;
-  border-color: #000000;
+  /* border-color: #000000;
   border-top-style: solid;
-  border-top-width: 1px;
+  border-top-width: 1px; */
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -96,11 +96,11 @@
 }
 
 .cafe-list .list-vector {
-  height: 7px;
+  height: 11px;
   left: 0;
   position: absolute;
   top: 0;
-  width: 8px;
+  width: 11px;
 }
 
 .cafe-list .list-img {
@@ -171,7 +171,7 @@
   align-items: center;
   display: inline-flex;
   flex: 0 0 auto;
-  gap: 5px;
+  gap: 8px;
   position: relative;
 }
 
@@ -184,9 +184,9 @@
 }
 
 .cafe-list .list-vector-3 {
-  height: 10.22px;
+  height: 12px;
   position: relative;
-  width: 10.7px;
+  width: 12px;
 }
 
 .cafe-list .list-p {
@@ -217,13 +217,13 @@
 .cafe-list .list-div-wrapper {
   align-items: center;
   align-self: stretch;
-  background-color: #786e5ded;
+  background-color: rgba(140, 128, 107, 0.77);
   border-radius: 2px;
   display: inline-flex;
   flex: 0 0 auto;
   gap: 10px;
   justify-content: center;
-  padding: 4px;
+  padding: 7px 4px 4px 4px;
   position: relative;
 }
 
@@ -260,6 +260,7 @@
   display: inline-flex;
   flex: 0 0 auto;
   position: relative;
+  gap: 2px;
 }
 
 .cafe-list .ion-location-sharp {
@@ -274,7 +275,7 @@
   left: 3px;
   position: absolute;
   top: 1px;
-  width: 9px;
+  width: 12px;
 }
 
 .cafe-list .list-text-wrapper-7 {
