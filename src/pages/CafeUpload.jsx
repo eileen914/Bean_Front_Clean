@@ -1,10 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./CafeRegister2.css";
 import { useNavigate } from "react-router-dom";
+import { uploadImageAndGetDetections } from "../apis/api"; // API 호출 함수 임포트
 
 const CafeUpload = () => {
   const navigate = useNavigate();
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [floorPlanImg, setFloorPlanImage] = useState(null);
+  const [detections, setDetections] = useState([]);
   const fileInputRef = useRef(null);
 
   const handleNextClick = () => {
@@ -33,6 +36,21 @@ const CafeUpload = () => {
   const handleReset = () => {
     setUploadedFiles([]);
   };
+
+  useEffect(() => {
+    const getFloorPlanAPI = async () => {
+      if (uploadedFiles.length === 0) return; // 배열이 비어 있으면 실행하지 않음
+      const data = await uploadImageAndGetDetections(
+        uploadedFiles[uploadedFiles.length - 1]
+      );
+      setFloorPlanImage(data.image_size);
+      setDetections(data.detections);
+    };
+    getFloorPlanAPI();
+  }, [uploadedFiles]);
+
+  console.log("Floor Plan Image:", floorPlanImg);
+  console.log("Detections:", detections);
 
   return (
     <div className="cafe-register">
@@ -107,8 +125,6 @@ const CafeUpload = () => {
             </div>
           </div>
         </section>
-
-        
 
         <div className="register2-footer">
           <button className="register-button" onClick={handleNextClick}>

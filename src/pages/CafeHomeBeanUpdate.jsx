@@ -19,6 +19,7 @@ const CafeHomeBeanUpdate = () => {
   const [seatMapImage] = useState(null);
   const handleUploadClick = () => navigate("/cafe-upload");
 
+  const testDraft = null; // testDraft를 사용하지 않으므로 null로 설정
 
   return (
     <main className="bean-update" role="main">
@@ -92,11 +93,14 @@ const CafeHomeBeanUpdate = () => {
         ) : ( */}
           <div className="canvas-box" role="region" aria-label="좌석 배치도 영역">
             <div className="empty-canvas">
-              <button className="create-seatmap-btn" onClick={handleUploadClick}>
+              <button
+                className="create-seatmap-btn"
+                onClick={handleUploadClick}
+              >
                 빈자리 배치도 만들기
               </button>
             </div>
-          </div>
+          )}
       </section>
     </main>
   );
