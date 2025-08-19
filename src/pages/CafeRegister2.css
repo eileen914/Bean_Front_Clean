@@ -77,9 +77,9 @@
   align-items: center;
   gap: 10px;
   background-color: #d3cec4;
-  padding: 20px 75px;
+  padding: 12px 65px;
   border-radius: 999px;
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -237,7 +237,7 @@
 
 .register-button {
   background: none;
-  border: 2px solid #bab3a5;
+  border: 1px solid #bab3a5;
   color: #222;
   font-weight: 500;
   padding: 12px 80px;

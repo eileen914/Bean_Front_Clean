@@ -134,7 +134,6 @@ const UserHome = () => {
             <span className="bottom-sheet-subtitle">
               나만의 맞춤 카페를 찾아보세요
             </span>
-            <div className="header-divider"></div>
           </div>
         </div>
 

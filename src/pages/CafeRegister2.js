@@ -75,10 +75,9 @@ const CafeRegister2 = () => {
             </div>
             <div className="register2-form-row">
               <label>카페 설명</label>
-              <textarea
+              <input
                 placeholder="카페에 대한 한줄 설명을 적어주세요"
-                rows={3}
-              ></textarea>
+              ></input>
             </div>
           </form>
         </section>   

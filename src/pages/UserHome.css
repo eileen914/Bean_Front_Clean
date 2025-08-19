@@ -250,12 +250,6 @@ body {
   text-align: center;
 }
 
-.header-divider {
-  width: 24px;
-  height: 1px;
-  background-color: #d0c8c0;
-  border-radius: 0.5px;
-}
 
 /* Bottom Sheet Content - 피그마 디자인에 맞게 수정 */
 .bottom-sheet-content {
