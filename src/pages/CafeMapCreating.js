@@ -20,10 +20,10 @@ const CafeMapCreating = () => {
   return (
     <main className="creating-page" role="main" aria-busy="true">
       {/* 고정 헤더 */}
-      <header className="register-fixed-header">
-        <div className="header-content">
-          <img src="/logo.png" alt="Bean Logo" className="header-logo" />
-          <h1 className="header-text" onClick={handleLogoClick}>
+      <header className="cafe-fixed-header">
+        <div className="cafe-header-content">
+          <img src="/logo.png" alt="Bean Logo" className="cafe-header-logo" />
+          <h1 className="cafe-header-text" onClick={handleLogoClick}>
             Bean
           </h1>
         </div>

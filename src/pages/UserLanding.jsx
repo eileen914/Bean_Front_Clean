@@ -1,17 +1,17 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './UserLanding.css';
-import group1 from '../assets/user-landing.png';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./UserLanding.css";
+import group1 from "../assets/user-landing.png";
 
 export const UserLanding = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate('/user-home');
+    navigate("/user-home");
   };
 
   const handleSignUp = () => {
-    navigate('/user-home');
+    navigate("/user-home");
   };
 
   return (
@@ -34,7 +34,8 @@ export const UserLanding = () => {
             <div className="rectangle-wrapper">
               <div className="rectangle" />
             </div>
-            <img src="/logo.png" alt="로고" className="img"/>
+            <img src="/logo.png" alt="로고" className="img" />
+
           </div>
 
           <div className="frame-3">

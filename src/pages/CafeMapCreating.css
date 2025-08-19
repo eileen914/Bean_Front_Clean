@@ -8,7 +8,7 @@
 }
 
 /* FIXED 헤더 */
-.register-fixed-header {
+.cafe-fixed-header {
   position: fixed;
   top: 0;
   left: 0;
@@ -23,20 +23,20 @@
   z-index: 1000;
 }
 
-.header-content {
+.cafe-header-content {
   width: 1280px;
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-.header-logo {
+.cafe-header-logo {
   width: 60px;
   height: auto;
   object-fit: contain;
 }
 
-.header-text {
+.cafe-header-text {
   font-size: 2.5rem;
   font-weight: 300;
   color: #4c3800;

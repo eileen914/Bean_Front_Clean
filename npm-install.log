@@ -1,0 +1,22 @@
+npm verbose cli /Users/junha/.nvm/versions/node/v20.19.4/bin/node /Users/junha/.nvm/versions/node/v20.19.4/bin/npm
+npm info using npm@10.8.2
+npm info using node@v20.19.4
+npm timing npm:load:whichnode Completed in 0ms
+npm timing npm:load:configload Completed in 4ms
+npm timing config:load:flatten Completed in 1ms
+npm timing npm:load:mkdirpcache Completed in 0ms
+npm timing npm:load:mkdirplogs Completed in 0ms
+npm verbose title npm install
+npm verbose argv "install" "--loglevel" "verbose" "--timing"
+npm timing npm:load:setTitle Completed in 6ms
+npm verbose logfile logs-max:10 dir:/Users/junha/.npm/_logs/2025-08-14T09_06_08_396Z-
+npm verbose logfile /Users/junha/.npm/_logs/2025-08-14T09_06_08_396Z-debug-0.log
+npm timing npm:load Completed in 21ms
+npm timing arborist:ctor Completed in 1ms
+npm timing idealTree:init Completed in 331ms
+npm timing idealTree:userRequests Completed in 0ms
+npm timing idealTree:#root Completed in 1ms
+npm timing idealTree:buildDeps Completed in 1ms
+npm timing idealTree:fixDepFlags Completed in 0ms
+npm timing idealTree Completed in 338ms
+npm verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules

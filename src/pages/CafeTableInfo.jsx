@@ -57,11 +57,11 @@ const CafeHomeBeanUpdate = () => {
 
       {/* 본문 */}
       <section className="page-container">
-        <h2 className="page-title">빈자리 관리하기</h2>
+        <h2 className="page-title">테이블 정보 수정하기</h2>
         <p className="page-sub">
-          좌석별로 사용 현황을 업데이트할 수 있습니다.
-          <br />이 화면에서 업데이트되는 빈자리 현황은 고객 앱에도 실시간으로
-          반영돼요.
+          테이블별로 자리 정보를 설정할 수 있습니다.
+          <br />
+          설정된 테이블 정보는 고객 앱에서도 확인 가능합니다.
         </p>
 
         <div className="meta-row">
