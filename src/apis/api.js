@@ -1,5 +1,12 @@
 import { instance, instanceWithToken } from "./axios";
 
+export const getChatbot = async (question) => {
+  const response = await instance.get("/cafes/chat/", {
+    params: { question },
+  });
+  return response.data;
+};
+
 // floorplan 관련 API
 export const listFloorPlans = async () => {
   // floorplan 목록 요청
