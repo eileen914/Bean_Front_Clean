@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CafeHomeBeanUpdate.css";
 import MenuDropdown from "../components/MenuDropdown";
-import testDraft from "../assets/test_draft.png";
+//import testDraft from "../assets/test_draft.png";
 import ZoomPan from "../components/ZoomPan";
 
 const CafeHomeBeanUpdate = () => {
@@ -18,6 +18,7 @@ const CafeHomeBeanUpdate = () => {
   const [seatMapImage] = useState(null);
   const handleUploadClick = () => navigate("/cafe-upload");
 
+  const testDraft = null; // testDraft를 사용하지 않으므로 null로 설정
 
   return (
     <main className="bean-update" role="main">
@@ -88,13 +89,15 @@ const CafeHomeBeanUpdate = () => {
             </ZoomPan>
           ) : (
             <div className="empty-canvas">
-              <button className="create-seatmap-btn" onClick={handleUploadClick}>
+              <button
+                className="create-seatmap-btn"
+                onClick={handleUploadClick}
+              >
                 빈자리 배치도 만들기
               </button>
             </div>
           )}
         </div>
-
       </section>
     </main>
   );
