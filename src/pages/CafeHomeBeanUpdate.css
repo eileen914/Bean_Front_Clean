@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Outfit";
+  src: url("../assets/fonts/Outfit-VariableFont_wght.ttf") format("truetype");
+  font-display: swap;
+}
+
 :root {
   --bg: #f9f8f4;
   --ink: #2c2c2c;
@@ -62,6 +68,7 @@
   object-fit: contain;
 }
 .update-header-text {
+  font-family: 'Outfit', sans-serif;
   font-size: 2.5rem;
   font-weight: 300;
   color: #4c3800;
@@ -142,6 +149,7 @@
 .page-container {
   width: 100%;
   max-width: none;
+  height: '100vh';
   margin: 24px auto 80px;
   padding: 0 150px;
 }
@@ -202,11 +210,6 @@
   user-select: none;
   pointer-events: auto;
 }
-.canvas-image {
-  display: block;
-  max-width: none;
-  max-height: none;
-}
 
 .empty-canvas {
   display: flex;
@@ -219,22 +222,26 @@
   background-color: #E6E6E6;   /* 배경색 */
 }
 
+
 .create-seatmap-btn {
-  padding: 20px 32px;
-  font-size: 16px;
+  align-items: center;
+  display: flex;
+  padding: 24px 80px;
+  font-size: 20px;
   font-weight: 500;
-  border-radius: 6px;
-  border: none;
-  background-color: #336d39; /* 짙은 초록 */
+  border-radius: 10px;
+  gap: 15px;
+  position: relative;
+  background-color: #736651;
   color: #fff;
   cursor: pointer;
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.1s ease, box-shadow 0.1s ease,
               background-color 0.2s ease;
 }
 
 .create-seatmap-btn:hover {
-  background-color: #28542c; /* hover 시 더 어두운 초록 */
+  background-color: #685d41; /* hover 시 더 어두운 초록 */
   transform: translateY(-2px);
   box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.25);
 }

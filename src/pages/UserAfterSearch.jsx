@@ -1,24 +1,26 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Kakaomap from '../components/Kakaomap';
-import majesticons from '../assets/majesticons_search.svg';
-import logo_white from '../assets/logo_white.png';
-import './UserAfterSearch.css';
-import CafeList from '../components/CafeList';
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Kakaomap from "../components/Kakaomap";
+import majesticons from "../assets/majesticons_search.svg";
+import logo_white from "../assets/logo_white.png";
+import "./UserAfterSearch.css";
+import CafeList from "../components/CafeList";
 
-const SHEET_HEIGHT = 746;             // 풀오픈 높이
-const MIN_VISIBLE = 70;               // 접었을 때 상단에 남길 높이
+import { getChatbot } from "../apis/api";
+
+const SHEET_HEIGHT = 746; // 풀오픈 높이
+const MIN_VISIBLE = 70; // 접었을 때 상단에 남길 높이
 const COLLAPSED_DRAG_Y = SHEET_HEIGHT - MIN_VISIBLE; // 746 - 70 = 676
-const INITIAL_DRAG_Y = 0;             // 초기: 풀오픈
+const INITIAL_DRAG_Y = 0; // 초기: 풀오픈
 
 const UserAfterSearch = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const navHome = () => navigate('/user-home');
+  const navHome = () => navigate("/user-home");
 
-  const passedQuery = location.state?.query || '';
+  const passedQuery = location.state?.query || "";
 
-  const [dragY, setDragY] = useState(INITIAL_DRAG_Y);  // 0 = 풀오픈
+  const [dragY, setDragY] = useState(INITIAL_DRAG_Y); // 0 = 풀오픈
   const [isDragging, setIsDragging] = useState(false);
   const bottomRef = useRef(null);
 
@@ -30,12 +32,23 @@ const UserAfterSearch = () => {
   );
   const [inputValue, setInputValue] = useState("");
 
+  const [cafes, setCafes] = useState([]);
+
   useEffect(() => {
     if (passedQuery) {
       setBubbleText(passedQuery);
       setInputValue("");
     }
   }, [passedQuery]);
+
+  useEffect(() => {
+    const getChatbotAPI = async () => {
+      const data = await getChatbot(bubbleText);
+      setCafes(data);
+    };
+    console.log(cafes);
+    getChatbotAPI();
+  }, [bubbleText]);
 
   const applyQueryToBubble = () => {
     const text = inputValue.trim();
@@ -45,7 +58,8 @@ const UserAfterSearch = () => {
   // 공통: Y 좌표
   const getClientY = (e) => {
     if (e.touches && e.touches[0]) return e.touches[0].clientY;
-    if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].clientY;
+    if (e.changedTouches && e.changedTouches[0])
+      return e.changedTouches[0].clientY;
     return e.clientY;
   };
 
@@ -60,8 +74,8 @@ const UserAfterSearch = () => {
   const handleDragEnd = () => {
     setIsDragging(false);
     const threshold = COLLAPSED_DRAG_Y / 2; // 338px
-    if (dragY < threshold) setDragY(0);        // 풀오픈으로 스냅
-    else setDragY(COLLAPSED_DRAG_Y);           // 70px만 보이도록 스냅
+    if (dragY < threshold) setDragY(0); // 풀오픈으로 스냅
+    else setDragY(COLLAPSED_DRAG_Y); // 70px만 보이도록 스냅
   };
 
   // 전역 드래그 처리 (마우스+터치)
@@ -83,21 +97,18 @@ const UserAfterSearch = () => {
     };
 
     if (isDragging) {
-      document.addEventListener('mousemove', handleMove, { passive: false });
-      document.addEventListener('mouseup', handleUp, { passive: false });
-      document.addEventListener('touchmove', handleMove, { passive: false });
-      document.addEventListener('touchend', handleUp, { passive: false });
-      document.addEventListener('touchcancel', handleUp, { passive: false });
-
+      document.addEventListener("mousemove", handleMove, { passive: false });
+      document.addEventListener("mouseup", handleUp, { passive: false });
+      document.addEventListener("touchmove", handleMove, { passive: false });
+      document.addEventListener("touchend", handleUp, { passive: false });
+      document.addEventListener("touchcancel", handleUp, { passive: false });
     }
     return () => {
-
-      document.removeEventListener('mousemove', handleMove);
-      document.removeEventListener('mouseup', handleUp);
-      document.removeEventListener('touchmove', handleMove);
-      document.removeEventListener('touchend', handleUp);
-      document.removeEventListener('touchcancel', handleUp);
-
+      document.removeEventListener("mousemove", handleMove);
+      document.removeEventListener("mouseup", handleUp);
+      document.removeEventListener("touchmove", handleMove);
+      document.removeEventListener("touchend", handleUp);
+      document.removeEventListener("touchcancel", handleUp);
     };
   }, [isDragging, dragY]);
 
@@ -107,7 +118,9 @@ const UserAfterSearch = () => {
       <header className="header">
         <div className="header-content">
           <div className="logo">
-            <span className="logo-text" onClick={navHome}>Bean</span>
+            <span className="logo-text" onClick={navHome}>
+              Bean
+            </span>
           </div>
           <button className="menu-button">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -115,7 +128,6 @@ const UserAfterSearch = () => {
                 d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"
                 fill="#391d0a"
               />
-
             </svg>
           </button>
         </div>
@@ -125,7 +137,7 @@ const UserAfterSearch = () => {
       <main className="main-content">
         <div className="image-container">
           <div className="main-image">
-            <Kakaomap />
+            <Kakaomap cafeList={cafes} />
           </div>
         </div>
 
@@ -186,8 +198,15 @@ const UserAfterSearch = () => {
               onTouchMove={(e) => e.stopPropagation()}
               onWheel={(e) => e.stopPropagation()}
             >
-              {Array.from({ length: 10 }).map((_, idx) => (
-                <CafeList key={idx} />
+              {cafes.map((cafe) => (
+                <CafeList
+                  key={cafe.id}
+                  cafeId={cafe.id}
+                  cafeName={cafe.name}
+                  cafeAddress={cafe.address}
+                  ownerId={cafe.owner}
+                  cafeImages={cafe.photo_urls}
+                />
               ))}
             </div>
 
@@ -205,11 +224,14 @@ const UserAfterSearch = () => {
                     placeholder="검색어를 입력하세요."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    onFocus={(e) => (e.target.placeholder = '')}
+                    onFocus={(e) => (e.target.placeholder = "")}
                     onBlur={(e) => {
-                      if (!inputValue) e.target.placeholder = '검색어를 입력하세요.';
+                      if (!inputValue)
+                        e.target.placeholder = "검색어를 입력하세요.";
                     }}
-                    onKeyDown={(e) => { if (e.key === 'Enter') applyQueryToBubble(); }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") applyQueryToBubble();
+                    }}
                     onMouseDown={(e) => e.stopPropagation()}
                     onTouchStart={(e) => e.stopPropagation()}
                   />
@@ -220,8 +242,7 @@ const UserAfterSearch = () => {
                     onClick={applyQueryToBubble}
                     onMouseDown={(e) => e.stopPropagation()}
                     onTouchStart={(e) => e.stopPropagation()}
-                    style={{ cursor: 'pointer' }}
-
+                    style={{ cursor: "pointer" }}
                   />
                 </div>
               </div>

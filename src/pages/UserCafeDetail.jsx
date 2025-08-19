@@ -1,56 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './UserCafeDetail.css';
-import map_image from '../assets/map-image.jpg';
-import testdraft from '../assets/test_draft.png';
-import locationIcon from '../assets/ion_detail.svg';
-import clockIcon from '../assets/mdi_clock_detail.svg';
-import starRating from '../assets/star_rating.svg';
-import coffeeIcon from '../assets/material-symbols-light_coffee.svg';
-import arrowIcon from '../assets/ep_arrow-up.svg';
-import menuVector from '../assets/menu-vector.svg';
-import ZoomPanUser from '../components/ZoomPanUser';
-import TakenSeat from '../components/TakenSeat';
-import UntakenSeat from '../components/UntakenSeat';
-import RatingTag from '../components/RatingTag/RatingTag';
-import DetailMap from '../components/DetailMap';
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./UserCafeDetail.css";
+import map_image from "../assets/map-image.jpg";
+import testdraft from "../assets/test_draft.png";
+import locationIcon from "../assets/ion_detail.svg";
+import clockIcon from "../assets/mdi_clock_detail.svg";
+import starRating from "../assets/star_rating.svg";
+import coffeeIcon from "../assets/material-symbols-light_coffee.svg";
+import arrowIcon from "../assets/ep_arrow-up.svg";
+import menuVector from "../assets/menu-vector.svg";
+import ZoomPanUser from "../components/ZoomPanUser";
+import TakenSeat from "../components/TakenSeat";
+import UntakenSeat from "../components/UntakenSeat";
+import RatingTag from "../components/RatingTag/RatingTag";
+import DetailMap from "../components/DetailMap";
 
-const UserCafeDetail = ({
-  cafeId = "1",
-  ownerId = "1",
-  cafeName = "마인드멜드",
-  cafeAddress = "서울 관악구 관악로13길 20"
-}) => {
-  const [activeTab, setActiveTab] = useState('home');
+const UserCafeDetail = () => {
+  const location = useLocation();
+  const {
+    cafeId = "1",
+    ownerId = "1",
+    cafeName = "마인드멜드",
+    cafeAddress = "서울 관악구 관악로13길 20",
+    cafeImages = [],
+  } = location.state || {};
+
+  const [activeTab, setActiveTab] = useState("home");
 
   /* 8/17 수정 */
   const [showTaken, setShowTaken] = useState(false);
-  const toggleTaken = () => setShowTaken(v => !v)
+  const toggleTaken = () => setShowTaken((v) => !v);
 
-    useEffect(() => {
+  useEffect(() => {
     const applyBottomOffset = () => {
       const h = window.visualViewport?.height || window.innerHeight; // 주소창 높이 반영
-      const bottom = Math.max(0, Math.round(h - 844));               // h > 844이면 그 차이만큼 띄우기
-      document.documentElement.style.setProperty('--sheet-bottom', `${bottom}px`);
+      const bottom = Math.max(0, Math.round(h - 844)); // h > 844이면 그 차이만큼 띄우기
+      document.documentElement.style.setProperty(
+        "--sheet-bottom",
+        `${bottom}px`
+      );
     };
 
     applyBottomOffset();
     // 뷰포트 변할 때마다 갱신 (모바일 주소창/회전 등)
-    window.addEventListener('resize', applyBottomOffset);
-    window.visualViewport?.addEventListener('resize', applyBottomOffset);
-    window.visualViewport?.addEventListener('scroll', applyBottomOffset);
+    window.addEventListener("resize", applyBottomOffset);
+    window.visualViewport?.addEventListener("resize", applyBottomOffset);
+    window.visualViewport?.addEventListener("scroll", applyBottomOffset);
 
     return () => {
-      window.removeEventListener('resize', applyBottomOffset);
-      window.visualViewport?.removeEventListener('resize', applyBottomOffset);
-      window.visualViewport?.removeEventListener('scroll', applyBottomOffset);
+      window.removeEventListener("resize", applyBottomOffset);
+      window.visualViewport?.removeEventListener("resize", applyBottomOffset);
+      window.visualViewport?.removeEventListener("scroll", applyBottomOffset);
     };
   }, []);
 
   /*여기까지*/
 
-
-  const tabs = ['home', 'seating', 'menu', 'review']
+  const tabs = ["home", "seating", "menu", "review"];
   const activeIndex = Math.max(0, tabs.indexOf(activeTab));
 
   const navigate = useNavigate();
@@ -59,7 +65,7 @@ const UserCafeDetail = ({
   };
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    if (tab === 'home') setShowTaken(false);
+    if (tab === "home") setShowTaken(false);
   };
 
   const renderHomeTab = () => (
@@ -110,7 +116,7 @@ const UserCafeDetail = ({
         <h3>매장 위치</h3>
         <div className="map-container">
           {/* <img src={map_image} alt="카페 위치 지도" className="map-image" /> */}
-          <DetailMap className="map-image" />
+          <DetailMap className="map-image" cafeAddress={cafeAddress} />
         </div>
       </div>
     </div>
@@ -129,11 +135,19 @@ const UserCafeDetail = ({
         </div>
 
         <div className="seating-description">
-          좌석을 클릭하면<br />예약가능 여부 및 자리 정보를 확인하실 수 있습니다.
+          좌석을 클릭하면
+          <br />
+          예약가능 여부 및 자리 정보를 확인하실 수 있습니다.
         </div>
 
         <div className="seating-draft">
-          <ZoomPanUser min={0.5} max={4} step={0.2} src={testdraft} onTap={toggleTaken} />
+          <ZoomPanUser
+            min={0.5}
+            max={4}
+            step={0.2}
+            src={testdraft}
+            onTap={toggleTaken}
+          />
         </div>
       </div>
 
@@ -163,7 +177,12 @@ const UserCafeDetail = ({
       <div className="user-cafe-detail-header">
         <div className="user-header-left">
           <div className="user-back-button">
-            <img src={arrowIcon} alt="뒤로가기" className="user-arrow-icon" onClick={handleDetail} />
+            <img
+              src={arrowIcon}
+              alt="뒤로가기"
+              className="user-arrow-icon"
+              onClick={handleDetail}
+            />
           </div>
           <div className="user-cafe-title">
             <div className="user-cafe-text-wrapper">{cafeName}</div>
@@ -177,21 +196,29 @@ const UserCafeDetail = ({
       {/* Navigation Tabs (인디케이터는 여기 안에 고정) */}
       <div className="user-cafe-detail-nav-tabs">
         <button
-          className={`detail-nav-tab ${activeTab === 'home' ? 'active' : ''}`}
-          onClick={() => handleTabChange('home')}
+          className={`detail-nav-tab ${activeTab === "home" ? "active" : ""}`}
+          onClick={() => handleTabChange("home")}
         >
           홈
         </button>
         <button
-          className={`detail-nav-tab ${activeTab === 'seating' ? 'active' : ''}`}
-          onClick={() => handleTabChange('seating')}
+          className={`detail-nav-tab ${
+            activeTab === "seating" ? "active" : ""
+          }`}
+          onClick={() => handleTabChange("seating")}
         >
           좌석 현황
         </button>
-        <button className="detail-nav-tab" onClick={() => handleTabChange('menu')}>
+        <button
+          className="detail-nav-tab"
+          onClick={() => handleTabChange("menu")}
+        >
           메뉴
         </button>
-        <button className="detail-nav-tab" onClick={() => handleTabChange('review')}>
+        <button
+          className="detail-nav-tab"
+          onClick={() => handleTabChange("review")}
+        >
           리뷰 1,503
         </button>
 
@@ -201,20 +228,28 @@ const UserCafeDetail = ({
         />
       </div>
 
-      {activeTab === 'home' && (
+      {activeTab === "home" && (
         <div className="image-slider">
           <div className="slider-placeholder">
-            <span>이미지 슬라이더</span>
+            {cafeImages && cafeImages[0] ? (
+              <img
+                className="image-rectangle"
+                src={cafeImages[0]}
+                alt="카페 이미지1"
+              />
+            ) : (
+              <span>이미지 슬라이더</span>
+            )}
           </div>
         </div>
       )}
 
       {/* Tab Content */}
       <div className="tab-content">
-        {activeTab === 'home' ? renderHomeTab() : renderSeatingTab()}
+        {activeTab === "home" ? renderHomeTab() : renderSeatingTab()}
       </div>
       {/* 바텀 시트: 오버레이 클릭으로도 닫히게 유지(선택사항) */}
-      <div className={`inline-sheet ${showTaken ? 'open' : ''}`}>
+      <div className={`inline-sheet ${showTaken ? "open" : ""}`}>
         <TakenSeat />
       </div>
     </div>
