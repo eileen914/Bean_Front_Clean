@@ -1,5 +1,6 @@
 import { instance, instanceWithToken } from "./axios";
 
+// owner 관련 API
 export const signUp = async (data) => {
   const response = await instance.post("/owners/signup/", data);
   if (response.status === 200 || response.status === 201) {
@@ -28,13 +29,28 @@ export const signOut = async (data) => {
   }
 };
 
-export const checkLogin = async () => {
+export const getOwnerInfo = async () => {
   try {
-    const response = await instanceWithToken.get("/account/info/");
-    return response.status === 200;
+    // 업체 정보 요청
+    const response = await instanceWithToken.get("/owners/info/");
+
+    if (response.status === 200) {
+      console.log("Owner Info Retrieved:", response.data);
+    }
+    return response.data;
   } catch (error) {
-    return false;
+    // 에러 처리
+    console.error(
+      "Get Owner Info Error:",
+      error.response?.data || error.message
+    );
+    throw error;
   }
+};
+
+export const getOwnerCafes = async (ownerId) => {
+  const response = await instanceWithToken.get(`/owners/${ownerId}/cafes/`);
+  return response.data;
 };
 
 export const createCafe = async (data) => {
@@ -46,8 +62,6 @@ export const createCafe = async (data) => {
     console.log("[ERROR] error while creating post");
   }
 };
-
-import { instance, instanceWithToken } from "./axios";
 
 export const getChatbot = async (question) => {
   const response = await instance.get("/cafes/chat/", {
@@ -146,31 +160,6 @@ export const uploadImageAndGetDetections = async (imageFile) => {
     );
     throw error;
   }
-};
-
-// owner 관련 API
-export const getOwnerInfo = async () => {
-  try {
-    // 업체 정보 요청
-    const response = await instanceWithToken.get("/owners/info/");
-
-    if (response.status === 200) {
-      console.log("Owner Info Retrieved:", response.data);
-    }
-    return response.data;
-  } catch (error) {
-    // 에러 처리
-    console.error(
-      "Get Owner Info Error:",
-      error.response?.data || error.message
-    );
-    throw error;
-  }
-};
-
-export const getOwnerCafes = async (ownerId) => {
-  const response = await instanceWithToken.get(`/owners/${ownerId}/cafes/`);
-  return response.data;
 };
 
 // chair 관련 API
