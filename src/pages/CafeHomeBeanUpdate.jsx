@@ -1,24 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CafeHomeBeanUpdate.css";
 import MenuDropdown from "../components/MenuDropdown";
 import whitecursor from "../assets/white-cursor.svg";
 import testDraft from "../assets/test_draft.png";
 import ZoomPan from "../components/ZoomPan";
+import { getCookie, removeCookie } from "../utils/cookie";
+import { signOut } from "../apis/api";
 
 const CafeHomeBeanUpdate = () => {
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } finally {
+      navigate("/cafe-landing", { replace: true });
+    }
+  };
+
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogoClick = () => navigate("/cafe-landing");
   const handleMenuToggle = () => setMenuOpen((v) => !v);
   const handleGoto = (path) => navigate(path);
-  const handleLogoutClick = () => {
-    navigate("/cafe-landing");
-  };
+  const handleLogoutClick = () => {};
   const [seatMapImage] = useState(null);
   const handleUploadClick = () => navigate("/cafe-upload");
 
+  const testDraft = null; // testDraft를 사용하지 않으므로 null로 설정
 
   return (
     <main className="bean-update" role="main">
@@ -35,7 +44,7 @@ const CafeHomeBeanUpdate = () => {
           </div>
 
           <div className="update-header-right">
-            <button className="logout-btn" onClick={handleLogoutClick}>
+            <button className="logout-btn" onClick={handleSignOut}>
               로그아웃
             </button>
 
@@ -90,13 +99,13 @@ const CafeHomeBeanUpdate = () => {
             </div>
           </>
         ) : ( */}
-          <div className="canvas-box" role="region" aria-label="좌석 배치도 영역">
-            <div className="empty-canvas">
-              <button className="create-seatmap-btn" onClick={handleUploadClick}>
-                빈자리 배치도 만들기
-              </button>
-            </div>
+        <div className="canvas-box" role="region" aria-label="좌석 배치도 영역">
+          <div className="empty-canvas">
+            <button className="create-seatmap-btn" onClick={handleUploadClick}>
+              빈자리 배치도 만들기
+            </button>
           </div>
+        </div>
       </section>
     </main>
   );
