@@ -16,6 +16,7 @@ import "./FloorplanOverlay.css";
  *  - className?: string (wrapper)
  *  - onSelect?: (det, index) => void
  */
+
 export default function FloorplanOverlay({
   imageSrc,
   response,
@@ -170,18 +171,18 @@ export default function FloorplanOverlay({
               {chairs.map((d, i) => {
                 const r = asRect(d);
                 const cls = (d.class || "other").toLowerCase();
-                const label = `${d.class}${typeof d.confidence === "number" ? ` ${Math.round(d.confidence * 100)}%` : ""}`;
+                const chairLabel = cls === "chair" && d.chair_id ? `{d.chair_id}` : d.class;
                 const chairClass = cls === "chair" ? getChairClass(d, i) : `det-box--${cls}`;
                 return (
                   <div key={i} className="det-item" style={{ left: r.left, top: r.top, width: r.w, height: r.h }}>
                     <div
                       className={`det-box ${chairClass}`}
-                      aria-label={label}
+                      aria-label={chairLabel}
                       onClick={() => cls === "chair" && handleChairClick(d, i)}
                       style={{ cursor: cls === "chair" ? "pointer" : "default" }}
                     />
                     {showLabels && (
-                      <div className={`det-label det-label--${cls}`}>{label}</div>
+                      <div className={`det-label det-label--${cls}`}>{chairLabel}</div>
                     )}
                   </div>
                 );
