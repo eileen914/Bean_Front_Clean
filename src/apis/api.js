@@ -204,6 +204,7 @@ export const uploadImageAndGetDetections = async (
     const res = await instance.post("/floorplans/detection/", formData, {
       // (gpt 조언) Content-Type을 지정하지 말 것: 브라우저가 boundary 포함해 자동 설정
       signal,
+      headers: { "Content-Type": undefined },
     });
     return res.data; // { image_size, detections[] }
   } catch (err) {
@@ -231,7 +232,7 @@ export const getChair = async (chairId) => {
   } catch (err) {
     throw normalizeError(err);
   }
-}
+};
 
 /* 생성 */
 export const createChair = async (chairData) => {
