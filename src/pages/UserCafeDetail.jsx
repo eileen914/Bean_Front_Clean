@@ -1,7 +1,15 @@
+// 사용자 카페 상세 페이지
+// - 카페 정보, 지도, 좌석 현황, 탭, 이미지 슬라이더, 바텀시트 등 UI 구성
+// - props로 받을 수 있는 값:
+//   cafeId: 카페 고유 ID
+//   ownerId: 점주 ID
+//   cafeName: 카페명
+//   cafeAddress: 카페 주소
+//   cafeImages: 카페 이미지 배열
+
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./UserCafeDetail.css";
-import map_image from "../assets/map-image.jpg";
 import testdraft from "../assets/test_draft.png";
 import locationIcon from "../assets/ion_detail.svg";
 import clockIcon from "../assets/mdi_clock_detail.svg";
@@ -10,12 +18,13 @@ import coffeeIcon from "../assets/material-symbols-light_coffee.svg";
 import arrowIcon from "../assets/ep_arrow-up.svg";
 import menuVector from "../assets/menu-vector.svg";
 import ZoomPanUser from "../components/ZoomPanUser";
-import TakenSeat from "../components/TakenSeat";
-import UntakenSeat from "../components/UntakenSeat";
+import TakenSeat from "../components/TakenSeat";              // 점유된 자리
+import UntakenSeat from "../components/UntakenSeat";          // 점유되지 않은 자리
 import RatingTag from "../components/RatingTag/RatingTag";
 import DetailMap from "../components/DetailMap";
 
 const UserCafeDetail = () => {
+  // ===== 라우터 및 카페 정보 상태 =====
   const location = useLocation();
   const {
     cafeId = "1",
@@ -25,16 +34,16 @@ const UserCafeDetail = () => {
     cafeImages = [],
   } = location.state || {};
 
-  const [activeTab, setActiveTab] = useState("home");
+  // ===== 탭 및 좌석 상태 =====
+  const [activeTab, setActiveTab] = useState("home"); // 현재 선택된 탭
+  const [showTaken, setShowTaken] = useState(false); // 좌석 오버레이 표시 여부
+  const toggleTaken = () => setShowTaken((v) => !v); // 좌석 오버레이 토글
 
-  /* 8/17 수정 */
-  const [showTaken, setShowTaken] = useState(false);
-  const toggleTaken = () => setShowTaken((v) => !v);
-
+  // ===== 모바일 주소창/뷰포트 대응 =====
   useEffect(() => {
     const applyBottomOffset = () => {
       const h = window.visualViewport?.height || window.innerHeight; // 주소창 높이 반영
-      const bottom = Math.max(0, Math.round(h - 844)); // h > 844이면 그 차이만큼 띄우기
+      const bottom = Math.max(0, Math.round(h - 844)); 
       document.documentElement.style.setProperty(
         "--sheet-bottom",
         `${bottom}px`
@@ -54,20 +63,22 @@ const UserCafeDetail = () => {
     };
   }, []);
 
-  /*여기까지*/
-
+  // ===== 탭 및 네비게이션 관련 =====
   const tabs = ["home", "seating", "menu", "review"];
   const activeIndex = Math.max(0, tabs.indexOf(activeTab));
 
   const navigate = useNavigate();
+  // 뒤로가기 버튼 핸들러
   const handleDetail = () => {
     navigate(-1);
   };
+  // 탭 변경 핸들러
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     if (tab === "home") setShowTaken(false);
   };
 
+  // 홈 탭 렌더링 함수
   const renderHomeTab = () => (
     <div className="user-cafe-detail-home-tab">
       {/* Cafe Information */}
@@ -115,13 +126,13 @@ const UserCafeDetail = () => {
       <div className="location-section">
         <h3>매장 위치</h3>
         <div className="map-container">
-          {/* <img src={map_image} alt="카페 위치 지도" className="map-image" /> */}
           <DetailMap className="map-image" cafeAddress={cafeAddress} />
         </div>
       </div>
     </div>
   );
 
+  // 좌석 현황 탭 렌더링 함수
   const renderSeatingTab = () => (
     <div className="seating-tab">
       <div className="seating-info">
@@ -173,7 +184,7 @@ const UserCafeDetail = () => {
 
   return (
     <div className="cafe-detail-container">
-      {/* Header */}
+      {/* ===== 헤더 영역 ===== */}
       <div className="user-cafe-detail-header">
         <div className="user-header-left">
           <div className="user-back-button">
@@ -193,7 +204,7 @@ const UserCafeDetail = () => {
         </div>
       </div>
 
-      {/* Navigation Tabs (인디케이터는 여기 안에 고정) */}
+      {/* ===== 네비게이션 탭 영역 ===== */}
       <div className="user-cafe-detail-nav-tabs">
         <button
           className={`detail-nav-tab ${activeTab === "home" ? "active" : ""}`}
@@ -228,6 +239,7 @@ const UserCafeDetail = () => {
         />
       </div>
 
+      {/* ===== 이미지 슬라이더 영역 ===== */}
       {activeTab === "home" && (
         <div className="image-slider">
           <div className="slider-placeholder">
@@ -244,11 +256,11 @@ const UserCafeDetail = () => {
         </div>
       )}
 
-      {/* Tab Content */}
+      {/* ===== 탭 콘텐츠 영역 ===== */}
       <div className="tab-content">
         {activeTab === "home" ? renderHomeTab() : renderSeatingTab()}
       </div>
-      {/* 바텀 시트: 오버레이 클릭으로도 닫히게 유지(선택사항) */}
+      {/* ===== 바텀시트(좌석 오버레이) 영역 ===== */}
       <div className={`inline-sheet ${showTaken ? "open" : ""}`}>
         <TakenSeat />
       </div>

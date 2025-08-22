@@ -1,13 +1,11 @@
 // 카페 좌석 현황 관리 페이지
 // - 헤더, 메뉴, 좌석 배치도 업로드/생성 기능 포함
-// - 협업자들이 각 역할별로 쉽게 파악할 수 있도록 주요 부분에 주석 추가
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CafeHomeBeanUpdate.css";
 import MenuDropdown from "../components/MenuDropdown";
 import whitecursor from "../assets/white-cursor.svg";
-import testDraft from "../assets/test_draft.png";
-import ZoomPan from "../components/ZoomPan";
 import { getCookie, removeCookie } from "../utils/cookie";
 import { signOut } from "../apis/api";
 
@@ -34,16 +32,12 @@ const CafeHomeBeanUpdate = () => {
   // 좌석 배치도 업로드 페이지로 이동
   const handleUploadClick = () => navigate("/cafe-upload");
 
-  // ===== 기타 상태 =====
-  // seatMapImage: 추후 좌석 배치도 이미지 관리용 (현재 미사용)
-  const [seatMapImage] = useState(null);
-
   return (
     <main className="bean-update" role="main">
       {/* ===== 헤더 영역 ===== */}
       <header className="update-fixed-header">
         <div className="update-header-content">
-          {/* 좌측: 로고 및 홈 이동 */}
+          {/* 헤더 좌측: 로고 및 홈 이동 */}
           <div className="update-header-left" onClick={handleLogoClick}>
             <img
               src="/logo.png"
@@ -53,7 +47,7 @@ const CafeHomeBeanUpdate = () => {
             <h1 className="update-header-text">Bean</h1>
           </div>
 
-          {/* 우측: 로그아웃 및 메뉴 */}
+          {/* 헤더 우측: 로그아웃 및 메뉴 */}
           <div className="update-header-right">
             {/* 로그아웃 버튼 */}
             <button className="logout-btn" onClick={handleSignOut}>

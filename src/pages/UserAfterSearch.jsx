@@ -8,19 +8,21 @@ import CafeList from "../components/CafeList";
 
 import { getChatbot } from "../apis/api";
 
+// 바텀시트 관련 상수
 const SHEET_HEIGHT = 746; // 풀오픈 높이
 const MIN_VISIBLE = 70; // 접었을 때 상단에 남길 높이
-const COLLAPSED_DRAG_Y = SHEET_HEIGHT - MIN_VISIBLE; // 746 - 70 = 676
+const COLLAPSED_DRAG_Y = SHEET_HEIGHT - MIN_VISIBLE;
 const INITIAL_DRAG_Y = 0; // 초기: 풀오픈
 
 const UserAfterSearch = () => {
+  // ===== 라우터 및 위치 정보 =====
   const location = useLocation();
   const navigate = useNavigate();
   const navHome = () => navigate("/user-home");
 
   const passedQuery = location.state?.query || "";
 
-  const [dragY, setDragY] = useState(INITIAL_DRAG_Y); // 0 = 풀오픈
+  const [dragY, setDragY] = useState(INITIAL_DRAG_Y); // 풀오픈
   const [isDragging, setIsDragging] = useState(false);
   const bottomRef = useRef(null);
 
@@ -73,9 +75,9 @@ const UserAfterSearch = () => {
   // 드래그 종료(스냅)
   const handleDragEnd = () => {
     setIsDragging(false);
-    const threshold = COLLAPSED_DRAG_Y / 2; // 338px
-    if (dragY < threshold) setDragY(0); // 풀오픈으로 스냅
-    else setDragY(COLLAPSED_DRAG_Y); // 70px만 보이도록 스냅
+    const threshold = COLLAPSED_DRAG_Y / 2;
+    if (dragY < threshold) setDragY(0); 
+    else setDragY(COLLAPSED_DRAG_Y); 
   };
 
   // 전역 드래그 처리 (마우스+터치)
