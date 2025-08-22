@@ -1,59 +1,92 @@
+// 카페 도면(배치도) 업로드 페이지
+// - 매장 도면 이미지 업로드, drag & drop, 파일 리스트, 배치도 생성 등 UI 구성
+// - 백엔드로부터 props로 받을 수 있는 정보:
+//   1. 업로드된 도면 이미지 정보: { imageUrl, imageSize, ... }
+//   2. 테이블/좌석 감지 결과: [{ tableId, x, y, width, height, ... }]
+//   3. 업로드 상태 및 에러 메시지
+// props 예시: CafeUpload({ floorPlan, detections, uploadStatus, ... }
+
 import React, { useEffect, useRef, useState } from "react";
 import "./CafeRegister2.css";
-import { useNavigate } from "react-router-dom";
-import { uploadImageAndGetDetections } from "../apis/api"; // API 호출 함수 임포트
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  uploadImageAndGetDetections,
+  getLoginInfo,
+  getOwnerCafes,
+} from "../apis/api"; // API 호출 함수 임포트
 
 const CafeUpload = () => {
+  // ===== 라우터 이동 =====
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const [cafeId, setCafeId] = useState(location.state?.cafeId);
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [floorPlanImg, setFloorPlanImage] = useState(null);
-  const [detections, setDetections] = useState([]);
+  const [floorPlanComplete, setFloorPlanComplete] = useState(null);
   const fileInputRef = useRef(null);
 
+  // 다음 단계로 이동
   const handleNextClick = () => {
-    navigate("/cafe-map-creating");
+    console.log(cafeId, floorPlanComplete);
+    navigate("/cafe-map-creating", { state: { cafeId, floorPlanComplete } });
   };
 
+  // 헤더 로고 클릭 시 홈으로 이동
   const handleLogoClick = () => {
     navigate("/cafe-landing");
   };
 
+  // 파일 input 변경 시 파일 추가
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
     setUploadedFiles((prev) => [...prev, ...newFiles]);
   };
 
+  // drag & drop으로 파일 추가
   const handleDrop = (e) => {
     e.preventDefault();
     const droppedFiles = Array.from(e.dataTransfer.files);
     setUploadedFiles((prev) => [...prev, ...droppedFiles]);
   };
 
+  // drag over 시 기본 동작 방지
   const handleDragOver = (e) => {
     e.preventDefault();
   };
 
+  // 파일 리스트 초기화
   const handleReset = () => {
     setUploadedFiles([]);
   };
 
+  // 파일 업로드 시 도면 이미지 및 감지 결과 API 호출
+  useEffect(() => {
+    const getCafeInfo = async () => {
+      const result = await getLoginInfo();
+
+      const owner = result.data;
+      const cafes = await getOwnerCafes(owner.id);
+      setCafeId(cafes[0]?.id);
+    };
+    getCafeInfo();
+  }, []);
+
   useEffect(() => {
     const getFloorPlanAPI = async () => {
       if (uploadedFiles.length === 0) return; // 배열이 비어 있으면 실행하지 않음
+      console.log(uploadedFiles.length, "개의 파일이 업로드되었습니다.");
       const data = await uploadImageAndGetDetections(
         uploadedFiles[uploadedFiles.length - 1]
       );
-      setFloorPlanImage(data.image_size);
-      setDetections(data.detections);
+      console.log("업로드된 파일의 탐지 결과:", data);
+      setFloorPlanComplete(data);
     };
     getFloorPlanAPI();
   }, [uploadedFiles]);
 
-  console.log("Floor Plan Image:", floorPlanImg);
-  console.log("Detections:", detections);
-
   return (
     <div className="cafe-register">
+      {/* ===== 헤더 영역 ===== */}
       <header className="cafe-fixed-header">
         <div className="cafe-header-content">
           <img src="/logo.png" alt="Bean Logo" className="cafe-header-logo" />
@@ -63,9 +96,11 @@ const CafeUpload = () => {
         </div>
       </header>
 
+      {/* ===== 메인 컨텐츠 영역 ===== */}
       <div className="register2-container">
         <h2 className="register2-title">빈자리 배치도 만들기</h2>
 
+        {/* ===== 매장 도면 업로드 영역 ===== */}
         <section className="register2-step">
           <div className="register2-step-header-wrapper">
             <div className="register2-step-header">
@@ -79,6 +114,7 @@ const CafeUpload = () => {
             </div>
           </div>
 
+          {/* 파일 업로드 및 drag & drop 영역 */}
           <div className="upload-section">
             <div
               className="upload-box"
@@ -107,6 +143,7 @@ const CafeUpload = () => {
               />
             </div>
 
+            {/* 업로드된 파일 리스트 영역 */}
             <div className="file-list-section">
               {uploadedFiles.map((file, index) => (
                 <div className="file-item" key={index}>
@@ -126,6 +163,7 @@ const CafeUpload = () => {
           </div>
         </section>
 
+        {/* ===== 배치도 생성 버튼 영역 ===== */}
         <div className="register2-footer">
           <button className="register-button" onClick={handleNextClick}>
             배치도 생성

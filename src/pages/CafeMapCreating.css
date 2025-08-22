@@ -24,8 +24,8 @@
   border-bottom: 1px solid #d9d9d9;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* 왼쪽 정렬로 변경 */
-  padding-left: 100px; /* 원하는 만큼 왼쪽 여백 */
+  justify-content: flex-start;
+  padding-left: 100px;
   z-index: 1000;
 }
 
@@ -59,7 +59,6 @@
   gap: 20px;
 }
 
-/* 스피너: 심플한 도넛 회전 */
 .creating-spinner {
   width: 28px;
   height: 28px;
@@ -75,7 +74,6 @@
   }
 }
 
-/* 메시지: 스크린샷 느낌의 또렷한 한 줄(두 줄 줄바꿈) */
 .creating-heading {
   margin: 0;
   font-size: clamp(28px, 4.2vw, 34px);
@@ -89,14 +87,12 @@
   font-weight: 720;
 }
 
-/* 보조 문구(선택) */
 .creating-sub {
   margin: 0;
   color: #666;
   font-size: 20px;
 }
 
-/* 동작 최소화 선호 사용자 접근성 */
 @media (prefers-reduced-motion: reduce) {
   .creating-spinner {
     animation: none;

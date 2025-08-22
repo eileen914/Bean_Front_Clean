@@ -6,7 +6,7 @@ import "./UserHome.css";
 
 const SHEET_HEIGHT = 389; // 풀 오픈 시 보이는 높이
 const INITIAL_VISIBLE = 115; // 초기 상태에서 보이는 높이
-const INITIAL_DRAG_Y = SHEET_HEIGHT - INITIAL_VISIBLE; // = 389 - 115 = 274
+const INITIAL_DRAG_Y = SHEET_HEIGHT - INITIAL_VISIBLE; 
 const MAX_DRAG_Y = SHEET_HEIGHT; // 완전 숨김까지 허용 (필요시 389 대신 365 등으로 핸들 피크 고정 가능)
 
 const UserHome = () => {

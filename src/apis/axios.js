@@ -19,7 +19,7 @@ instanceWithToken.interceptors.request.use(
     const accessToken = getCookie("access_token");
     if (!accessToken) {
       // token 없으면 리턴
-      return;
+      return config;
     } else {
       // token 있으면 헤더에 담아주기 (Authorization은 장고에서 JWT 토큰을 인식하는 헤더 key)
       config.headers["Authorization"] = `Bearer ${accessToken}`;

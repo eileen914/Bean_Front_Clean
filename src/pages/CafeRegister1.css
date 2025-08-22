@@ -8,7 +8,7 @@
 .cafe-register {
   background-color: #f9f7f2;
   min-height: 100vh;
-  padding-top: 100px; /* 헤더 높이만큼 아래로 밀기 */
+  padding-top: 100px; 
 }
 
 /* FIXED 헤더 */
@@ -22,8 +22,8 @@
   border-bottom: 1px solid #d9d9d9;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* 왼쪽 정렬로 변경 */
-  padding-left: 100px; /* 원하는 만큼 왼쪽 여백 */
+  justify-content: flex-start;
+  padding-left: 100px;
   z-index: 1000;
 }
 
@@ -60,14 +60,12 @@
   width: 100%;
   background: white;
   border-radius: 16px;
-  /* padding: 40px; */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
-/* HERO SECTION (갈색 상단) */
 .register-hero {
   background-color: #4a3410;
   color: white;
@@ -91,7 +89,7 @@
 /* 기능 소개 아이콘 영역 */
 .register-features {
   max-width: 1400px;
-  margin: 0 auto; /* 중앙 정렬 */
+  margin: 0 auto;
   padding: 60px 20px 30px 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -145,8 +143,6 @@
   line-height: 1.5;
 }
 
-/* 혜택 나열을 좌우로 바꿨음(피그마랑 다른 부분) */
-/* 근데 이게 내(준하) 노트북 화면 기준으로 이게 더 나아서 이렇게 한건데 다른 화면으로도 테스트 필요 */
 .benefits-title {
   width: 100%;
   font-size: 1.4rem;
@@ -170,7 +166,7 @@
 
 .benefit-block {
   flex: 1;
-  min-width: 150px; /* ✅ 리스트가 한 줄에 안 깨지도록 */
+  min-width: 150px; 
 }
 
 .benefit-block ul {
@@ -178,7 +174,7 @@
   padding-left: 30px;
   color: #333;
   margin: 0;
-  white-space: normal; /* ✅ 줄바꿈 허용 */
+  white-space: normal
 }
 
 .benefit-block li {

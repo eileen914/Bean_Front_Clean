@@ -11,7 +11,8 @@ import { signOut } from "../apis/api";
 const CafeHomeBeanUpdate = () => {
   const handleSignOut = async () => {
     try {
-      await signOut();
+      const result = await signOut();
+      console.log("로그아웃 결과:", result);
     } finally {
       navigate("/cafe-landing", { replace: true });
     }
@@ -100,10 +101,7 @@ const CafeHomeBeanUpdate = () => {
         ) : ( */}
         <div className="canvas-box" role="region" aria-label="좌석 배치도 영역">
           <div className="empty-canvas">
-            <button
-              className="create-seatmap-btn"
-              onClick={handleUploadClick}
-            >
+            <button className="create-seatmap-btn" onClick={handleUploadClick}>
               빈자리 배치도 만들기
             </button>
           </div>

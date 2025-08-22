@@ -207,7 +207,7 @@ export default function FloorplanOverlay({
                   style={{ left: r.left * scale + pan.x, top: r.top * scale + pan.y, width: r.w * scale, height: r.h * scale }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    // chair-empty만 선택 가능
+                    // chair-만 선택 가능
                     if (isChairEmpty) setSelectedChairIdx(i);
                     onSelect?.(d, i);
                   }}
