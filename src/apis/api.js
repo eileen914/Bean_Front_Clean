@@ -213,6 +213,26 @@ export const uploadImageAndGetDetections = async (
 
 /* ==================== chair 관련 API ==================== */
 
+/* 목록 */
+export const listChairs = async () => {
+  try {
+    const res = await instance.get("/chairs/");
+    return res.data; // [{ id, x, y, width, height, type }, ...]
+  } catch (err) {
+    throw normalizeError(err);
+  }
+};
+
+/* 조회 */
+export const getChair = async (chairId) => {
+  try {
+    const res = await instance.get(`/chairs/${chairId}/`);
+    return res.data; // { id, x, y, width, height, type }
+  } catch (err) {
+    throw normalizeError(err);
+  }
+}
+
 /* 생성 */
 export const createChair = async (chairData) => {
   const call = () => instanceWithToken.post("/chairs/", chairData);
