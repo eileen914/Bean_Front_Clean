@@ -1,6 +1,9 @@
-// 사용자 랜딩(로그인/회원가입) 페이지
-// - 이미지, 로고, 로그인/회원가입 버튼 등 UI 구성
 
+/**
+ * UserLanding 페이지
+ * - props: 없음
+ * - 메인 이미지, 로고, 로그인/회원가입 버튼 UI
+ */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserLanding.css";
@@ -15,10 +18,10 @@ const UserLanding = () => {
     <div className="landing-page-before">
       <div className="overlap-group-wrapper">
         <div className="overlap-group">
-          {/* 메인 이미지 영역 */}
+          {/* 메인 이미지 */}
           <img className="group" alt="Group" src={group1} />
 
-          {/* 로그인/회원가입 버튼 영역 */}
+          {/* 로그인/회원가입 버튼 */}
           <div className="frame">
             <div className="div-wrapper" onClick={handleLogin}>
               <div className="text-wrapper">로그인</div>
@@ -28,7 +31,7 @@ const UserLanding = () => {
             </div>
           </div>
 
-          {/* 로고 영역 */}
+          {/* 로고 */}
           <div className="frame-2">
             <div className="rectangle-wrapper">
               <div className="rectangle" />
@@ -36,7 +39,7 @@ const UserLanding = () => {
             <img src="/logo.png" alt="로고" className="img" />
           </div>
 
-          {/* 슬로건 영역 */}
+          {/* 슬로건 */}
           <div className="frame-3">
             <div className="frame-4">
               <p className="p">Spot your day, here in</p>

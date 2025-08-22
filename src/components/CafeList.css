@@ -420,14 +420,12 @@
   width: 33px;
 }
 
-/* 1) 안쪽 컨테이너에 줄바꿈 허용 */
 .cafe-list .list-frame-4 > .list-frame-5 > .list-frame-5 {
-  display: flex;      /* 기존 inline-flex보다 명시적으로 flex */
-  flex-wrap: wrap;    /* 줄바꿈 허용 */
-  gap: 10px;          /* 기존 간격 유지 */
+  display: flex;      
+  flex-wrap: wrap;
+  gap: 10px;      
 }
 
-/* 2) 평점/태그(.list-frame-6)가 한 줄 모두 차지 → 주소는 자동으로 다음 줄 */
 .cafe-list .list-frame-6 {
   flex-basis: 100%;
 }

@@ -49,12 +49,7 @@ const CafeHomeBeanUpdate = () => {
 
           {/* 헤더 우측: 로그아웃 및 메뉴 */}
           <div className="update-header-right">
-            {/* 로그아웃 버튼 */}
-            <button className="logout-btn" onClick={handleSignOut}>
-              로그아웃
-            </button>
-
-            {/* 메뉴 드롭다운 */}
+            <button className="logout-btn" onClick={handleSignOut}>로그아웃</button>
             <div className="menu-wrap">
               <button
                 className="menu-btn"
@@ -66,8 +61,6 @@ const CafeHomeBeanUpdate = () => {
                 <span className="menu-bar" />
                 <span className="menu-bar" />
               </button>
-
-              {/* 메뉴 드롭다운 컴포넌트: open/onClose/onGoto prop으로 제어 */}
               <MenuDropdown
                 open={menuOpen}
                 onClose={() => setMenuOpen(false)}
@@ -77,25 +70,16 @@ const CafeHomeBeanUpdate = () => {
           </div>
         </div>
       </header>
-
-      {/* ===== 본문 영역 ===== */}
+      {/* 본문 영역 */}
       <section className="page-container">
-        {/* 페이지 제목 및 설명 */}
         <h2 className="page-title">빈자리 관리하기</h2>
         <p className="page-sub">
-          좌석별로 사용 현황을 업데이트할 수 있습니다.
-          <br />이 화면에서 업데이트되는 빈자리 현황은 고객 앱에도 실시간으로
-          반영돼요.
+          좌석별로 사용 현황을 업데이트할 수 있습니다.<br />
+          이 화면에서 업데이트되는 빈자리 현황은 고객 앱에도 실시간으로 반영돼요.
         </p>
-
-        {/* 좌석 배치도 업로드/생성 버튼 영역 */}
         <div className="canvas-box" role="region" aria-label="좌석 배치도 영역">
           <div className="empty-canvas">
-            {/* 좌석 배치도 만들기 버튼: 업로드 페이지로 이동 */}
-            <button
-              className="create-seatmap-btn"
-              onClick={handleUploadClick}
-            >
+            <button className="create-seatmap-btn" onClick={handleUploadClick}>
               빈자리 배치도 만들기
             </button>
           </div>
