@@ -1,21 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CafeHomeBeanUpdate.css";
 import MenuDropdown from "../components/MenuDropdown";
 import whitecursor from "../assets/white-cursor.svg";
 import testDraft from "../assets/test_draft.png";
 import ZoomPan from "../components/ZoomPan";
+import { getCookie, removeCookie } from "../utils/cookie";
+import { signOut } from "../apis/api";
 
 const CafeHomeBeanUpdate = () => {
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } finally {
+      navigate("/cafe-landing", { replace: true });
+    }
+  };
+
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogoClick = () => navigate("/cafe-landing");
   const handleMenuToggle = () => setMenuOpen((v) => !v);
   const handleGoto = (path) => navigate(path);
-  const handleLogoutClick = () => {
-    navigate("/cafe-landing");
-  };
+  const handleLogoutClick = () => {};
   const [seatMapImage] = useState(null);
   const handleUploadClick = () => navigate("/cafe-upload");
 
@@ -36,7 +44,7 @@ const CafeHomeBeanUpdate = () => {
           </div>
 
           <div className="update-header-right">
-            <button className="logout-btn" onClick={handleLogoutClick}>
+            <button className="logout-btn" onClick={handleSignOut}>
               로그아웃
             </button>
 
@@ -70,7 +78,26 @@ const CafeHomeBeanUpdate = () => {
           <br />이 화면에서 업데이트되는 빈자리 현황은 고객 앱에도 실시간으로
           반영돼요.
         </p>
-
+        {/* {testDraft ? (
+          <>
+            <div className="meta-row">
+              <div className="meta-left">
+                전체 좌석 수: <b>0</b> / 현재 빈 자리: <b>0</b>
+              </div>
+              <div className="meta-right status-live">* 현재 사용중</div>
+            </div>
+            <div className="canvas-box" role="region" aria-label="좌석 배치도 영역">
+              <ZoomPan min={0.5} max={4} step={0.2}>
+                <img
+                  src={testDraft}
+                  alt="좌석 배치도"
+                  className="canvas-image"
+                  draggable={false}
+                />
+              </ZoomPan>
+            </div>
+          </>
+        ) : ( */}
         <div className="canvas-box" role="region" aria-label="좌석 배치도 영역">
           <div className="empty-canvas">
             <button

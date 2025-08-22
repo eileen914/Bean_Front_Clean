@@ -1,5 +1,68 @@
 import { instance, instanceWithToken } from "./axios";
 
+// owner 관련 API
+export const signUp = async (data) => {
+  const response = await instance.post("/owners/signup/", data);
+  if (response.status === 200 || response.status === 201) {
+    //window.location.href = "/cafe-signin";
+  } else {
+    console.log("Error");
+  }
+  return response;
+};
+
+export const signIn = async (data) => {
+  const response = await instance.post("/owners/signin/", data);
+  if (response.status === 200) {
+    //window.location.reload(); // 페이지 새로고침
+  } else {
+    console.log("Error");
+  }
+};
+
+export const signOut = async (data) => {
+  const response = await instance.post("/owners/signout/", data);
+  if (response.status === 200) {
+    window.location.href = "/";
+  } else {
+    console.log("Error");
+  }
+};
+
+export const getOwnerInfo = async () => {
+  try {
+    // 업체 정보 요청
+    const response = await instanceWithToken.get("/owners/info/");
+
+    if (response.status === 200) {
+      console.log("Owner Info Retrieved:", response.data);
+    }
+    return response.data;
+  } catch (error) {
+    // 에러 처리
+    console.error(
+      "Get Owner Info Error:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+
+export const getOwnerCafes = async (ownerId) => {
+  const response = await instanceWithToken.get(`/owners/${ownerId}/cafes/`);
+  return response.data;
+};
+
+export const createCafe = async (data) => {
+  const response = await instanceWithToken.post("/cafes/", data);
+  if (response.status === 201) {
+    console.log("POST SUCCESS");
+    //navigate("/");
+  } else {
+    console.log("[ERROR] error while creating post");
+  }
+};
+
 export const getChatbot = async (question) => {
   const response = await instance.get("/cafes/chat/", {
     params: { question },
@@ -97,72 +160,6 @@ export const uploadImageAndGetDetections = async (imageFile) => {
     );
     throw error;
   }
-};
-
-// owner 관련 API
-export const signUp = async (userData) => {
-  try {
-    // 회원가입 요청
-    const response = await instance.post("/signup/", userData);
-
-    if (response.status === 201) {
-      console.log("Sign Up Successful:", response.data);
-    }
-    return response.data;
-  } catch (error) {
-    // 에러 처리
-    console.error("Sign Up Error:", error.response?.data || error.message);
-    throw error;
-  }
-};
-
-export const signIn = async (credentials) => {
-  try {
-    // 로그인 요청
-    const response = await instance.post("/signin/", credentials);
-
-    if (response.status === 200) {
-      console.log("Sign In Successful:", response.data);
-    }
-    return response.data;
-  } catch (error) {
-    // 에러 처리
-    console.error("Sign In Error:", error.response?.data || error.message);
-    throw error;
-  }
-};
-
-export const signOut = async () => {
-  const response = await instanceWithToken.post("/signout/");
-  if (response.status === 204) {
-    console.log("Sign Out Successful");
-    return true;
-  }
-  return false;
-};
-
-export const getOwnerInfo = async () => {
-  try {
-    // 업체 정보 요청
-    const response = await instanceWithToken.get("/owners/info/");
-
-    if (response.status === 200) {
-      console.log("Owner Info Retrieved:", response.data);
-    }
-    return response.data;
-  } catch (error) {
-    // 에러 처리
-    console.error(
-      "Get Owner Info Error:",
-      error.response?.data || error.message
-    );
-    throw error;
-  }
-};
-
-export const getOwnerCafes = async (ownerId) => {
-  const response = await instanceWithToken.get(`/owners/${ownerId}/cafes/`);
-  return response.data;
 };
 
 // chair 관련 API
