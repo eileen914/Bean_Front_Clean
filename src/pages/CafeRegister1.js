@@ -1,21 +1,27 @@
+// 카페 등록 1단계 페이지
+// - 서비스 소개, 혜택 안내, 등록 버튼 등으로 구성
+
 import React from "react";
 import "./CafeRegister1.css";
 import { useNavigate } from "react-router-dom";
 
 const CafeRegister1 = () => {
+  // ===== 라우터 이동 =====
   const navigate = useNavigate();
 
+  // 등록 버튼 클릭 시 다음 단계로 이동
   const handleNextClick = () => {
-    navigate("/cafe-register-2"); // 다음 단계 페이지로 이동
+    navigate("/cafe-register-2");
   };
 
+  // 헤더 로고 클릭 시 홈으로 이동
   const handleLogoClick = () => {
     navigate("/cafe-landing");
   };
 
   return (
     <div className="cafe-register">
-      {/* 고정 헤더 */}
+      {/* ===== 헤더 영역 ===== */}
       <header className="cafe-fixed-header">
         <div className="cafe-header-content">
           <img src="/logo.png" alt="Bean Logo" className="cafe-header-logo" />
@@ -25,9 +31,10 @@ const CafeRegister1 = () => {
         </div>
       </header>
 
-      {/* 메인 컨텐츠 */}
+      {/* ===== 메인 컨텐츠 영역 ===== */}
       <div className="cafe-register-container">
         <div className="register-main">
+          {/* 서비스 소개 영역 */}
           <section className="register-hero">
             <h2 className="register-title">
               카페 점주를 위한 빈자리 관리 서비스
@@ -36,7 +43,9 @@ const CafeRegister1 = () => {
               손쉽게 카페 좌석을 관리하고 고객에게 실시간 정보를 제공하세요
             </p>
           </section>
+          {/* 서비스 주요 기능 안내 영역 */}
           <section className="register-features">
+            {/* 손쉬운 좌석 관리 */}
             <div className="feature-item">
               <div className="feature-icon-wrapper">
                 <img
@@ -54,6 +63,7 @@ const CafeRegister1 = () => {
               </div>
             </div>
 
+            {/* 위치 기반 서비스 */}
             <div className="feature-item">
               <div className="feature-icon-wrapper">
                 <img
@@ -70,6 +80,7 @@ const CafeRegister1 = () => {
               </div>
             </div>
 
+            {/* 실시간 업데이트 */}
             <div className="feature-item">
               <div className="feature-icon-wrapper">
                 <img
@@ -86,6 +97,7 @@ const CafeRegister1 = () => {
               </div>
             </div>
 
+            {/* 고객 유지 증가 */}
             <div className="feature-item">
               <div className="feature-icon-wrapper">
                 <img
@@ -101,6 +113,7 @@ const CafeRegister1 = () => {
             </div>
           </section>
 
+          {/* 서비스 혜택 안내 영역 */}
           <section className="register-benefits">
             <h3 className="benefits-title">카페 점주를 위한 특별 혜택</h3>
             <div className="benefit-block">
@@ -125,6 +138,7 @@ const CafeRegister1 = () => {
             </div>
           </section>
 
+          {/* 등록 버튼 영역 */}
           <div className="register-footer">
             <button className="register-button" onClick={handleNextClick}>
               업체 등록하기
