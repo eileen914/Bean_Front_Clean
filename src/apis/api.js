@@ -63,24 +63,13 @@ export const signOut = async () => {
 };
 
 /* 로그인 체크: 200이면 true, 401이면 refresh 후 재시도 */
-export const checkLogin = async () => {
+export const getLoginInfo = async () => {
   try {
     const call = () => instanceWithToken.get("/owners/info/");
     const res = await withRefreshRetry(call);
-    return res?.status === 200;
-  } catch {
-    return false;
-  }
-};
-
-/* 내 정보: { id, username } */
-export const getOwnerInfo = async () => {
-  try {
-    const call = () => instanceWithToken.get("/owners/info/");
-    const res = await withRefreshRetry(call);
-    return res.data;
+    return { status: res.status, data: res.data };
   } catch (err) {
-    throw normalizeError(err);
+    return normalizeError(err);
   }
 };
 
