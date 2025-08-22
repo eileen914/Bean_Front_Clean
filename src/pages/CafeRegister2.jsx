@@ -1,13 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./CafeRegister2.css";
 import { useNavigate } from "react-router-dom";
-import { signUp, checkLogin, createCafe } from "../apis/api";
-import { use } from "react";
+import { signUp, createCafe } from "../apis/api";
 
 const CafeRegister2 = () => {
   const navigate = useNavigate();
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  const fileInputRef = useRef(null);
   const [signUpData, setSignUpData] = useState({
     username: "",
     password: "",
@@ -50,11 +47,12 @@ const CafeRegister2 = () => {
       setErrorMsg("회원가입에 실패했습니다. 다시 시도해주세요.");
       return;
     } else {
-      await createCafe(cafeData);
+      const result = await createCafe(cafeData);
+      const cafeId = result.data.id;
 
       // 3) 성공 시 이동
       alert("업체 등록이 완료되었습니다.");
-      navigate("/cafe-signin");
+      navigate("/cafe-signin", { state: { cafeId } });
     }
   };
 

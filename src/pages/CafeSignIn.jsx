@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./CafeSignIn.css";
 import { useNavigate } from "react-router-dom";
-import { signIn, checkLogin } from "../apis/api";
+import { signIn } from "../apis/api";
 
 const CafeSignIn = () => {
   const navigate = useNavigate();
@@ -19,10 +19,13 @@ const CafeSignIn = () => {
   const handleSignIn = async (e) => {
     // TODO: 백엔드 연동 시 여기에 로그인 요청 코드 추가
     e.preventDefault(); // to prevent reloading the page
-    await signIn(signInData); // 200 이어야 통과 (쿠키 세팅)
+    const result = await signIn(signInData); // 200 이어야 통과 (쿠키 세팅)
     // 선택: 쿠키 적용 확인(권장)
-    await checkLogin(); // 200이면 인증 OK
-    navigate("/cafe-update", { replace: true });
+    if (result.status === 200) {
+      navigate("/cafe-update", { replace: true });
+    } else {
+      alert(result.message);
+    }
   };
 
   const goToRegister = () => {
