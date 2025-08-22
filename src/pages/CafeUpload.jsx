@@ -8,25 +8,27 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import "./CafeRegister2.css";
-import { useNavigate } from "react-router-dom";
-import { uploadImageAndGetDetections } from "../apis/api"; // API 호출 함수 임포트
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  uploadImageAndGetDetections,
+  getLoginInfo,
+  getOwnerCafes,
+} from "../apis/api"; // API 호출 함수 임포트
 
 const CafeUpload = () => {
   // ===== 라우터 이동 =====
   const navigate = useNavigate();
 
-  // ===== 파일 업로드 관련 상태 =====
+  const location = useLocation();
+  const [cafeId, setCafeId] = useState(location.state?.cafeId);
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  // 도면 이미지 정보
-  const [floorPlanImg, setFloorPlanImage] = useState(null);
-  // 테이블/좌석 감지 결과
-  const [detections, setDetections] = useState([]);
-  // 파일 input ref
+  const [floorPlanComplete, setFloorPlanComplete] = useState(null);
   const fileInputRef = useRef(null);
 
   // 다음 단계로 이동
   const handleNextClick = () => {
-    navigate("/cafe-map-creating");
+    console.log(cafeId, floorPlanComplete);
+    navigate("/cafe-map-creating", { state: { cafeId, floorPlanComplete } });
   };
 
   // 헤더 로고 클릭 시 홈으로 이동
@@ -59,20 +61,28 @@ const CafeUpload = () => {
 
   // 파일 업로드 시 도면 이미지 및 감지 결과 API 호출
   useEffect(() => {
+    const getCafeInfo = async () => {
+      const result = await getLoginInfo();
+
+      const owner = result.data;
+      const cafes = await getOwnerCafes(owner.id);
+      setCafeId(cafes[0]?.id);
+    };
+    getCafeInfo();
+  }, []);
+
+  useEffect(() => {
     const getFloorPlanAPI = async () => {
       if (uploadedFiles.length === 0) return; // 배열이 비어 있으면 실행하지 않음
+      console.log(uploadedFiles.length, "개의 파일이 업로드되었습니다.");
       const data = await uploadImageAndGetDetections(
         uploadedFiles[uploadedFiles.length - 1]
       );
-      setFloorPlanImage(data.image_size); // 도면 이미지 정보
-      setDetections(data.detections); // 테이블/좌석 감지 결과
+      console.log("업로드된 파일의 탐지 결과:", data);
+      setFloorPlanComplete(data);
     };
     getFloorPlanAPI();
   }, [uploadedFiles]);
-
-  // 디버깅용 콘솔 출력 (실제 서비스에서는 삭제 가능)
-  console.log("Floor Plan Image:", floorPlanImg);
-  console.log("Detections:", detections);
 
   return (
     <div className="cafe-register">
