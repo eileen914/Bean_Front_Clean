@@ -15,7 +15,6 @@ export const instanceWithToken = axios.create();
 
 instanceWithToken.interceptors.request.use(
   // 요청을 보내기전 수행할 일
-  // 사실상 이번 세미나에 사용할 부분은 이거밖에 없어요
   (config) => {
     const accessToken = getCookie("access_token");
     if (!accessToken) {
