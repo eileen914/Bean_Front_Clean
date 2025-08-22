@@ -151,7 +151,7 @@ const CafeRegister2 = () => {
             </div>
             <div className="register2-form-row">
               <label>카페 설명</label>
-              <textarea
+              <input
                 id="description"
                 name="description"
                 className="input"
@@ -159,7 +159,7 @@ const CafeRegister2 = () => {
                 rows={3}
                 value={cafeData.description}
                 onChange={handleCafeData}
-              ></textarea>
+              ></input>
             </div>
           </form>
         </section>
