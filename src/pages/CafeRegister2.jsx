@@ -18,7 +18,6 @@ const CafeRegister2 = () => {
     description: "",
   });
   const [errorMsg, setErrorMsg] = useState("");
-  const [issigningUp, setIssigningUp] = useState(false);
 
   const handleSignUpData = (e) => {
     const { name, value } = e.target;
@@ -44,20 +43,24 @@ const CafeRegister2 = () => {
     }
 
     // 1) 회원가입
-    await signUp(signUpData); // 토큰/유저ID 반환 가정
+    const result = await signUp(signUpData); // 토큰/유저ID 반환 가정
+    console.log("회원가입 결과:", result);
 
-    setIssigningUp(true);
+    if (result.status !== 201) {
+      setErrorMsg("회원가입에 실패했습니다. 다시 시도해주세요.");
+      return;
+    } else {
+      await createCafe(cafeData);
+
+      // 3) 성공 시 이동
+      alert("업체 등록이 완료되었습니다.");
+      navigate("/cafe-signin");
+    }
   };
 
-  useEffect(async () => {
-    // 2) 카페 생성 (인증 필요 시 헤더에 토큰)
-    if (!issigningUp) return;
-    createCafe(cafeData);
-
-    // 3) 성공 시 카페 로그인 페이지로 이동
-    alert("업체 등록이 완료되었습니다.");
-    navigate("/cafe-signin");
-  }, [issigningUp]);
+  useEffect(() => {
+    console.log("Error message:", errorMsg);
+  }, [errorMsg]);
 
   const handleLogoClick = () => {
     navigate("/cafe-landing");
