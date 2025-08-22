@@ -148,35 +148,6 @@ export default function TableMetaCard({
           disabled={disabled}
         />
       </div>
-
-      {/* 기능 */}
-      <div className="ss-section">
-        <div className="ss-label">기능</div>
-        <div className="ss-options" role="group" aria-label="기능">
-          {feats.map((f) => (
-            <button
-              key={f}
-              type="button"
-              className={`ss-opt ${selFeats.has(f) ? "is-active" : ""}`}
-              onClick={() => onToggleFeat(f)}
-              disabled={disabled}
-            >
-              {f}
-            </button>
-          ))}
-        </div>
-        <input
-          type="text"
-          className="ss-input"
-          placeholder="기타 (직접입력)"
-          value={featEtc}
-          onChange={(e) => {
-            setFeatEtc(e.target.value);
-            emit({ etcInputs: { typeEtc, featureEtc: e.target.value } });
-          }}
-          disabled={disabled}
-        />
-      </div>
     </section>
   );
 }
