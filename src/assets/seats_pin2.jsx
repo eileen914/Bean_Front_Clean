@@ -2,13 +2,14 @@ import mappin from "../assets/mappin.svg";
 import coffee_bean from "../assets/coffee-bean.svg";
 import coffee_mug from "../assets/coffee-mug.svg";
 import filled_bean_pin from "../assets/fillbeanpin.png";
+import final_pin from "../assets/final_pin.png";
 
 export default function MapPins(text = "", palette = {}, options = {}) {
   const { injectStyle = true, pinSize = 23, fontSize = 15 } = options || {};
 
   if (injectStyle) injectPinStyleOnce();
 
-  const fg = palette.fg ?? "#4b2000";
+  const fg = palette.fg ?? "#685D4A";
 
   // 루트
   const root = document.createElement("div");
@@ -22,7 +23,7 @@ export default function MapPins(text = "", palette = {}, options = {}) {
 
   const match = String(text).match(/^\s*(\d+)\s*\/\s*(\d+)\s*$/);
   const RED = "#930c00ff";
-  const BROWN = "#4b2000ff";
+  const BROWN = "#685D4A";
 
   if (match && typeof fg === "string" && fg.toLowerCase() === RED) {
     // ≤2 케이스는 palette.fg가 RED로 들어옴 → 숫자만 RED, 나머진 BROWN

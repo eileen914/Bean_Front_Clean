@@ -78,7 +78,6 @@ const CafeHomeBeanUpdate = () => {
           <br />이 화면에서 업데이트되는 빈자리 현황은 고객 앱에도 실시간으로
           반영돼요.
         </p>
-
         {/* {testDraft ? (
           <>
             <div className="meta-row">
@@ -101,7 +100,10 @@ const CafeHomeBeanUpdate = () => {
         ) : ( */}
         <div className="canvas-box" role="region" aria-label="좌석 배치도 영역">
           <div className="empty-canvas">
-            <button className="create-seatmap-btn" onClick={handleUploadClick}>
+            <button
+              className="create-seatmap-btn"
+              onClick={handleUploadClick}
+            >
               빈자리 배치도 만들기
             </button>
           </div>

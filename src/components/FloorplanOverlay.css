@@ -1,0 +1,89 @@
+/* Wrapper */
+.floorplan-wrapper { width: 100%; }
+
+/* Stage (viewport) */
+.floorplan-stage {
+  position: relative;
+  display: inline-block;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Transform layer (panning + scaling applied here) */
+.floorplan-transform {
+  position: relative;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+/* Base image */
+.floorplan-image { display: block; max-width: 100%; height: auto; }
+
+/* Detection overlay (visual) */
+.det-layer { position: absolute; inset: 0; pointer-events: none; }
+.det-item { position: absolute; }
+
+/* Box visuals (class modifiers below) */
+.det-box {
+  width: 100%; height: 100%;
+}
+
+.det-box--table { 
+  color: #685D4A; 
+  border-color: #685d4a;
+  border-radius: 2px;
+}
+
+.det-box--chair-empty { 
+  color: #ffffff; 
+  border: 2px solid #685d4a;
+  border-radius: 8px;
+ }
+
+.det-box--chair-taken { 
+  color: #feefb2; 
+  border: 2px solid #685d4a;
+  border-radius: 8px;
+ }
+
+.det-box--chair-select { 
+  color: #fee266; 
+  border: 2px solid #827a6a; 
+  filter:drop-shadow(0px 4px rgba(130, 122, 106, 0.3));
+  border-radius: 8px;
+}
+
+/* Labels */
+.det-label {
+  position: absolute;
+  left: 0; top: -24px;
+  font-size: 11px; line-height: 1;
+  padding: 2px 6px;
+  border-radius: 6px;
+  color: #fff;
+  background: #f59e0b; /* default */
+}
+.det-label--table { background: #2563eb; }
+.det-label--chair { background: #10b981; }
+
+/* Click hit layer (interactive; separate from visual layer) */
+.det-hitlayer { position: absolute; inset: 0; }
+.det-hit { position: absolute; background: transparent; border: 0; padding: 0; cursor: pointer; }
+.det-hit:focus-visible { outline: 2px dashed #333; outline-offset: 2px; }
+
+/* Controls */
+.fp-controls { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 12px; color: rgba(0,0,0,0.55); }
+.fp-controls__label { margin-right: 2px; }
+.fp-controls__scale { margin-left: 6px; }
+.fp-btn { padding: 4px 8px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); background: #fff; cursor: pointer; }
+.fp-btn:active { transform: scale(0.98); }
+
+/* Optional: dark theme support */
+@media (prefers-color-scheme: dark) {
+  .floorplan-stage { background: #0b0b0c; border-color: rgba(255,255,255,0.1); }
+  .fp-btn { background: #17181a; color: #e7e7e7; border-color: rgba(255,255,255,0.12); }
+  .fp-controls { color: rgba(255,255,255,0.7); }
+}

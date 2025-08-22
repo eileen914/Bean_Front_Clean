@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useRef } from "react";
 import MapPins from "../assets/seats_pin2.jsx";
 import createSeatsPinImage from "../assets/seats_pin.jsx";
 
 function Kakaomap({ cafeList = [] }) {
   const mapRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!window.kakao || !window.kakao.maps) {
@@ -67,10 +69,22 @@ function Kakaomap({ cafeList = [] }) {
         const { available, total } = parseSeats("3/10");
         const palette = paletteFor(available);
 
+        // 핀 DOM 생성 (핸들러 추가)
+        const pinDom = MapPins(`${available}/${total}`, palette);
+        pinDom.style.cursor = "pointer";
+        pinDom.onclick = () => {
+          navigate("/user-cafe-detail", { state: {
+          cafeId: cafe.id,
+          ownerId: cafe.owner,
+          cafeName: cafe.name,
+          cafeAddress: cafe.address,
+          cafeImages: cafe.photo_urls,
+    } });
+        };       
         // ★ Marker 대신 CustomOverlay 사용 (DOM 핀)
         const overlay = new kakao.maps.CustomOverlay({
           position: pos,
-          content: MapPins(`${available}/${total}`, palette), // palette 색 반영된 DOM
+          content: pinDom, // palette 색 반영된 DOM
           xAnchor: 0.5,
           yAnchor: 1.0, // 아래 중앙이 좌표에 닿도록
           zIndex: 4,
@@ -85,7 +99,7 @@ function Kakaomap({ cafeList = [] }) {
     Promise.all(jobs).then(() => {
       if (!bounds.isEmpty()) map.setBounds(bounds);
     });
-  }, [cafeList]);
+  }, [cafeList, navigate]);
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
