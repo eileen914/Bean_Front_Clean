@@ -1,4 +1,3 @@
-
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DefaultLanding from "./pages/DefaultLanding";
@@ -21,6 +20,7 @@ import TestSeatStartCard from "./pages/TestSeatStartCard";
 import TestTableMetaCard from "./pages/TestTableMetaCard.jsx";
 import CafeUpload from "./pages/CafeUpload.jsx";
 
+import TestChair from "./pages/TestChair.jsx";
 
 function App() {
   return (
@@ -47,13 +47,11 @@ function App() {
           <Route path="/test-seat-start" element={<TestSeatStartCard />} />
           <Route path="/test-table-meta" element={<TestTableMetaCard />} />
           <Route path="/cafe-upload" element={<CafeUpload />} />
+          <Route path="/test-chair" element={<TestChair />} />
         </Routes>
-      
       </div>
     </Router>
   );
 }
 
-
-export default App; 
-
+export default App;

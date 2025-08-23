@@ -1,17 +1,17 @@
 // 업체 등록 완료 페이지
 // - 성공 애니메이션, 기능 안내, 이동 버튼 등으로 구성
-
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./CafeMapCreated.css";
 
 const CafeMapCreated = () => {
   // ===== 라우터 이동 =====
   const navigate = useNavigate();
+  const location = useLocation();
+  const { cafeId, floorPlanId } = location.state || {};
 
   // 빈자리 관리 페이지로 이동
   const handleDashboardClick = () => {
-    navigate("/cafe-update");
+    navigate("/cafe-update", { state: { cafeId, floorPlanId } });
   };
 
   // 랜딩 페이지로 이동

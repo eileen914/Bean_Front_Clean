@@ -15,8 +15,10 @@ const CafeMapCreating = () => {
   const [floorPlanId, setFloorPlanId] = useState(null);
   const [complete, setComplete] = useState(false);
 
-  console.log("CafeMapCreating - cafeId:", cafeId);
-  console.log("CafeMapCreating - floorPlanComplete:", floorPlanComplete);
+  const getFirstClass = (className) => {
+    if (typeof className !== "string") return "";
+    return className.split("-")[0];
+  };
 
   useEffect(() => {
     console.log("Floor plan complete:", floorPlanComplete);
@@ -28,15 +30,15 @@ const CafeMapCreating = () => {
     // floorPlanResult가 변경될 때마다 실행되는 로직
     const createFloorPlanAPI = async () => {
       if (!floorPlanResult) return; // 이미지가 없으면 실행하지 않음
-      const width = floorPlanResult.image?.width;
-      const height = floorPlanResult.image?.height;
+      const width = floorPlanResult.image_size?.width;
+      const height = floorPlanResult.image_size?.height;
       console.log(
         "Creating floor plan with dimensions:",
         width,
         height,
         cafeId
       );
-      const data = await createFloorPlan({ width, height, cafeId });
+      const data = await createFloorPlan({ width, height, cafe_id: cafeId });
       if (data.status === 201) {
         console.log("Floor plan created successfully:", data.data);
         setFloorPlanId(data.data.id);
@@ -54,7 +56,9 @@ const CafeMapCreating = () => {
       for (const detection of detections) {
         const { class: className, confidence, x, y, width, height } = detection;
 
-        if (className === "chair") {
+        const firstClass = getFirstClass(className);
+
+        if (firstClass === "chair" || firstClass === "sofa") {
           const chairRequest = {
             width: width,
             height: height,
@@ -66,14 +70,14 @@ const CafeMapCreating = () => {
             floor_plan: floorPlanId,
           };
 
-          const result = await createChair({ chairRequest });
+          const result = await createChair(chairRequest);
 
           if (result.status === 201) {
             console.log("Chair created successfully:", result.data);
           } else {
             console.error("Failed to create chair:", result);
           }
-        } else if (className === "table") {
+        } else if (firstClass === "table") {
           const tableRequest = {
             width: width,
             height: height,
@@ -81,7 +85,7 @@ const CafeMapCreating = () => {
             y_position: y,
             floor_plan: floorPlanId,
           };
-          const result = await createTable({ tableRequest });
+          const result = await createTable(tableRequest);
 
           if (result.status === 201) {
             console.log("Table created successfully:", result.data);
@@ -90,6 +94,8 @@ const CafeMapCreating = () => {
           }
         }
       }
+
+      setComplete(true);
     };
     createChairAndTableAPI();
   }, [detections]);
