@@ -29,12 +29,9 @@ const UserSearch = () => {
   return (
     <div className="frame-336">
       {/* BottomSheet 헤더 */}
-      <div className="bottom-sheet-header">
+      <div className="home-bottom-sheet-header">
         <div className="header-left">
           <span className="bottom-sheet-title">Bean AI</span>
-          <span className="bottom-sheet-subtitle">
-            나만의 맞춤 카페를 찾아보세요
-          </span>
         </div>
       </div>
       {/* 메인 컨테이너 */}
@@ -43,12 +40,12 @@ const UserSearch = () => {
         <div className="search-bar">
           <input
             type="text"
-            placeholder="검색어를 입력하세요."
+            placeholder="나만의 맞춤 카페를 찾아보세요."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={(e) => (e.target.placeholder = '')}
             onBlur={(e) => {
-              if (!searchQuery) e.target.placeholder = '검색어를 입력하세요.';
+              if (!searchQuery) e.target.placeholder = '나만의 맞춤 카페를 찾아보세요.';
             }}
             className="search-input"
           />
