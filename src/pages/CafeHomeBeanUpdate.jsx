@@ -8,6 +8,7 @@ import ZoomPan from "../components/ZoomPan";
 import { getCookie, removeCookie } from "../utils/cookie";
 import { signOut, listCafeFloorPlans } from "../apis/api";
 import ChairDetection from "../components/ChairDetection";
+import TableDetection from "../components/TableDetection";
 import { useBBoxFromItems, scaleItems } from "../utils/function";
 
 const TARGET_H = 630;
@@ -176,6 +177,18 @@ const CafeHomeBeanUpdate = () => {
                     occupied={chair.occupied}
                     floorplan_id={floorPlanId}
                     chair_idx={idx}
+                  />
+                ))}
+                {scaledTables.map((table, idx) => (
+                  <TableDetection
+                    width={table.width}
+                    height={table.height}
+                    x_position={table.x_position}
+                    y_position={table.y_position}
+                    shape={table.shape}
+                    seat_number={table.seat_number}
+                    floorplan_id={floorPlanId}
+                    table_idx={idx}
                   />
                 ))}
                 {/*</ZoomPan> */}
