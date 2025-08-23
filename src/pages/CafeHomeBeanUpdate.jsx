@@ -46,8 +46,8 @@ const CafeHomeBeanUpdate = () => {
 
   const handleLogoClick = () => navigate("/cafe-landing");
   const handleMenuToggle = () => setMenuOpen((v) => !v);
-  const handleGoto = (path) => navigate(path);
-  const handleLogoutClick = () => {};
+  const handleGoto = (path) =>
+    navigate(path, { state: { cafeId, floorPlanId } });
   const [seatMapImage] = useState(null);
   const handleUploadClick = () => navigate("/cafe-upload");
 
@@ -202,14 +202,37 @@ const CafeHomeBeanUpdate = () => {
                 ))}
                 {/*</ZoomPan> */}
                   {selectedChairIdx !== null && (
-                    <div style={{
-                      position: 'absolute',
-                      right: '32px',
-                      bottom: '32px',
-                      zIndex: 1000
-                    }}>
-                      <SeatStartCard tableNo={selectedChairIdx + 1} />
-                    </div>
+                    (() => {
+                      const chair = scaledChairs[selectedChairIdx];
+                      if (!chair) return null;
+                      const cardWidth = 380;
+                      const cardHeight = 280;
+                      const chairCenterX = chair.x_position;
+                      const chairCenterY = chair.y_position;
+                      const chairW = chair.width - 8;
+                      const chairH = chair.height - 8;
+                      // 기본: chair 오른쪽 50px
+                      let left = chairCenterX + chairW / 2 + 30;
+                      let top = chairCenterY - cardHeight / 2 + chairH / 2;
+                      // 만약 카드가 canvas-box 오른쪽을 벗어나면 chair 왼쪽에 띄움
+                      if (left + cardWidth > stageW - 10) {
+                        left = chairCenterX - chairW / 2 - cardWidth - 50;
+                        if (left < 10) left = 10;
+                      }
+                      // 상하 경계 보정
+                      top = Math.max(top, 20);
+                      top = Math.min(top, stageH - cardHeight - 30);
+                      return (
+                        <div style={{
+                          position: 'absolute',
+                          left: left,
+                          top: top,
+                          zIndex: 1000
+                        }}>
+                          <SeatStartCard tableNo={selectedChairIdx + 1} />
+                        </div>
+                      );
+                    })()
                   )}
               </div>
             </div>
