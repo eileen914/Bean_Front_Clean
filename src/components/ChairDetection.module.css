@@ -2,7 +2,7 @@
   --chair-bg: #fff;
   --chair-border: rgba(104, 93, 74, 0.35);
   --chair-occupied-bg: #feefb2;
-  --chair-occupied-border: #685d4a;
+  --chair-occupied-border: rgba(104, 93, 74, 0.35);
   --chair-selected-bg: #fee266;
   --chair-selected-border: #827a6a;
 }
