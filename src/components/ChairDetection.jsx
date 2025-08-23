@@ -62,16 +62,6 @@ const ChairDetection = ({
       data-floorplan-id={floorplan_id}
       data-chair-idx={chair_idx}
     >
-      {(window || socket) && (
-        <div className={styles.badges}>
-          {window && (
-            <span className={`${styles.badge} ${styles.badgeWin}`}>창</span>
-          )}
-          {socket && (
-            <span className={`${styles.badge} ${styles.badgeSock}`}>⚡</span>
-          )}
-        </div>
-      )}
     </div>
   );
 };
