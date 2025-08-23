@@ -8,12 +8,19 @@ import ZoomPan from "../components/ZoomPan";
 import { getCookie, removeCookie } from "../utils/cookie";
 import { signOut, listCafeFloorPlans } from "../apis/api";
 import ChairDetection from "../components/ChairDetection";
+import SeatStartCard from "../components/SeatStartCard";
 import TableDetection from "../components/TableDetection";
 import { useBBoxFromItems, scaleItems } from "../utils/function";
 
 const TARGET_H = 630;
 
 const CafeHomeBeanUpdate = () => {
+  // 한 번에 하나만 선택되는 의자 idx 관리
+  const [selectedChairIdx, setSelectedChairIdx] = useState(null);
+  // 선택 핸들러: 이미 선택된 의자면 해제, 아니면 선택
+  const handleSelectChair = (idx) => {
+    setSelectedChairIdx(prev => (prev === idx ? null : idx));
+  };
   const handleSignOut = async () => {
     try {
       const result = await signOut();
@@ -168,8 +175,8 @@ const CafeHomeBeanUpdate = () => {
                 {/*<ZoomPan min={0.5} max={4} step={0.2}> */}
                 {scaledChairs.map((chair, idx) => (
                   <ChairDetection
-                    width={chair.width}
-                    height={chair.height}
+                    width={chair.width - 8}
+                    height={chair.height - 8}
                     x_position={chair.x_position}
                     y_position={chair.y_position}
                     window={chair.window}
@@ -177,12 +184,14 @@ const CafeHomeBeanUpdate = () => {
                     occupied={chair.occupied}
                     floorplan_id={floorPlanId}
                     chair_idx={idx}
+                    selected={selectedChairIdx === idx}
+                    onSelect={() => handleSelectChair(idx)}
                   />
                 ))}
                 {scaledTables.map((table, idx) => (
                   <TableDetection
-                    width={table.width}
-                    height={table.height}
+                    width={table.width - 5}
+                    height={table.height - 5}
                     x_position={table.x_position}
                     y_position={table.y_position}
                     shape={table.shape}
@@ -192,6 +201,16 @@ const CafeHomeBeanUpdate = () => {
                   />
                 ))}
                 {/*</ZoomPan> */}
+                  {selectedChairIdx !== null && (
+                    <div style={{
+                      position: 'absolute',
+                      right: '32px',
+                      bottom: '32px',
+                      zIndex: 1000
+                    }}>
+                      <SeatStartCard tableNo={selectedChairIdx + 1} />
+                    </div>
+                  )}
               </div>
             </div>
           </>

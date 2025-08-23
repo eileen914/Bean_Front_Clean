@@ -14,25 +14,26 @@ const TableDetection = ({
   const top = y_position - height / 2;
   // 테이블 스타일
   let tableStyle = {
-    position: "absolute",
-    left: left,
-    top: top,
-    width: width,
-    height: height,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: shape === "circle" ? "50%" : "2px",
-    background: "#685D4A", // 내부 색상
-    color: "#111", // 중앙 글씨 검정색
-    border: "2px solid #685D4A", // 테두리 색상
-    fontWeight: "bold",
-    fontSize: 16,
+  position: 'absolute',
+  left: left,
+  top: top,
+  width: width,
+  height: height,
+  margin: '5px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: shape === 'circle' ? '50%' : '2px',
+  background: 'rgba(104, 93, 74, 0.8)', // 내부 색상 (투명도 80%)
+  color: '#ffffffff', // 중앙 글씨 검정색
+  border: '1px solid #685d4a', // 테두리 색상
+  fontWeight: 'semi-bold',
+  fontSize: 18,
   };
   return (
     <div style={tableStyle}>
-      <span style={{ color: "#111", fontSize: 10, fontWeight: "bold" }}>
-        {table_idx}
+      <span style={{ color: "#ffffffff", fontSize: 18, fontWeight: "semi-bold" }}>
+        {table_idx + 1}
       </span>
     </div>
   );
