@@ -3,15 +3,21 @@ import { getCookie } from "../utils/cookie";
 
 // baseURL, credential, 헤더 세팅
 axios.defaults.baseURL = "http://localhost:8000/api";
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.common["X-CSRFToken"] = getCookie("csrftoken");
 
+const common = {
+  baseURL: "http://localhost:8000/api",
+  withCredentials: true, // << 쿠키 동봉
+  headers: { "Content-Type": "application/json" },
+};
+
 // 누구나 접근 가능한 API들
-export const instance = axios.create();
+export const instance = axios.create(common);
 
 // Token 있어야 접근 가능한 API들 - 얘는 토큰을 넣어줘야 해요
-export const instanceWithToken = axios.create();
+export const instanceWithToken = axios.create(common);
 
 instanceWithToken.interceptors.request.use(
   // 요청을 보내기전 수행할 일

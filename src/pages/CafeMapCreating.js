@@ -1,10 +1,8 @@
 // - 일정 시간 후 자동 화면 전환, 헤더, 로딩 스피너, 안내 텍스트 등으로 구성
-
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { createFloorPlan, createChair, createTable } from "../apis/api"; // API 호출 함수 임포트
 import "./CafeMapCreating.css";
-
 const CafeMapCreating = () => {
   // ===== 라우터 이동 =====
   const navigate = useNavigate();
@@ -24,7 +22,6 @@ const CafeMapCreating = () => {
     console.log("Floor plan complete:", floorPlanComplete);
     setFloorPlanResult(floorPlanComplete);
   }, []);
-
   // 페이지 진입 후 5초 뒤 자동으로 등록 완료 페이지로 이동
   useEffect(() => {
     // floorPlanResult가 변경될 때마다 실행되는 로직
@@ -47,15 +44,12 @@ const CafeMapCreating = () => {
     };
     createFloorPlanAPI();
   }, [floorPlanResult]);
-
   useEffect(() => {
     // detections가 변경될 때마다 실행되는 로직
     const createChairAndTableAPI = async () => {
       if (!detections || detections.length === 0) return; // 탐지 결과가 없으면 실행하지 않음
-
       for (const detection of detections) {
         const { class: className, confidence, x, y, width, height } = detection;
-
         const firstClass = getFirstClass(className);
 
         if (firstClass === "chair" || firstClass === "sofa") {
@@ -94,23 +88,19 @@ const CafeMapCreating = () => {
           }
         }
       }
-
       setComplete(true);
     };
     createChairAndTableAPI();
   }, [detections]);
-
   useEffect(() => {
     if (complete) {
       navigate("/cafe-map-created", { state: { cafeId, floorPlanId } });
     }
   }, [complete]);
-
   // 헤더 로고 클릭 시 랜딩 페이지로 이동
   const handleLogoClick = () => {
     navigate("/cafe-landing");
   };
-
   return (
     <main className="creating-page" role="main" aria-busy="true">
       {/* ===== 헤더 영역 ===== */}
@@ -122,7 +112,6 @@ const CafeMapCreating = () => {
           </h1>
         </div>
       </header>
-
       {/* ===== 메인 콘텐츠 영역 ===== */}
       <section className="creating-center">
         {/* 로딩 스피너 */}
@@ -142,5 +131,4 @@ const CafeMapCreating = () => {
     </main>
   );
 };
-
 export default CafeMapCreating;

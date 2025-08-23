@@ -1,8 +1,8 @@
 // 업체 등록 완료 페이지
 // - 성공 애니메이션, 기능 안내, 이동 버튼 등으로 구성
+
 import { useNavigate, useLocation } from "react-router-dom";
 import "./CafeMapCreated.css";
-
 const CafeMapCreated = () => {
   // ===== 라우터 이동 =====
   const navigate = useNavigate();
@@ -13,12 +13,10 @@ const CafeMapCreated = () => {
   const handleDashboardClick = () => {
     navigate("/cafe-update", { state: { cafeId, floorPlanId } });
   };
-
   // 랜딩 페이지로 이동
   const handleBackToLanding = () => {
     navigate("/cafe-landing");
   };
-
   return (
     <div className="cafe-map-created">
       <div className="created-container">
@@ -37,7 +35,6 @@ const CafeMapCreated = () => {
               <div className="confetti-piece"></div>
             </div>
           </div>
-
           {/* ===== 안내 텍스트 영역 ===== */}
           <h1 className="created-title">업체 등록 완료!</h1>
           <p className="created-description">
@@ -45,7 +42,6 @@ const CafeMapCreated = () => {
             <br />
             이제 Bean의 모든 기능을 이용하실 수 있습니다.
           </p>
-
           {/* ===== 기능 안내 영역 ===== */}
           <div className="created-details">
             {/* 지도 등록 안내 */}
@@ -91,7 +87,6 @@ const CafeMapCreated = () => {
               </div>
             </div>
           </div>
-
           {/* ===== 이동 버튼 영역 ===== */}
           <div className="created-actions">
             {/* 랜딩 페이지로으로 이동 버튼 */}
@@ -114,5 +109,4 @@ const CafeMapCreated = () => {
     </div>
   );
 };
-
 export default CafeMapCreated;
