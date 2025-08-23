@@ -301,7 +301,7 @@ body {
 .chat-ai-top {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 13px;
   justify-content: center;
   width: 100%;
 }
