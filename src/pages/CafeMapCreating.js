@@ -12,10 +12,12 @@ const CafeMapCreating = () => {
   const [detections, setDetections] = useState([]);
   const [floorPlanId, setFloorPlanId] = useState(null);
   const [complete, setComplete] = useState(false);
+
   const getFirstClass = (className) => {
     if (typeof className !== "string") return "";
     return className.split("-")[0];
   };
+
   useEffect(() => {
     console.log("Floor plan complete:", floorPlanComplete);
     setFloorPlanResult(floorPlanComplete);
@@ -49,6 +51,7 @@ const CafeMapCreating = () => {
       for (const detection of detections) {
         const { class: className, confidence, x, y, width, height } = detection;
         const firstClass = getFirstClass(className);
+
         if (firstClass === "chair" || firstClass === "sofa") {
           const chairRequest = {
             width: width,
@@ -60,7 +63,9 @@ const CafeMapCreating = () => {
             occupied: false,
             floor_plan: floorPlanId,
           };
+
           const result = await createChair(chairRequest);
+
           if (result.status === 201) {
             console.log("Chair created successfully:", result.data);
           } else {
@@ -75,6 +80,7 @@ const CafeMapCreating = () => {
             floor_plan: floorPlanId,
           };
           const result = await createTable(tableRequest);
+
           if (result.status === 201) {
             console.log("Table created successfully:", result.data);
           } else {
