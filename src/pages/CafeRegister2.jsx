@@ -40,6 +40,7 @@ const CafeRegister2 = () => {
     }
 
     // 1) 회원가입
+    console.log("회원가입 데이터:", signUpData);
     const result = await signUp(signUpData); // 토큰/유저ID 반환 가정
     console.log("회원가입 결과:", result);
 

@@ -60,7 +60,6 @@ const CafeUpload = () => {
     setUploadedFiles([]);
   };
 
-  // 파일 업로드 시 도면 이미지 및 감지 결과 API 호출
   useEffect(() => {
     const getCafeInfo = async () => {
       const result = await getLoginInfo();
