@@ -1,0 +1,23 @@
+.tableBox {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  background: rgba(104, 93, 74, 0.8);
+  color: #fff;
+  border: 2px solid #685d4a;
+  font-weight: 600;
+  font-size: 18px;
+  margin: 5px;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.tableBoxLabel {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
