@@ -68,12 +68,12 @@
 
 .signin-input {
   width: 100%;
-  padding: 14px;
+  padding: 16px;
   font-size: 1rem;
   border: 1px solid #aaa;
   border-radius: 8px;
   margin-bottom: 16px;
-  background-color: white;
+  background-color: #f9f7f2;
 }
 
 .signin-subtext {
