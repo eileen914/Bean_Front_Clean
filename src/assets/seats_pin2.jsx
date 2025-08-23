@@ -1,6 +1,4 @@
 import mappin from "../assets/mappin.svg";
-import coffee_bean from "../assets/coffee-bean.svg";
-import coffee_mug from "../assets/coffee-mug.svg";
 import filled_bean_pin from "../assets/fillbeanpin.png";
 import final_pin from "../assets/final_pin.png";
 

@@ -5,8 +5,8 @@ import Kakaomap from "../components/Kakaomap";
 import "./UserHome.css";
 
 const SHEET_HEIGHT = 389; // 풀 오픈 시 보이는 높이
-const INITIAL_VISIBLE = 115; // 초기 상태에서 보이는 높이
-const INITIAL_DRAG_Y = SHEET_HEIGHT - INITIAL_VISIBLE; 
+const INITIAL_VISIBLE = 110; // 초기 상태에서 보이는 높이
+const INITIAL_DRAG_Y = SHEET_HEIGHT - INITIAL_VISIBLE;
 const MAX_DRAG_Y = SHEET_HEIGHT; // 완전 숨김까지 허용 (필요시 389 대신 365 등으로 핸들 피크 고정 가능)
 
 const UserHome = () => {
@@ -81,64 +81,50 @@ const UserHome = () => {
   }, [isDragging, dragY]);
 
   return (
-    <div className="home-page">
-      {/* 헤더 */}
-      <header className="header">
-        <div className="header-content">
-          <div className="logo">
-            <span className="logo-text">Bean</span>
-          </div>
-          <button className="menu-button">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"
-                fill="#391d0a"
-              />
-            </svg>
-          </button>
-        </div>
-      </header>
-
-      {/* 메인 콘텐츠 */}
-      <main className="main-content">
-        <div className="image-container">
-          <div className="main-image">
-            <Kakaomap />
-          </div>
-        </div>
-      </main>
-
-      {/* Bottom Sheet */}
-      <div
-        ref={bottomSheetRef}
-        className="bottom-sheet"
-        style={{
-          transform: `translateX(-50%) translateY(${dragY}px)`,
-          transition: isDragging ? "none" : "transform 0.25s ease",
-        }}
-        onMouseDown={handleDragStart}
-        onMouseUp={handleDragEnd}
-        onTouchStart={handleDragStart}
-        onTouchEnd={handleDragEnd}
-      >
-        {/* 드래그 핸들 */}
-        <div className="drag-handle">
-          <div className="handle-bar"></div>
-        </div>
-
+    <div className="user-home-page">
+      {/* 새 프레임 컨테이너 */}
+      <div className="app-frame">
         {/* 헤더 */}
-        <div className="bottom-sheet-header">
-          <div className="header-left">
-            <span className="bottom-sheet-title">Bean AI</span>
-            <span className="bottom-sheet-subtitle">
-              나만의 맞춤 카페를 찾아보세요
-            </span>
+        <header className="header">
+          <div className="header-content">
+            <div className="logo">
+              <span className="logo-text">Bean</span>
+            </div>
+            <button className="menu-button">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"
+                  fill="#391d0a"
+                />
+              </svg>
+            </button>
           </div>
-        </div>
+        </header>
 
-        {/* 콘텐츠 */}
-        <div className="bottom-sheet-content">
-          <UserSearch />
+        {/* 메인 콘텐츠 */}
+        <main className="map-main-content">
+          <Kakaomap />
+        </main>
+
+        {/* Bottom Sheet */}
+        <div
+          ref={bottomSheetRef}
+          className="bottom-sheet"
+          style={{
+            transform: `translateY(${dragY}px)`, // X이동 제거
+            transition: isDragging ? "none" : "transform 0.25s ease",
+          }}
+          onMouseDown={handleDragStart}
+          onMouseUp={handleDragEnd}
+          onTouchStart={handleDragStart}
+          onTouchEnd={handleDragEnd}
+        >
+          <div className="drag-handle">
+            <div className="handle-bar"></div>
+          </div>
+          <div className="bottom-sheet-content">
+            <UserSearch />
+          </div>
         </div>
       </div>
     </div>
