@@ -10,6 +10,7 @@ const TableDetection = ({
   seat_number = "4인석",
   floorplan_id = 0,
   table_idx = 0,
+  selected = false,
   onClick,
 }) => {
   // 중심 좌표(x_position, y_position) 기준으로 위치 계산
@@ -21,9 +22,14 @@ const TableDetection = ({
     width,
     height,
   };
+  const classNames = [
+    styles.tableBox,
+    shape === "circle" ? styles.circle : "",
+    selected ? styles.selected : ""
+  ].filter(Boolean).join(" ");
   return (
     <div
-      className={`${styles.tableBox}${shape === "circle" ? ` ${styles.circle}` : ""}`}
+      className={classNames}
       style={style}
       onClick={onClick}
     >

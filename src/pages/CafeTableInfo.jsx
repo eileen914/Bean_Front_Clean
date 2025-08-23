@@ -207,6 +207,7 @@ const CafeHomeBeanUpdate = () => {
                     seat_number={table.seat_number}
                     floorplan_id={floorPlanId}
                     table_idx={idx}
+                    selected={selectedTableIdx === idx}
                     onClick={() => handleSelectTable(idx)}
                   />
                 ))}

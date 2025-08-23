@@ -65,12 +65,12 @@ export default function TakenSeat({ defaultReserved = false, onToggle }) {
         {/* 입장/퇴장/남은 시간 */}
         <p className="taken-p">
           <span className="taken-text-wrapper-3">
-            입장시간|&nbsp;&nbsp;15:03
+            입장시간 |&nbsp;&nbsp;15:03
             <br />
-            예상 퇴장시간|&nbsp;&nbsp;17:33
+            예상 퇴장시간 |&nbsp;&nbsp;17:33
           </span>
           <span className="taken-text-wrapper-4">&nbsp;</span>
-          <span className="taken-text-wrapper-4">(남은 시간 1시간 15분)</span>
+          <span className="taken-text-wrapper-5">(남은 시간 1시간 15분)</span>
         </p>
 
         {/* 예약 버튼 (상태에 따라 텍스트 변경) */}
