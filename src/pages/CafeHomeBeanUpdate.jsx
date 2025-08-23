@@ -6,29 +6,24 @@ import whitecursor from "../assets/white-cursor.svg";
 import testDraft from "../assets/test_draft.png";
 import ZoomPan from "../components/ZoomPan";
 import { getCookie, removeCookie } from "../utils/cookie";
-import { signOut, listCafeFloorPlans } from "../apis/api";
+import {
+  signOut,
+  listCafeFloorPlans,
+  getChair,
+  updateChair,
+} from "../apis/api";
 import ChairDetection from "../components/ChairDetection";
 import SeatStartCard from "../components/SeatStartCard";
+import TableStatusCard from "../components/TableStatusCard";
 import TableDetection from "../components/TableDetection";
 import { useBBoxFromItems, scaleItems } from "../utils/function";
+import { fmtHHMM, fmtDuration } from "../utils/dateTime";
 
 const TARGET_H = 630;
 
 const CafeHomeBeanUpdate = () => {
   // 한 번에 하나만 선택되는 의자 idx 관리
   const [selectedChairIdx, setSelectedChairIdx] = useState(null);
-  // 선택 핸들러: 이미 선택된 의자면 해제, 아니면 선택
-  const handleSelectChair = (idx) => {
-    setSelectedChairIdx(prev => (prev === idx ? null : idx));
-  };
-  const handleSignOut = async () => {
-    try {
-      const result = await signOut();
-      console.log("로그아웃 결과:", result);
-    } finally {
-      navigate("/cafe-landing", { replace: true });
-    }
-  };
 
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -43,6 +38,7 @@ const CafeHomeBeanUpdate = () => {
 
   const [seatNumber, setSeatNumber] = useState(0);
   const [emptySeatNumber, setEmptySeatNumber] = useState(0);
+  const [occupiedSeat, setOccupiedSeat] = useState(null);
 
   const handleLogoClick = () => navigate("/cafe-landing");
   const handleMenuToggle = () => setMenuOpen((v) => !v);
@@ -51,10 +47,60 @@ const CafeHomeBeanUpdate = () => {
   const [seatMapImage] = useState(null);
   const handleUploadClick = () => navigate("/cafe-upload");
 
+  // 선택 핸들러: 이미 선택된 의자면 해제, 아니면 선택
+  const handleSelectChair = (idx, chair) => {
+    console.log("handleSelectChair: ", idx, chair);
+    setSelectedChairIdx((prev) => (prev === idx ? null : idx));
+    if (chair.occupied) {
+      setOccupiedSeat({
+        chairId: chair.id,
+        tableNo: `${chair.floor_plan}-${idx + 1}`,
+        minutes: 120,
+        checkinAt: chair.entry_time,
+        expectedOutAt: new Date(
+          new Date(chair.entry_time).getTime() + 120 * 60_000
+        ), // 2시간 후
+      });
+    } else {
+      setOccupiedSeat(null);
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      const result = await signOut();
+      console.log("로그아웃 결과:", result);
+    } finally {
+      navigate("/cafe-landing", { replace: true });
+    }
+  };
+
+  const handleCheckout = async (chairId) => {
+    const result = await updateChair(chairId, { occupied: false });
+    console.log("퇴실 처리 결과:", result);
+    if (result.status === 200) {
+      setChairs((prevChairs) =>
+        prevChairs.map((chair) =>
+          chair.id === chairId ? { ...chair, occupied: false } : chair
+        )
+      );
+
+      setEmptySeatNumber((prev) => prev + 1);
+      setSelectedChairIdx(null);
+      setOccupiedSeat(null);
+    } else {
+      console.error("퇴실 처리 실패:", result);
+    }
+  };
+
+  const handleStart = (data) => {
+    setOccupiedSeat(data);
+    setEmptySeatNumber((prev) => prev - 1);
+  };
+
   useEffect(() => {
     const fetchFloorPlans = async () => {
       if (!cafeId) return; // cafeId가 없으면 실행하지 않음
-      console.log("Fetching floor plans for cafeId:", cafeId);
       const result = await listCafeFloorPlans(cafeId);
       setFloorPlan(result[0]);
     };
@@ -64,8 +110,6 @@ const CafeHomeBeanUpdate = () => {
 
   useEffect(() => {
     if (!floorPlan) return; // floorPlan이 없으면 실행하지 않음
-    console.log("도면들", floorPlan);
-    console.log("테이블들", floorPlan.tables);
     setChairs(floorPlan.chairs || []);
     setSeatNumber(floorPlan.chairs.length);
     setEmptySeatNumber(floorPlan.chairs.length);
@@ -74,11 +118,24 @@ const CafeHomeBeanUpdate = () => {
   }, [floorPlan]);
 
   useEffect(() => {
-    if (!isSet) return; // isSet이 false이면 실행하지 않음
-    // 여기에 필요한 로직 추가
-    console.log("의자들", chairs);
-    console.log("테이블들", tables);
-  }, [isSet]);
+    const fetchChairs = async () => {
+      if (!occupiedSeat) return;
+      const result = await getChair(occupiedSeat.chairId);
+      if (!result || !result.id) return;
+
+      console.log("갱신된 의자 정보", result);
+
+      setChairs((prevChairs) =>
+        prevChairs.map((chair) => {
+          if (chair.id === result.id) {
+            return { ...chair, occupied: result.occupied };
+          }
+          return chair;
+        })
+      );
+    };
+    fetchChairs();
+  }, [occupiedSeat]);
 
   // 1) 원본 도면의 폭/높이(있으면 그대로, 없으면 의자/테이블에서 추정)
   const bbox = useBBoxFromItems(chairs, tables);
@@ -175,6 +232,7 @@ const CafeHomeBeanUpdate = () => {
                 {/*<ZoomPan min={0.5} max={4} step={0.2}> */}
                 {scaledChairs.map((chair, idx) => (
                   <ChairDetection
+                    key={idx}
                     width={chair.width - 8}
                     height={chair.height - 8}
                     x_position={chair.x_position}
@@ -185,11 +243,12 @@ const CafeHomeBeanUpdate = () => {
                     floorplan_id={floorPlanId}
                     chair_idx={idx}
                     selected={selectedChairIdx === idx}
-                    onSelect={() => handleSelectChair(idx)}
+                    onSelect={() => handleSelectChair(idx, chair)}
                   />
                 ))}
                 {scaledTables.map((table, idx) => (
                   <TableDetection
+                    key={idx}
                     width={table.width - 5}
                     height={table.height - 5}
                     x_position={table.x_position}
@@ -201,16 +260,43 @@ const CafeHomeBeanUpdate = () => {
                   />
                 ))}
                 {/*</ZoomPan> */}
-                  {selectedChairIdx !== null && (
-                    <div style={{
-                      position: 'absolute',
-                      right: '32px',
-                      bottom: '32px',
-                      zIndex: 1000
-                    }}>
-                      <SeatStartCard tableNo={selectedChairIdx + 1} />
-                    </div>
-                  )}
+                {selectedChairIdx !== null && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: "32px",
+                      bottom: "32px",
+                      zIndex: 1000,
+                    }}
+                  >
+                    {occupiedSeat === null ? (
+                      <SeatStartCard
+                        floorPlanId={floorPlanId}
+                        index={selectedChairIdx + 1}
+                        id={scaledChairs[selectedChairIdx].id}
+                        now={new Date()}
+                        onStart={handleStart}
+                      />
+                    ) : (
+                      <TableStatusCard
+                        tableNo={occupiedSeat.tableNo}
+                        elapsedLabel={`${fmtDuration(
+                          Date.now() -
+                            new Date(occupiedSeat.checkinAt).getTime()
+                        )} 동안 사용중`}
+                        checkinTime={fmtHHMM(occupiedSeat.checkinAt)}
+                        expectedOutAt={fmtHHMM(occupiedSeat.expectedOutAt)}
+                        remainingLabel={`남은 시간: ${fmtDuration(
+                          occupiedSeat.expectedOutAt -
+                            new Date(occupiedSeat.checkinAt).getTime()
+                        )}`}
+                        onCheckout={() => {
+                          handleCheckout(occupiedSeat.chairId);
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </>

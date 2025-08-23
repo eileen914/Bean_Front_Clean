@@ -16,20 +16,20 @@ const ChairDetection = ({
   const left = x_position - width / 2;
   const top = y_position - height / 2;
   let chairStyle = {
-  position: 'absolute',
-  left: left,
-  top: top,
-  width: width,
-  height: height,
-  margin: '5px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: 8,
-  backgroundColor: '#ffffff',
-  border: '2px solid rgba(104, 93, 74, 0.35)',
-  cursor: occupied ? 'not-allowed' : 'pointer',
-  transition: 'filter 0.2s',
+    position: "absolute",
+    left: left,
+    top: top,
+    width: width,
+    height: height,
+    margin: "5px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8,
+    backgroundColor: "#ffffff",
+    border: "2px solid rgba(104, 93, 74, 0.35)",
+    cursor: occupied ? "not-allowed" : "pointer",
+    transition: "filter 0.2s",
   };
   if (occupied) {
     chairStyle.backgroundColor = "#FEEFB2";
@@ -40,7 +40,7 @@ const ChairDetection = ({
     chairStyle.filter = "drop-shadow(0px 4px rgba(130, 122, 106, 0.3))";
   }
   const handleClick = () => {
-    if (!occupied && onSelect) onSelect();
+    if (onSelect) onSelect();
   };
   return <div style={chairStyle} onClick={handleClick}></div>;
 };
