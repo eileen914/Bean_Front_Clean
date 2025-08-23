@@ -2,8 +2,8 @@
   --ts-ink: #2c2c2c;
   --ts-muted: #8a8f98;
   --ts-line: #d9d9d9;
-  --ts-green: #2f7d32;
-  --ts-pill: #e3efe4;
+  --ts-green: #685D4A;
+  --ts-pill: #FEEFB2;
   --ts-pill-ink: #2f7d32;
   --ts-btn-border: #cfcfcf;
   --ts-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 6px 22px rgba(0, 0, 0, 0.08);
@@ -42,11 +42,11 @@
 .ts-pill {
   display: block;
   text-align: center;
-  margin: 20px;
+  margin: 10px 0px;
   padding: 10px 16px;
   background: var(--ts-pill);
   color: #2c2c2c;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 18px;
   border-radius: 10px;
 }
@@ -71,8 +71,8 @@
   color: #6e7680;
 }
 .ts-remaining {
-  color: #2f7d32;
-  font-weight: 700;
+  color: var(--ts-green);
+  font-weight: 600;
 }
 
 .ts-actions {

@@ -28,18 +28,24 @@ const UserSearch = () => {
   // UI 렌더링
   return (
     <div className="frame-336">
+      {/* BottomSheet 헤더 */}
+      <div className="home-bottom-sheet-header">
+        <div className="header-left">
+          <span className="bottom-sheet-title">Bean AI</span>
+        </div>
+      </div>
       {/* 메인 컨테이너 */}
       <div className="search-container">
-        {/* 검색 바 */}
+        {/* ...기존 검색 UI 그대로... */}
         <div className="search-bar">
           <input
             type="text"
-            placeholder="검색어를 입력하세요."
+            placeholder="나만의 맞춤 카페를 찾아보세요."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={(e) => (e.target.placeholder = '')}
             onBlur={(e) => {
-              if (!searchQuery) e.target.placeholder = '검색어를 입력하세요.';
+              if (!searchQuery) e.target.placeholder = '나만의 맞춤 카페를 찾아보세요.';
             }}
             className="search-input"
           />
@@ -51,14 +57,12 @@ const UserSearch = () => {
             style={{ cursor: 'pointer' }}
           />
         </div>
-
-        {/* 추천 검색어 섹션 */}
+        {/* 추천/최근 검색어 섹션은 기존과 동일하게 유지 */}
         <div className="search-section">
           <div className="section-title">
             <span className="title-text">추천 검색어</span>
           </div>
           <div className="search-terms">
-            {/* 추천 검색어 버튼 */}
             <button 
               className="search-term-btn"
               onClick={() => handleSearchTermClick('서울대입구역 케이크 맛집 알려줘')}
@@ -79,14 +83,11 @@ const UserSearch = () => {
             </button>
           </div>
         </div>
-
-        {/* 최근 검색어 섹션 */}
         <div className="search-section">
           <div className="section-title">
             <span className="title-text">최근 검색어</span>
           </div>
           <div className="search-terms">
-            {/* 최근 검색어 버튼 */}
             <button 
               className="search-term-btn"
               onClick={() => handleSearchTermClick('이 근처 빈자리 있는 카페 알려줘')}

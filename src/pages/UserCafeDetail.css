@@ -368,12 +368,6 @@
 .seating-text-wrapper {
   color: #000000;
   font-family: "Inter-Semibold", Helvetica;
-  font-weight: 600;
-  letter-spacing: 0;
-}
-.seating-text-wrapper {
-  color: #000000;
-  font-family: "Inter-Semibold", Helvetica;
   font-weight: 500;
   letter-spacing: 0;
 }
@@ -397,18 +391,18 @@
 }
 
 .legend-color.available {
-  background-color: #bed3c1;
-  border-color: #1c6a28;
+  background-color: #fff;
+  border-color: rgba(104, 93, 74, 0.35);
 }
 
 .legend-color.occupied {
-  background-color: #1c6a28;
-  border-color: #1c6a28;
+  background-color: #FEEFB2;
+  border-color: rgba(104, 93, 74, 0.35);
 }
 
 .legend-color.selected {
-  background-color: #d90000;
-  border-color: #d90000;
+  background-color: #FFE266;
+  border-color: #827A6A
 }
 
 /* Responsive Design */

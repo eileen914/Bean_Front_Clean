@@ -3,6 +3,10 @@
 
 import React from "react";
 import TableStatusCard from "../components/TableStatusCard";
+import TakenSeat from "../components/TakenSeat";
+import UserSearch from "../components/UserSearch";
+
+
 export default function TestTableStatusCard(props) {
   return (
     // 중앙 정렬된 테스트 UI
@@ -25,6 +29,7 @@ export default function TestTableStatusCard(props) {
         status="in-use"
         onCheckout={() => alert("퇴장 처리")}
       />
+      <UserSearch />
     </div>
   );
 }

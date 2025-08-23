@@ -10,7 +10,7 @@ import { getChatbot } from "../apis/api";
 
 // 바텀시트 관련 상수
 const SHEET_HEIGHT = 746; // 풀오픈 높이
-const MIN_VISIBLE = 90; // 접었을 때 상단에 남길 높이
+const MIN_VISIBLE = 80; // 접었을 때 상단에 남길 높이
 const COLLAPSED_DRAG_Y = SHEET_HEIGHT - MIN_VISIBLE;
 const INITIAL_DRAG_Y = 0; // 초기: 풀오픈
 
