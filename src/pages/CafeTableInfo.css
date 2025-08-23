@@ -189,7 +189,8 @@
   border: 0.5px solid #695e4b;
   border-radius: 30px;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.02);
-  overflow: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 /* 새 stage: 좌상단(0,0) 기준 고정, 크기는 도면 픽셀 크기 */
@@ -198,6 +199,7 @@
   left: 0;
   top: 0;
   transform-origin: top left; /* scale 써도 좌표가 안틀어지게 */
+  overflow-y: hidden;
 }
 
 /* 반응형 */
