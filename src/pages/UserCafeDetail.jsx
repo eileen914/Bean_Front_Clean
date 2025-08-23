@@ -1,10 +1,9 @@
-
 /**
  * UserCafeDetail 페이지
  * - props: location.state로 전달받는 cafeId, ownerId, cafeName, cafeAddress, cafeImages
  * - 카페 정보, 지도, 좌석 현황, 탭, 이미지 슬라이더, 바텀시트 UI
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./UserCafeDetail.css";
 import testdraft from "../assets/test_draft.png";
@@ -15,10 +14,16 @@ import coffeeIcon from "../assets/material-symbols-light_coffee.svg";
 import arrowIcon from "../assets/ep_arrow-up.svg";
 import menuVector from "../assets/menu-vector.svg";
 import ZoomPanUser from "../components/ZoomPanUser";
-import TakenSeat from "../components/TakenSeat";              // 점유된 자리
-import UntakenSeat from "../components/UntakenSeat";          // 점유되지 않은 자리
+import TakenSeat from "../components/TakenSeat"; // 점유된 자리
+import UntakenSeat from "../components/UntakenSeat"; // 점유되지 않은 자리
 import RatingTag from "../components/RatingTag/RatingTag";
 import DetailMap from "../components/DetailMap";
+import { listCafeFloorPlans } from "../apis/api";
+import TableDetection from "../components/TableDetection";
+import ChairDetection from "../components/ChairDetection";
+import { useBBoxFromItems, scaleItems } from "../utils/function";
+
+const TARGET_H = 360;
 
 const UserCafeDetail = () => {
   // 라우터에서 카페 정보 props 받기
@@ -36,11 +41,16 @@ const UserCafeDetail = () => {
   const [showTaken, setShowTaken] = useState(false); // 좌석 오버레이 표시 여부
   const toggleTaken = () => setShowTaken((v) => !v); // 좌석 오버레이 토글
 
+  const [floorPlan, setFloorPlan] = useState(null);
+  const [chairs, setChairs] = useState([]); // 의자 목록
+  const [tables, setTables] = useState([]); // 테이블 목록
+  const [isSet, setIsSet] = useState(false); // 좌석 배치
+
   // 모바일 주소창/뷰포트 대응 (바텀시트 위치 보정)
   useEffect(() => {
     const applyBottomOffset = () => {
       const h = window.visualViewport?.height || window.innerHeight; // 주소창 높이 반영
-      const bottom = Math.max(0, Math.round(h - 844)); 
+      const bottom = Math.max(0, Math.round(h - 844));
       document.documentElement.style.setProperty(
         "--sheet-bottom",
         `${bottom}px`
@@ -59,6 +69,48 @@ const UserCafeDetail = () => {
       window.visualViewport?.removeEventListener("scroll", applyBottomOffset);
     };
   }, []);
+
+  useEffect(() => {
+    const fetchFloorPlans = async () => {
+      if (!cafeId) return; // cafeId가 없으면 실행하지 않음
+      const result = await listCafeFloorPlans(cafeId);
+      setFloorPlan(result[0]);
+    };
+
+    fetchFloorPlans();
+  }, [cafeId]);
+
+  useEffect(() => {
+    if (!floorPlan) return; // floorPlan이 없으면 실행하지 않음
+    setChairs(floorPlan.chairs || []);
+    setTables(floorPlan.tables || []);
+    setIsSet(true);
+  }, [floorPlan]);
+
+  // 1) 원본 도면의 폭/높이(있으면 그대로, 없으면 의자/테이블에서 추정)
+  const bbox = useBBoxFromItems(chairs, tables);
+  const originalW = floorPlan?.width ?? bbox.w;
+  const originalH = floorPlan?.height ?? bbox.h;
+
+  // 2) "원본 height → 630px"이 되도록 배율 계산
+  const scale = useMemo(() => {
+    const h = originalH || TARGET_H; // 0/undefined 방어
+    return TARGET_H / h; // 확대/축소 모두 허용
+  }, [originalH]);
+
+  // 3) 스테이지(도면) 화면상 크기
+  const stageW = Math.round(originalW * scale);
+  const stageH = TARGET_H; // 정확히 630으로 고정
+
+  // 4) 좌표/크기 값 자체를 스케일링
+  const scaledChairs = useMemo(
+    () => scaleItems(chairs, scale),
+    [chairs, scale]
+  );
+  const scaledTables = useMemo(
+    () => scaleItems(tables, scale),
+    [tables, scale]
+  );
 
   // 탭 및 네비게이션 관련
   const tabs = ["home", "seating", "menu", "review"];
@@ -136,11 +188,11 @@ const UserCafeDetail = () => {
           </div>
         </div>
         <div className="seating-description">
-          좌석을 클릭하면<br />예약가능 여부 및 자리 정보를 확인하실 수 있습니다.
+          좌석을 클릭하면
+          <br />
+          예약가능 여부 및 자리 정보를 확인하실 수 있습니다.
         </div>
-        <div className="seating-draft">
-          <ZoomPanUser min={0.5} max={4} step={0.2} src={testdraft} onTap={toggleTaken} />
-        </div>
+        <div className="seating-draft" onClick={toggleTaken}></div>
       </div>
       <div className="seating-legend">
         <div className="seating-text-wrapper">좌석 현황:</div>
@@ -168,7 +220,12 @@ const UserCafeDetail = () => {
       <div className="user-cafe-detail-header">
         <div className="user-header-left">
           <div className="user-back-button">
-            <img src={arrowIcon} alt="뒤로가기" className="user-arrow-icon" onClick={handleDetail} />
+            <img
+              src={arrowIcon}
+              alt="뒤로가기"
+              className="user-arrow-icon"
+              onClick={handleDetail}
+            />
           </div>
           <div className="user-cafe-title">
             <div className="user-cafe-text-wrapper">{cafeName}</div>
@@ -219,7 +276,11 @@ const UserCafeDetail = () => {
         <div className="image-slider">
           <div className="slider-placeholder">
             {cafeImages && cafeImages[0] ? (
-              <img className="image-rectangle" src={cafeImages[0]} alt="카페 이미지1" />
+              <img
+                className="image-rectangle"
+                src={cafeImages[0]}
+                alt="카페 이미지1"
+              />
             ) : (
               <span>이미지 슬라이더</span>
             )}

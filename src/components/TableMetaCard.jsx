@@ -105,7 +105,8 @@ export default function TableMetaCard({
       };
       const { status, data } = await updateTable(tableId, payload);
       if (status !== 200) throw { status, data, message: "Unexpected status" };
-      onSaved?.(data);
+      else console.log("[table save] ok", data);
+      onSaved?.();
     } catch (e) {
       console.error("[table save error]", e);
       const detail =
