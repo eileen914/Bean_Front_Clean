@@ -83,7 +83,8 @@ export default function SeatMetaCard({
       const { status, data } = await updateChair(chairId, payload);
 
       if (status !== 200) throw { status, data, message: "Unexpected status" };
-      onSaved?.(data);
+      else console.log("[seat save] ok", data);
+      onSaved?.();
     } catch (e) {
       console.error("[seat save error]", e);
       const detail =
