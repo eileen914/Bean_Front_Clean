@@ -1,47 +1,79 @@
-import React from "react";
+import React, { useCallback } from "react";
+import styles from "./ChairDetection.module.css";
+
 const ChairDetection = ({
   width = 50,
   height = 50,
-  x_position = 0,
-  y_position = 0,
+  x_position = 0, // 중심 x
+  y_position = 0, // 중심 y
   window = false,
   socket = false,
   occupied = false,
   floorplan_id = 0,
   chair_idx = 0,
   selected = false,
-  onSelect,
+  onSelect, // (id) => void
+  className,
 }) => {
-  // 중심 좌표(x_position, y_position) 기준으로 위치 계산
-  const left = x_position - width / 2;
-  const top = y_position - height / 2;
-  let chairStyle = {
-  position: 'absolute',
-  left: left,
-  top: top,
-  width: width,
-  height: height,
-  margin: '5px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: 8,
-  backgroundColor: '#ffffff',
-  border: '2px solid rgba(104, 93, 74, 0.35)',
-  cursor: occupied ? 'not-allowed' : 'pointer',
-  transition: 'filter 0.2s',
+  const style = {
+    left: x_position,
+    top: y_position,
+    width,
+    height,
   };
-  if (occupied) {
-    chairStyle.backgroundColor = "#FEEFB2";
-    chairStyle.border = "2px solid #685D4A";
-  } else if (selected) {
-    chairStyle.backgroundColor = "#FEE266";
-    chairStyle.border = "3px solid #827A6A";
-    chairStyle.filter = "drop-shadow(0px 4px rgba(130, 122, 106, 0.3))";
-  }
-  const handleClick = () => {
-    if (!occupied && onSelect) onSelect();
-  };
-  return <div style={chairStyle} onClick={handleClick}></div>;
+
+  const handleClick = useCallback(() => {
+    if (!occupied && onSelect) onSelect(chair_idx);
+  }, [occupied, onSelect, chair_idx]);
+
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (occupied) return;
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onSelect?.(chair_idx);
+      }
+    },
+    [occupied, onSelect, chair_idx]
+  );
+
+  const classes = [
+    styles.root,
+    occupied ? styles.occupied : "",
+    selected ? styles.selected : "",
+    className || "",
+  ]
+    .join(" ")
+    .trim();
+
+  return (
+    <div
+      className={classes}
+      style={style}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={occupied ? -1 : 0}
+      aria-pressed={selected}
+      aria-disabled={occupied}
+      aria-label={`의자 #${chair_idx + 1}${occupied ? " (사용중)" : ""}${
+        window ? " 창가" : ""
+      }${socket ? " 콘센트" : ""}`}
+      data-floorplan-id={floorplan_id}
+      data-chair-idx={chair_idx}
+    >
+      {(window || socket) && (
+        <div className={styles.badges}>
+          {window && (
+            <span className={`${styles.badge} ${styles.badgeWin}`}>창</span>
+          )}
+          {socket && (
+            <span className={`${styles.badge} ${styles.badgeSock}`}>⚡</span>
+          )}
+        </div>
+      )}
+    </div>
+  );
 };
+
 export default ChairDetection;
