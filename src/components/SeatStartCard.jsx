@@ -115,8 +115,8 @@ export default function SeatStartCard({
       onStart?.({
         tableNo: displayNo,
         minutes,
-        checkinAt,
-        expectedOutAt,
+        checkinAt: new Date(checkinAt).getTime() - 9 * 60 * 60 * 1000,
+        expectedOutAt: new Date(expectedOutAt).getTime() - 9 * 60 * 60 * 1000,
         response: data,
         chairId: chairId,
       });
