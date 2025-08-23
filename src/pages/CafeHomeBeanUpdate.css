@@ -75,7 +75,7 @@
 .logout-btn {
   background: transparent;
   border: none;
-  color: var(--ink);
+  color: #4c3800;
   font-weight: 600;
   font-size: 1.1rem;
   cursor: pointer;
@@ -92,9 +92,10 @@
 .menu-btn {
   width: 40px;
   height: 40px;
+  color: #4c3800;
   border-radius: 8px;
-  border: 1px solid var(--border);
-  background: #fff;
+  /*border: 1px solid var(--border); */
+  background: #f9f8f4;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -167,9 +168,13 @@
   font-size: 18px;
 }
 .status-live {
-  color: #167d2e;
-  font-weight: 700;
+  color: #000000;
+  background-color:#feefb2;
+  font-weight: 400;
   font-size: 19px;
+  padding: 9px 20px;
+  border: rgba(104, 93, 74, 0.35) 2px solid;
+  border-radius: 10px;
 }
 
 /* 캔버스 박스 */
@@ -189,6 +194,8 @@
   left: 0;
   top: 0;
   transform-origin: top left; /* scale 써도 좌표가 안틀어지게 */
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .zoompan-viewport {
