@@ -104,7 +104,7 @@ export default function SeatStartCard({
 
     const payload = {
       occupied: true,
-      entry_time: checkinAt.toISOString(),
+      entry_time: new Date(checkinAt).toISOString(),
     };
 
     try {

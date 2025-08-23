@@ -4,7 +4,12 @@
 import React, { useRef, useState } from "react";
 import "./CafeSignIn.css";
 import { useNavigate } from "react-router-dom";
-import { signIn } from "../apis/api";
+import {
+  signIn,
+  getLoginInfo,
+  getOwnerCafes,
+  listCafeFloorPlans,
+} from "../apis/api";
 
 const CafeSignIn = () => {
   // ===== 라우터 이동 =====
@@ -17,27 +22,32 @@ const CafeSignIn = () => {
   });
 
   const handleSignInData = (e) => {
-  // 로그인 입력값 변경 핸들러
-  const { id, value } = e.target;
-  setSignInData({ ...signInData, [id]: value });
+    // 로그인 입력값 변경 핸들러
+    const { id, value } = e.target;
+    setSignInData({ ...signInData, [id]: value });
   };
 
   const handleSignIn = async (e) => {
-
     // TODO: 백엔드 연동 시 여기에 로그인 요청 코드 추가
     e.preventDefault(); // to prevent reloading the page
     const result = await signIn(signInData); // 200 이어야 통과 (쿠키 세팅)
     // 선택: 쿠키 적용 확인(권장)
     if (result.status === 200) {
-      navigate("/cafe-update", { replace: true });
+      const ownerResult = await getLoginInfo(); // 200 이어야 통과
+      const owner = ownerResult.data;
+      const cafes = await getOwnerCafes(owner.id);
+      const cafeId = cafes[0]?.id;
+      const floorPlan = await listCafeFloorPlans(cafeId);
+      const floorPlanId = floorPlan[0]?.id;
+      navigate("/cafe-update", { state: { cafeId, floorPlanId } });
     } else {
       alert(result.message);
     }
   };
 
   const goToRegister = () => {
-  // 회원가입(업체 등록) 페이지로 이동
-  navigate("/cafe-register-1");
+    // 회원가입(업체 등록) 페이지로 이동
+    navigate("/cafe-register-1");
   };
 
   return (

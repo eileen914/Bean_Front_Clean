@@ -38,13 +38,55 @@ const UserCafeDetail = () => {
 
   // ===== 탭 및 좌석 상태 =====
   const [activeTab, setActiveTab] = useState("home"); // 현재 선택된 탭
+  const [showUnTaken, setShowUnTaken] = useState(false); // 좌석 오버레이 표시 여부
   const [showTaken, setShowTaken] = useState(false); // 좌석 오버레이 표시 여부
   const toggleTaken = () => setShowTaken((v) => !v); // 좌석 오버레이 토글
+  const toggleUnTaken = () => setShowUnTaken((v) => !v); // 좌석 오버레이 토글
 
   const [floorPlan, setFloorPlan] = useState(null);
+  const [floorPlanId, setFloorPlanId] = useState(null);
   const [chairs, setChairs] = useState([]); // 의자 목록
   const [tables, setTables] = useState([]); // 테이블 목록
   const [isSet, setIsSet] = useState(false); // 좌석 배치
+
+  const [selectedTaken, setSelectedTaken] = useState(false);
+  const [selectedUnTaken, setSelectedUnTaken] = useState(false);
+  const [selectedChairIdx, setSelectedChairIdx] = useState(null); // 선택된 의자 인덱스
+
+  const [chair, setChair] = useState(null);
+
+  // 선택 핸들러: 이미 선택된 의자면 해제, 아니면 선택
+  const handleSelectChair = (idx, chair) => {
+    console.log("handleSelectChair: ", idx, chair);
+    setSelectedChairIdx((prev) => (prev === idx ? null : idx));
+  };
+
+  const handleChairClick = (idx, chair) => {
+    console.log("handleChairClick: ", idx, chair);
+    setChair(chair);
+    if (chair.occupied) {
+      setSelectedTaken(true);
+      setShowUnTaken(false);
+      setShowTaken(true);
+    } else {
+      setSelectedUnTaken(true);
+      setShowTaken(false);
+      setShowUnTaken(true);
+    }
+  };
+
+  const handleSeatClick = () => {
+    setChair(null);
+    if (selectedTaken) {
+      setShowTaken(false);
+      setSelectedTaken(false);
+    }
+
+    if (selectedUnTaken) {
+      setShowUnTaken(false);
+      setSelectedUnTaken(false);
+    }
+  };
 
   // 모바일 주소창/뷰포트 대응 (바텀시트 위치 보정)
   useEffect(() => {
@@ -75,6 +117,7 @@ const UserCafeDetail = () => {
       if (!cafeId) return; // cafeId가 없으면 실행하지 않음
       const result = await listCafeFloorPlans(cafeId);
       setFloorPlan(result[0]);
+      setFloorPlanId(result[0]?.id || null);
     };
 
     fetchFloorPlans();
@@ -86,6 +129,20 @@ const UserCafeDetail = () => {
     setTables(floorPlan.tables || []);
     setIsSet(true);
   }, [floorPlan]);
+
+  useEffect(() => {
+    console.log("chairs updated:", chairs);
+    console.log("tables updated:", tables);
+    console.log("isSet:", isSet);
+    console.log("floorPlan:", floorPlan);
+    console.log("scaledChairs:", scaledChairs);
+    console.log("scaledTables:", scaledTables);
+  }, [isSet]);
+
+  useEffect(() => {
+    if (!chair) return;
+    console.log("chair updated:", chair);
+  }, [chair]);
 
   // 1) 원본 도면의 폭/높이(있으면 그대로, 없으면 의자/테이블에서 추정)
   const bbox = useBBoxFromItems(chairs, tables);
@@ -192,7 +249,50 @@ const UserCafeDetail = () => {
           <br />
           예약가능 여부 및 자리 정보를 확인하실 수 있습니다.
         </div>
-        <div className="seating-draft" onClick={toggleTaken}></div>
+
+        {isSet ? (
+          <div
+            className="canvas-box-2"
+            role="region"
+            aria-label="좌석 배치도 영역"
+          >
+            <div
+              className="seat-stage"
+              style={{ width: stageW, height: stageH }}
+            >
+              {/*<ZoomPan min={0.5} max={4} step={0.2}> */}
+              {scaledChairs.map((chair, idx) => (
+                <div onClick={() => handleChairClick(idx, chair)}>
+                  <ChairDetection
+                    key={idx}
+                    width={chair.width - 8}
+                    height={chair.height - 8}
+                    x_position={chair.x_position}
+                    y_position={chair.y_position}
+                    window={chair.window}
+                    socket={chair.socket}
+                    occupied={chair.occupied}
+                    floorplan_id={floorPlan.id}
+                    chair_idx={idx}
+                  />
+                </div>
+              ))}
+              {scaledTables.map((table, idx) => (
+                <TableDetection
+                  key={idx}
+                  width={table.width - 5}
+                  height={table.height - 5}
+                  x_position={table.x_position}
+                  y_position={table.y_position}
+                  shape={table.shape}
+                  seat_number={table.seat_number}
+                  floorplan_id={floorPlan.id}
+                  table_idx={idx}
+                />
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
       <div className="seating-legend">
         <div className="seating-text-wrapper">좌석 현황:</div>
@@ -293,8 +393,17 @@ const UserCafeDetail = () => {
         {activeTab === "home" ? renderHomeTab() : renderSeatingTab()}
       </div>
       {/* 바텀시트(좌석 오버레이) 영역 */}
-      <div className={`inline-sheet ${showTaken ? "open" : ""}`}>
-        <TakenSeat />
+      <div
+        className={`inline-sheet ${showTaken ? "open" : ""}`}
+        onClick={handleSeatClick}
+      >
+        <TakenSeat chair={chair} floorPlanId={floorPlanId} />
+      </div>
+      <div
+        className={`inline-sheet2 ${showUnTaken ? "open" : ""}`}
+        onClick={handleSeatClick}
+      >
+        <UntakenSeat chair={chair} floorPlanId={floorPlanId} />
       </div>
     </div>
   );

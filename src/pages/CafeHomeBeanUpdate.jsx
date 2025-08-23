@@ -39,6 +39,7 @@ const CafeHomeBeanUpdate = () => {
   const [seatNumber, setSeatNumber] = useState(0);
   const [emptySeatNumber, setEmptySeatNumber] = useState(0);
   const [occupiedSeat, setOccupiedSeat] = useState(null);
+  const [trigger, setTrigger] = useState(false);
 
   const handleLogoClick = () => navigate("/cafe-landing");
   const handleMenuToggle = () => setMenuOpen((v) => !v);
@@ -55,11 +56,11 @@ const CafeHomeBeanUpdate = () => {
       setOccupiedSeat({
         chairId: chair.id,
         tableNo: `${chair.floor_plan}-${idx + 1}`,
-        minutes: 120,
+        minutes: 90,
         checkinAt: chair.entry_time,
         expectedOutAt: new Date(
-          new Date(chair.entry_time).getTime() + 120 * 60_000
-        ), // 2시간 후
+          new Date(chair.entry_time).getTime() + 90 * 60_000
+        ), // 1시간 30분 후
       });
     } else {
       setOccupiedSeat(null);
@@ -94,7 +95,7 @@ const CafeHomeBeanUpdate = () => {
   };
 
   const handleStart = (data) => {
-    setOccupiedSeat(data);
+    setTrigger(data);
     setEmptySeatNumber((prev) => prev - 1);
   };
 
@@ -136,6 +137,27 @@ const CafeHomeBeanUpdate = () => {
     };
     fetchChairs();
   }, [occupiedSeat]);
+
+  useEffect(() => {
+    const fetchOccupiedSeat = async () => {
+      if (!trigger) return;
+      const result = await getChair(trigger.chairId);
+      if (!result || !result.id) return;
+
+      console.log("갱신된 의자 정보", result);
+
+      setOccupiedSeat({
+        chairId: result.id,
+        tableNo: trigger.tableNo,
+        minutes: trigger.minutes,
+        checkinAt: result.entry_time,
+        expectedOutAt: new Date(
+          new Date(result.entry_time).getTime() + trigger.minutes * 60_000
+        ),
+      });
+    };
+    fetchOccupiedSeat();
+  }, [trigger]);
 
   // 1) 원본 도면의 폭/높이(있으면 그대로, 없으면 의자/테이블에서 추정)
   const bbox = useBBoxFromItems(chairs, tables);
@@ -260,7 +282,8 @@ const CafeHomeBeanUpdate = () => {
                   />
                 ))}
                 {/*</ZoomPan> */}
-                  {selectedChairIdx !== null && (() => {
+                {selectedChairIdx !== null &&
+                  (() => {
                     const chair = scaledChairs[selectedChairIdx];
                     if (!chair) return null;
                     const cardWidth = 380;
@@ -278,12 +301,14 @@ const CafeHomeBeanUpdate = () => {
                     top = Math.max(top, 20);
                     top = Math.min(top, stageH - cardHeight - 30);
                     return (
-                      <div style={{
-                        position: 'absolute',
-                        left: left,
-                        top: top,
-                        zIndex: 1000
-                      }}>
+                      <div
+                        style={{
+                          position: "absolute",
+                          left: left,
+                          top: top,
+                          zIndex: 1000,
+                        }}
+                      >
                         {occupiedSeat === null ? (
                           <SeatStartCard
                             floorPlanId={floorPlanId}
@@ -297,10 +322,17 @@ const CafeHomeBeanUpdate = () => {
                             tableNo={occupiedSeat.tableNo}
                             elapsedLabel={`${fmtDuration(
                               Date.now() -
-                                new Date(occupiedSeat.checkinAt).getTime()
+                                (new Date(occupiedSeat.checkinAt).getTime() +
+                                  9 * 60 * 60 * 1000)
                             )} 동안 사용중`}
-                            checkinTime={fmtHHMM(occupiedSeat.checkinAt)}
-                            expectedOutAt={fmtHHMM(occupiedSeat.expectedOutAt)}
+                            checkinTime={fmtHHMM(
+                              new Date(occupiedSeat.checkinAt).getTime() +
+                                9 * 60 * 60 * 1000
+                            )}
+                            expectedOutAt={fmtHHMM(
+                              new Date(occupiedSeat.expectedOutAt).getTime() +
+                                9 * 60 * 60 * 1000
+                            )}
                             remainingLabel={`남은 시간: ${fmtDuration(
                               occupiedSeat.expectedOutAt -
                                 new Date(occupiedSeat.checkinAt).getTime()
