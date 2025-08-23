@@ -8,6 +8,7 @@ import MenuDropdown from "../components/MenuDropdown";
 import ChairDetection from "../components/ChairDetection";
 import TableDetection from "../components/TableDetection";
 import TableMetaCard from "../components/TableMetaCard";
+import SeatMetaCard from "../components/SeatMetaCard";
 import { useBBoxFromItems, scaleItems } from "../utils/function";
 import { signOut, listCafeFloorPlans } from "../apis/api";
 
@@ -107,7 +108,14 @@ const CafeHomeBeanUpdate = () => {
   const [selectedTableIdx, setSelectedTableIdx] = useState(null);
   const handleSelectTable = (idx) => {
     setSelectedTableIdx(prev => (prev === idx ? null : idx));
+    setSelectedChairIdx(null); // 테이블 선택 시 의자 선택 해제
   };
+    // 의자 선택 상태 및 핸들러
+    const [selectedChairIdx, setSelectedChairIdx] = useState(null);
+    const handleSelectChair = (idx) => {
+      setSelectedChairIdx(prev => (prev === idx ? null : idx));
+      setSelectedTableIdx(null); // 의자 선택 시 테이블 선택 해제
+    };
 
   return (
     <main className="bean-update" role="main">
@@ -185,6 +193,8 @@ const CafeHomeBeanUpdate = () => {
                     occupied={chair.occupied}
                     floorplan_id={floorPlanId}
                     chair_idx={idx}
+                     selected={selectedChairIdx === idx}
+                     onSelect={() => handleSelectChair(idx)}
                   />
                 ))}
                 {scaledTables.map((table, idx) => (
@@ -242,6 +252,44 @@ const CafeHomeBeanUpdate = () => {
                     </div>
                   );
                 })()}
+
+                  {selectedChairIdx !== null && (() => {
+                    const chair = scaledChairs[selectedChairIdx];
+                    if (!chair) return null;
+                    const cardWidth = 380;
+                    const cardHeight = 280;
+                    const margin = 20;
+                    const bottomMargin = 50;
+                    const chairCenterX = chair.x_position;
+                    const chairCenterY = chair.y_position;
+                    const chairW = chair.width - 8;
+                    const chairH = chair.height - 8;
+                    let left = chairCenterX + chairW / 2 + 30;
+                    let top = chairCenterY - cardHeight / 2 + chairH / 2;
+                    // 오른쪽 경계 보정
+                    if (left + cardWidth > stageW - margin) {
+                      left = chairCenterX - chairW / 2 - cardWidth - 50;
+                      if (left < margin) left = margin;
+                    }
+                    // 왼쪽 경계 보정
+                    if (left < margin) left = margin;
+                    // 상단 경계 보정 (최소 20px)
+                    if (top < margin) top = margin;
+                    // 하단 경계 보정 (최소 40px)
+                    if (top + cardHeight > stageH - bottomMargin) {
+                      top = stageH - cardHeight - bottomMargin;
+                    }
+                    return (
+                      <div style={{
+                        position: 'absolute',
+                        left: left,
+                        top: top,
+                        zIndex: 1000
+                      }}>
+                        <SeatMetaCard seatNo={selectedChairIdx + 1} chairId={chair.chair_id} />
+                      </div>
+                    );
+                  })()}
               </div>
             </div>
           </>
