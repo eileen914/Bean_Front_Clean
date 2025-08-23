@@ -23,18 +23,17 @@ const ChairDetection = ({
   };
 
   const handleClick = useCallback(() => {
-    if (!occupied && onSelect) onSelect(chair_idx);
-  }, [occupied, onSelect, chair_idx]);
+    if (onSelect) onSelect(chair_idx);
+  }, [onSelect, chair_idx]);
 
   const handleKeyDown = useCallback(
     (e) => {
-      if (occupied) return;
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         onSelect?.(chair_idx);
       }
     },
-    [occupied, onSelect, chair_idx]
+    [onSelect, chair_idx]
   );
 
   const classes = [
@@ -53,7 +52,7 @@ const ChairDetection = ({
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       role="button"
-      tabIndex={occupied ? -1 : 0}
+  tabIndex={0}
       aria-pressed={selected}
       aria-disabled={occupied}
       aria-label={`의자 #${chair_idx + 1}${occupied ? " (사용중)" : ""}${

@@ -23,7 +23,7 @@
   transform: translate(-50%, -50%);
 
   cursor: pointer;
-  transition: filter 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s;
+  transition: filter 0.2s, box-shadow 0.2s, border-color 0.2s, background-color 0.2s;
 }
 
 .root:focus-visible {
@@ -34,7 +34,7 @@
 .occupied {
   background: var(--chair-occupied-bg);
   border: 2px solid var(--chair-occupied-border);
-  cursor: not-allowed;
+  /*cursor: not-allowed;*/
 }
 
 .selected {
