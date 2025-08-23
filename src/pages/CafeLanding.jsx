@@ -2,13 +2,15 @@
 // - 로그인/업체 등록 버튼, 로고, 인테리어 이미지 등으로 구성
 
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./CafeLanding.css";
 import { checkLogin, signOut } from "../apis/api";
 
 const CafeLanding = () => {
   // ===== 라우터 이동 =====
   const navigate = useNavigate();
+  const location = useLocation();
+  const { cafeId, floorPlanId } = location.state || {};
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false); // 로그인 여부 상태, 우선 false로 초기화
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const CafeLanding = () => {
   };
 
   const handleMyCafeClick = () => {
-    navigate("/cafe-update");
+    navigate("/cafe-update", { state: { cafeId, floorPlanId } });
   };
 
   return (

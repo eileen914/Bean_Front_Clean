@@ -39,9 +39,9 @@ const CafeHomeBeanUpdate = () => {
   const [seatNumber, setSeatNumber] = useState(0);
   const [emptySeatNumber, setEmptySeatNumber] = useState(0);
   const [occupiedSeat, setOccupiedSeat] = useState(null);
-  const [trigger, setTrigger] = useState(false);
 
-  const handleLogoClick = () => navigate("/cafe-landing");
+  const handleLogoClick = () =>
+    navigate("/cafe-landing", { state: { cafeId, floorPlanId } });
   const handleMenuToggle = () => setMenuOpen((v) => !v);
   const handleGoto = (path) =>
     navigate(path, { state: { cafeId, floorPlanId } });
@@ -95,7 +95,7 @@ const CafeHomeBeanUpdate = () => {
   };
 
   const handleStart = (data) => {
-    setTrigger(data);
+    setOccupiedSeat(data);
     setEmptySeatNumber((prev) => prev - 1);
   };
 
@@ -113,7 +113,12 @@ const CafeHomeBeanUpdate = () => {
     if (!floorPlan) return; // floorPlan이 없으면 실행하지 않음
     setChairs(floorPlan.chairs || []);
     setSeatNumber(floorPlan.chairs.length);
-    setEmptySeatNumber(floorPlan.chairs.length);
+
+    const emptyCount = chairs.filter(
+      (chair) => chair.occupied === false
+    ).length;
+    setEmptySeatNumber(emptyCount);
+
     setTables(floorPlan.tables || []);
     setIsSet(true);
   }, [floorPlan]);
@@ -137,27 +142,6 @@ const CafeHomeBeanUpdate = () => {
     };
     fetchChairs();
   }, [occupiedSeat]);
-
-  useEffect(() => {
-    const fetchOccupiedSeat = async () => {
-      if (!trigger) return;
-      const result = await getChair(trigger.chairId);
-      if (!result || !result.id) return;
-
-      console.log("갱신된 의자 정보", result);
-
-      setOccupiedSeat({
-        chairId: result.id,
-        tableNo: trigger.tableNo,
-        minutes: trigger.minutes,
-        checkinAt: result.entry_time,
-        expectedOutAt: new Date(
-          new Date(result.entry_time).getTime() + trigger.minutes * 60_000
-        ),
-      });
-    };
-    fetchOccupiedSeat();
-  }, [trigger]);
 
   // 1) 원본 도면의 폭/높이(있으면 그대로, 없으면 의자/테이블에서 추정)
   const bbox = useBBoxFromItems(chairs, tables);
