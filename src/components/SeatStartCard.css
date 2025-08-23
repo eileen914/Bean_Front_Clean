@@ -2,9 +2,9 @@
   --ss-ink: #2c2c2c;
   --ss-muted: #8a8f98;
   --ss-line: #e5e5e5;
-  --ss-green: #2f7d32;
-  --ss-green-ink: #2f7d32;
-  --ss-green-bg: #e3efe4;
+  --ss-green: #685D4A;
+  --ss-green-ink: #000;
+  --ss-green-bg: #FEEFB2;
   --ss-btn-border: #cfcfcf;
   --ss-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 6px 22px rgba(0, 0, 0, 0.08);
 }
@@ -88,7 +88,7 @@
   font-weight: 670;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.12s ease,
+  transition: transform 0.12s ease, box-shadow 0.2s ease, background-color 0.12s ease,
     border-color 0.12s ease;
 }
 .ss-opt:hover {
@@ -99,7 +99,7 @@
 .ss-opt.is-active {
   background: var(--ss-green-bg);
   color: var(--ss-green-ink);
-  border-color: #b9d5bb;
+  border-color: #685D4A59;
 }
 
 .ss-actions {

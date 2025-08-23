@@ -260,43 +260,64 @@ const CafeHomeBeanUpdate = () => {
                   />
                 ))}
                 {/*</ZoomPan> */}
-                {selectedChairIdx !== null && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      right: "32px",
-                      bottom: "32px",
-                      zIndex: 1000,
-                    }}
-                  >
-                    {occupiedSeat === null ? (
-                      <SeatStartCard
-                        floorPlanId={floorPlanId}
-                        index={selectedChairIdx + 1}
-                        id={scaledChairs[selectedChairIdx].id}
-                        now={new Date()}
-                        onStart={handleStart}
-                      />
-                    ) : (
-                      <TableStatusCard
-                        tableNo={occupiedSeat.tableNo}
-                        elapsedLabel={`${fmtDuration(
-                          Date.now() -
-                            new Date(occupiedSeat.checkinAt).getTime()
-                        )} 동안 사용중`}
-                        checkinTime={fmtHHMM(occupiedSeat.checkinAt)}
-                        expectedOutAt={fmtHHMM(occupiedSeat.expectedOutAt)}
-                        remainingLabel={`남은 시간: ${fmtDuration(
-                          occupiedSeat.expectedOutAt -
-                            new Date(occupiedSeat.checkinAt).getTime()
-                        )}`}
-                        onCheckout={() => {
-                          handleCheckout(occupiedSeat.chairId);
-                        }}
-                      />
-                    )}
-                  </div>
-                )}
+                  {selectedChairIdx !== null && (
+                    (() => {
+                      const chair = scaledChairs[selectedChairIdx];
+                      if (!chair) return null;
+                      const cardWidth = 380;
+                      const cardHeight = 280;
+                      const chairCenterX = chair.x_position;
+                      const chairCenterY = chair.y_position;
+                      const chairW = chair.width - 8;
+                      const chairH = chair.height - 8;
+                      // 기본: chair 오른쪽 50px
+                      let left = chairCenterX + chairW / 2 + 30;
+                      let top = chairCenterY - cardHeight / 2 + chairH / 2;
+                      // 만약 카드가 canvas-box 오른쪽을 벗어나면 chair 왼쪽에 띄움
+                      if (left + cardWidth > stageW - 10) {
+                        left = chairCenterX - chairW / 2 - cardWidth - 50;
+                        if (left < 10) left = 10;
+                      }
+                      // 상하 경계 보정
+                      top = Math.max(top, 20);
+                      top = Math.min(top, stageH - cardHeight - 30);
+                      return (
+                        <div style={{
+                          position: 'absolute',
+                          left: left,
+                          top: top,
+                          zIndex: 1000
+                        }}>
+                          {occupiedSeat === null ? (
+                            <SeatStartCard
+                              floorPlanId={floorPlanId}
+                              index={selectedChairIdx + 1}
+                              id={scaledChairs[selectedChairIdx].id}
+                              now={new Date()}
+                              onStart={handleStart}
+                            />
+                          ) : (
+                            <TableStatusCard
+                              tableNo={occupiedSeat.tableNo}
+                              elapsedLabel={`${fmtDuration(
+                                Date.now() -
+                                  new Date(occupiedSeat.checkinAt).getTime()
+                              )} 동안 사용중`}
+                              checkinTime={fmtHHMM(occupiedSeat.checkinAt)}
+                              expectedOutAt={fmtHHMM(occupiedSeat.expectedOutAt)}
+                              remainingLabel={`남은 시간: ${fmtDuration(
+                                occupiedSeat.expectedOutAt -
+                                  new Date(occupiedSeat.checkinAt).getTime()
+                              )}`}
+                              onCheckout={() => {
+                                handleCheckout(occupiedSeat.chairId);
+                              }}
+                            />
+                          )}
+                        </div>
+                      );
+                    })
+                  )}
               </div>
             </div>
           </>

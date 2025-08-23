@@ -34,7 +34,8 @@
 .success-icon {
   width: 120px;
   height: 120px;
-  background: linear-gradient(45deg, #6c5f46, #4a3410);
+  /*background: linear-gradient(45deg, #6c5f46, #4a3410); */
+  background-color: rgba(104, 93, 74, 0.93);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -177,7 +178,7 @@
   padding: 20px;
   background: #f8f9fa;
   border-radius: 15px;
-  border-left: 4px solid #4a3410;
+  border-left: 4px solid rgba(104, 93, 74, 0.93);
   transition: transform 0.3s ease;
 }
 
@@ -242,24 +243,25 @@
 }
 
 .primary-btn {
-  background: linear-gradient(45deg, #4a3410, #3a290d);
+  /*background: linear-gradient(45deg, #4a3410, #3a290d);*/
+  background-color: rgba(104, 93, 74, 0.93);
   color: white;
   box-shadow: 0 4px 15px rgba(74, 52, 16, 0.4);
 }
 
 .primary-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(74, 52, 16, 0.6);
+  box-shadow: 0 6px 20px rgba(84, 75, 57, 0.93);
 }
 
 .secondary-btn {
   background: white;
-  color: #4a3410;
-  border: 2px solid #4a3410;
+  color: rgba(104, 93, 74, 0.93);
+  border: 2px solid rgba(104, 93, 74, 0.93);
 }
 
 .secondary-btn:hover {
-  background: #4a3410;
+  background: rgba(104, 93, 74, 0.93);
   color: white;
   transform: translateY(-2px);
 }

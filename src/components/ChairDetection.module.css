@@ -1,0 +1,71 @@
+:root {
+  --chair-bg: #fff;
+  --chair-border: rgba(104, 93, 74, 0.35);
+  --chair-occupied-bg: #feefb2;
+  --chair-occupied-border: #685d4a;
+  --chair-selected-bg: #fee266;
+  --chair-selected-border: #827a6a;
+}
+
+.root {
+  position: absolute;
+  margin: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+  background: var(--chair-bg);
+  border: 2px solid var(--chair-border);
+
+  /* 중심 좌표 기준 배치 */
+  transform: translate(-50%, -50%);
+
+  cursor: pointer;
+  transition: filter 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.root:focus-visible {
+  outline: 2px solid #7c6f5a;
+  outline-offset: 2px;
+}
+
+.occupied {
+  background: var(--chair-occupied-bg);
+  border: 2px solid var(--chair-occupied-border);
+  cursor: not-allowed;
+}
+
+.selected {
+  background: var(--chair-selected-bg);
+  border: 3px solid var(--chair-selected-border);
+  filter: drop-shadow(0px 4px rgba(130, 122, 106, 0.3));
+}
+
+/* 뱃지(창가/콘센트) */
+.badges {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: flex;
+  gap: 2px;
+}
+
+.badge {
+  font-size: 10px;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 6px;
+  background: #eee;
+  border: 1px solid #ccc;
+}
+
+.badgeWin {
+  background: #e8f3ff;
+  border-color: #bcd8ff;
+}
+.badgeSock {
+  background: #eaffea;
+  border-color: #c7eac7;
+}

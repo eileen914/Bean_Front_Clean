@@ -171,8 +171,8 @@
   color: #000000;
   background-color:#feefb2;
   font-weight: 400;
-  font-size: 19px;
-  padding: 9px 20px;
+  font-size: 17px;
+  padding: 6px 13px;
   border: rgba(104, 93, 74, 0.35) 2px solid;
   border-radius: 10px;
 }
@@ -229,13 +229,13 @@
 .create-seatmap-btn {
   align-items: center;
   display: flex;
-  padding: 24px 60px;
+  padding: 22px 60px;
   font-size: 20px;
   font-weight: 500;
-  border-radius: 50px;
+  border-radius: 15px;
   gap: 15px;
   position: relative;
-  background-color: #4a3410;
+  background-color:rgba(104, 93, 74, 0.93);
   color: #fff;
   cursor: pointer;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
@@ -244,7 +244,7 @@
 }
 
 .create-seatmap-btn:hover {
-  background-color: #37260b;
+  background-color: rgba(84, 75, 57, 0.93);
   transform: translateY(-2px);
   box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.25);
 }
