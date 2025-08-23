@@ -24,6 +24,7 @@ const CafeUpload = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [floorPlanComplete, setFloorPlanComplete] = useState(null);
   const fileInputRef = useRef(null);
+  const [isUploaded, setIsUploaded] = useState(false);
 
   // 다음 단계로 이동
   const handleNextClick = () => {
@@ -59,7 +60,6 @@ const CafeUpload = () => {
     setUploadedFiles([]);
   };
 
-  // 파일 업로드 시 도면 이미지 및 감지 결과 API 호출
   useEffect(() => {
     const getCafeInfo = async () => {
       const result = await getLoginInfo();
@@ -80,6 +80,7 @@ const CafeUpload = () => {
       );
       console.log("업로드된 파일의 탐지 결과:", data);
       setFloorPlanComplete(data);
+      setIsUploaded(true);
     };
     getFloorPlanAPI();
   }, [uploadedFiles]);
@@ -165,9 +166,11 @@ const CafeUpload = () => {
 
         {/* ===== 배치도 생성 버튼 영역 ===== */}
         <div className="register2-footer">
-          <button className="register-button" onClick={handleNextClick}>
-            배치도 생성
-          </button>
+          {isUploaded ? (
+            <button className="register-button" onClick={handleNextClick}>
+              배치도 생성
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

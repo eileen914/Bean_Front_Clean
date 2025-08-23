@@ -73,6 +73,15 @@ export const getLoginInfo = async () => {
   }
 };
 
+export const checkLogin = async () => {
+  try {
+    const response = await instanceWithToken.get("/owners/info/");
+    return response.status === 200;
+  } catch (error) {
+    return false;
+  }
+};
+
 /* 특정 오너의 카페 목록: Cafe[] */
 export const getOwnerCafes = async (ownerId) => {
   try {

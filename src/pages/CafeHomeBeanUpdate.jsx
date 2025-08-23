@@ -39,8 +39,8 @@ const CafeHomeBeanUpdate = () => {
 
   const handleLogoClick = () => navigate("/cafe-landing");
   const handleMenuToggle = () => setMenuOpen((v) => !v);
-  const handleGoto = (path) => navigate(path);
-  const handleLogoutClick = () => {};
+  const handleGoto = (path) =>
+    navigate(path, { state: { cafeId, floorPlanId } });
   const [seatMapImage] = useState(null);
   const handleUploadClick = () => navigate("/cafe-upload");
 
