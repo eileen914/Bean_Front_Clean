@@ -178,7 +178,6 @@ export default function TableMetaCard({
           disabled={disabled || saving}
         />
       </div>
-
       {/* 저장 버튼 & 에러 */}
       <div className="ss-actions">
         {error && (
