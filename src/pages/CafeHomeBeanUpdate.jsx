@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./CafeHomeBeanUpdate.css";
 import MenuDropdown from "../components/MenuDropdown";
 import whitecursor from "../assets/white-cursor.svg";
 import testDraft from "../assets/test_draft.png";
 import ZoomPan from "../components/ZoomPan";
 import { getCookie, removeCookie } from "../utils/cookie";
-import { signOut } from "../apis/api";
+import { signOut, listCafeFloorPlans } from "../apis/api";
+import ChairDetection from "../components/ChairDetection";
+import { useBBoxFromItems, scaleItems } from "../utils/function";
+
+const TARGET_H = 630;
 
 const CafeHomeBeanUpdate = () => {
   const handleSignOut = async () => {
@@ -21,6 +25,17 @@ const CafeHomeBeanUpdate = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const location = useLocation();
+  const { cafeId, floorPlanId } = location.state || {};
+
+  const [floorPlan, setFloorPlan] = useState(null);
+  const [chairs, setChairs] = useState([]);
+  const [tables, setTables] = useState([]);
+  const [isSet, setIsSet] = useState(false);
+
+  const [seatNumber, setSeatNumber] = useState(0);
+  const [emptySeatNumber, setEmptySeatNumber] = useState(0);
+
   const handleLogoClick = () => navigate("/cafe-landing");
   const handleMenuToggle = () => setMenuOpen((v) => !v);
   const handleGoto = (path) => navigate(path);
@@ -28,7 +43,59 @@ const CafeHomeBeanUpdate = () => {
   const [seatMapImage] = useState(null);
   const handleUploadClick = () => navigate("/cafe-upload");
 
-  const testDraft = null; // testDraft를 사용하지 않으므로 null로 설정
+  useEffect(() => {
+    const fetchFloorPlans = async () => {
+      if (!cafeId) return; // cafeId가 없으면 실행하지 않음
+      console.log("Fetching floor plans for cafeId:", cafeId);
+      const result = await listCafeFloorPlans(cafeId);
+      setFloorPlan(result[0]);
+    };
+
+    fetchFloorPlans();
+  }, [cafeId]);
+
+  useEffect(() => {
+    if (!floorPlan) return; // floorPlan이 없으면 실행하지 않음
+    console.log("도면들", floorPlan);
+    console.log("테이블들", floorPlan.tables);
+    setChairs(floorPlan.chairs || []);
+    setSeatNumber(floorPlan.chairs.length);
+    setEmptySeatNumber(floorPlan.chairs.length);
+    setTables(floorPlan.tables || []);
+    setIsSet(true);
+  }, [floorPlan]);
+
+  useEffect(() => {
+    if (!isSet) return; // isSet이 false이면 실행하지 않음
+    // 여기에 필요한 로직 추가
+    console.log("의자들", chairs);
+    console.log("테이블들", tables);
+  }, [isSet]);
+
+  // 1) 원본 도면의 폭/높이(있으면 그대로, 없으면 의자/테이블에서 추정)
+  const bbox = useBBoxFromItems(chairs, tables);
+  const originalW = floorPlan?.width ?? bbox.w;
+  const originalH = floorPlan?.height ?? bbox.h;
+
+  // 2) "원본 height → 630px"이 되도록 배율 계산
+  const scale = useMemo(() => {
+    const h = originalH || TARGET_H; // 0/undefined 방어
+    return TARGET_H / h; // 확대/축소 모두 허용
+  }, [originalH]);
+
+  // 3) 스테이지(도면) 화면상 크기
+  const stageW = Math.round(originalW * scale);
+  const stageH = TARGET_H; // 정확히 630으로 고정
+
+  // 4) 좌표/크기 값 자체를 스케일링
+  const scaledChairs = useMemo(
+    () => scaleItems(chairs, scale),
+    [chairs, scale]
+  );
+  const scaledTables = useMemo(
+    () => scaleItems(tables, scale),
+    [tables, scale]
+  );
 
   return (
     <main className="bean-update" role="main">
@@ -79,33 +146,58 @@ const CafeHomeBeanUpdate = () => {
           <br />이 화면에서 업데이트되는 빈자리 현황은 고객 앱에도 실시간으로
           반영돼요.
         </p>
-        {/* {testDraft ? (
+        {isSet ? (
           <>
             <div className="meta-row">
               <div className="meta-left">
-                전체 좌석 수: <b>0</b> / 현재 빈 자리: <b>0</b>
+                전체 좌석 수: <b>{seatNumber}</b> / 현재 빈 자리:{" "}
+                <b>{emptySeatNumber}</b>
               </div>
               <div className="meta-right status-live">* 현재 사용중</div>
             </div>
-            <div className="canvas-box" role="region" aria-label="좌석 배치도 영역">
-              <ZoomPan min={0.5} max={4} step={0.2}>
-                <img
-                  src={testDraft}
-                  alt="좌석 배치도"
-                  className="canvas-image"
-                  draggable={false}
-                />
-              </ZoomPan>
+            <div
+              className="canvas-box"
+              role="region"
+              aria-label="좌석 배치도 영역"
+            >
+              <div
+                className="seat-stage"
+                style={{ width: stageW, height: stageH }}
+              >
+                {/*<ZoomPan min={0.5} max={4} step={0.2}> */}
+                {scaledChairs.map((chair, idx) => (
+                  <ChairDetection
+                    width={chair.width}
+                    height={chair.height}
+                    x_position={chair.x_position}
+                    y_position={chair.y_position}
+                    window={chair.window}
+                    socket={chair.socket}
+                    occupied={chair.occupied}
+                    floorplan_id={floorPlanId}
+                    chair_idx={idx}
+                  />
+                ))}
+                {/*</ZoomPan> */}
+              </div>
             </div>
           </>
-        ) : ( */}
-        <div className="canvas-box" role="region" aria-label="좌석 배치도 영역">
-          <div className="empty-canvas">
-            <button className="create-seatmap-btn" onClick={handleUploadClick}>
-              빈자리 배치도 만들기
-            </button>
+        ) : (
+          <div
+            className="canvas-box"
+            role="region"
+            aria-label="좌석 배치도 영역"
+          >
+            <div className="empty-canvas">
+              <button
+                className="create-seatmap-btn"
+                onClick={handleUploadClick}
+              >
+                빈자리 배치도 만들기
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </section>
     </main>
   );

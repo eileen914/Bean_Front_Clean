@@ -60,10 +60,10 @@
   margin: 16px 0 20px;
 }
 .sm-label {
-  font-weight: 735;
+  font-weight: 750;
   color: var(--smc-ink);
   margin-bottom: 10px;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 .sm-hint {
   font-weight: 700;
@@ -79,13 +79,13 @@
 
 .sm-opt {
   min-width: 88px;
-  padding: 10px 12px;
+  padding: 8px 13.5px;
   border-radius: 10px;
   border: 2px solid #dddddd;
   background: #fff;
   color: var(--smc-ink);
-  font-weight: 700;
-  font-size: 0.8rem;
+  font-weight: 670;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.12s ease,
     border-color 0.12s ease;
@@ -110,11 +110,12 @@
   color: var(--smc-ink);
   border: 2px solid var(--smc-btn-border);
   border-radius: 8px;
-  padding: 12px;
+  padding: 8px;
   font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
   transition: transform 0.12s ease, box-shadow 0.2s ease;
+  margin-top: 10px;
 }
 .sm-btn:hover {
   transform: translateY(-1px);
