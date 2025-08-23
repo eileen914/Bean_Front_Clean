@@ -1,7 +1,7 @@
-
 import React, { useCallback, useState } from "react";
 import line12 from "../assets/Line7.png";
 import "./TakenSeat.css";
+import { fmtDuration, fmtHHMM } from "../utils/dateTime";
 
 /**
  * TakenSeat 컴포넌트
@@ -10,7 +10,12 @@ import "./TakenSeat.css";
  *   onToggle: 예약 상태 변경 시 콜백 (함수)
  * - 역할: 좌석 정보와 예약 버튼 UI, 예약 상태 토글 및 부모에 알림
  */
-export default function TakenSeat({ defaultReserved = false, onToggle }) {
+export default function TakenSeat({
+  defaultReserved = false,
+  onToggle,
+  chair,
+  floorPlanId,
+}) {
   // 예약 상태 관리
   const [reserved, setReserved] = useState(defaultReserved);
 
@@ -47,30 +52,50 @@ export default function TakenSeat({ defaultReserved = false, onToggle }) {
       <div className="taken-div">
         {/* 좌석 번호 */}
         <p className="taken-element">
-          <span className="taken-text-wrapper">6-1</span>
+          <span className="taken-text-wrapper">{`${floorPlanId}-${chair?.id}`}</span>
           <span className="taken-span">번 좌석</span>
         </p>
 
         {/* 좌석 타입/기능 */}
         <div className="taken-element-2">
-          2인석&nbsp;|&nbsp;&nbsp;기본(사각)
-          테이블&nbsp;|&nbsp;&nbsp;콘센트 자리
+          2인석&nbsp;|&nbsp;&nbsp;기본(사각) 테이블&nbsp;|&nbsp;&nbsp;콘센트
+          자리
         </div>
 
         {/* 사용중 시간 */}
         <div className="taken-div-wrapper-2">
-          <div className="taken-text-wrapper-2">0시간 38분동안 사용중</div>
+          <div className="taken-text-wrapper-2">
+            {`${fmtDuration(
+              Date.now() -
+                (new Date(chair?.entry_time).getTime() + 9 * 60 * 60 * 1000)
+            )} 동안 사용중`}
+          </div>
         </div>
 
         {/* 입장/퇴장/남은 시간 */}
         <p className="taken-p">
           <span className="taken-text-wrapper-3">
-            입장시간|&nbsp;&nbsp;15:03
+            입장시간|&nbsp;&nbsp;
+            {`${fmtHHMM(
+              new Date(chair?.entry_time).getTime() + 9 * 60 * 60 * 1000
+            )}`}
             <br />
-            예상 퇴장시간|&nbsp;&nbsp;17:33
+            예상 퇴장시간|&nbsp;&nbsp;
+            {`${fmtHHMM(
+              new Date(chair?.entry_time).getTime() +
+                9 * 60 * 60 * 1000 +
+                120 * 60_000
+            )}`}
+            &nbsp;
           </span>
           <span className="taken-text-wrapper-4">&nbsp;</span>
-          <span className="taken-text-wrapper-4">(남은 시간 1시간 15분)</span>
+          <span className="taken-text-wrapper-4">
+            {`남은 시간: ${fmtDuration(
+              new Date(chair?.entry_time).getTime() +
+                120 * 60_000 -
+                new Date(chair?.entry_time).getTime()
+            )}`}
+          </span>
         </p>
 
         {/* 예약 버튼 (상태에 따라 텍스트 변경) */}

@@ -1,4 +1,3 @@
-
 import React, { useCallback, useState } from "react";
 import "./UntakenSeat.css";
 import line12 from "../assets/Line7.png";
@@ -10,7 +9,12 @@ import line12 from "../assets/Line7.png";
  *   onToggle: 예약 상태 변경 시 콜백 (함수)
  * - 역할: 빈 좌석 정보와 예약 버튼 UI, 예약 상태 토글 및 부모에 알림
  */
-export default function UntakenSeat({ defaultReserved = false, onToggle }) {
+export default function UntakenSeat({
+  defaultReserved = false,
+  onToggle,
+  chair,
+  floorPlanId,
+}) {
   // 예약 상태 관리
   const [reserved, setReserved] = useState(defaultReserved);
 
@@ -48,14 +52,14 @@ export default function UntakenSeat({ defaultReserved = false, onToggle }) {
         <div className="untaken-div-2">
           {/* 좌석 번호 */}
           <p className="untaken-element">
-            <span className="untaken-text-wrapper">6-1</span>
+            <span className="untaken-text-wrapper">{`${floorPlanId}-${chair?.id}`}</span>
             <span className="untaken-span">번 좌석</span>
           </p>
 
           {/* 좌석 타입/기능 */}
           <div className="untaken-element-2">
-            2인석&nbsp;|&nbsp;&nbsp;기본(사각)
-            테이블&nbsp;|&nbsp;&nbsp;콘센트 자리
+            2인석&nbsp;|&nbsp;&nbsp;기본(사각) 테이블&nbsp;|&nbsp;&nbsp;콘센트
+            자리
           </div>
         </div>
 
@@ -76,4 +80,3 @@ export default function UntakenSeat({ defaultReserved = false, onToggle }) {
     </div>
   );
 }
-

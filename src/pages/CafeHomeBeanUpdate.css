@@ -169,7 +169,7 @@
 }
 .status-live {
   color: #000000;
-  background-color:#feefb2;
+  background-color: #feefb2;
   font-weight: 400;
   font-size: 17px;
   padding: 6px 13px;
@@ -235,7 +235,7 @@
   border-radius: 15px;
   gap: 15px;
   position: relative;
-  background-color:rgba(104, 93, 74, 0.93);
+  background-color: rgba(104, 93, 74, 0.93);
   color: #fff;
   cursor: pointer;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
