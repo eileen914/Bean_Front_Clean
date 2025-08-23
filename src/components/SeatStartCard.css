@@ -66,8 +66,8 @@
   font-size: 1rem;
 }
 .ss-hint {
-  font-weight: 700;
-  color: var(--ss-muted);
+  font-weight: 600;
+  color: var(--ss-ink);
 }
 
 .ss-options {

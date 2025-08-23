@@ -188,6 +188,12 @@
   overflow: auto;
 }
 
+/* canvas-box 스크롤바 제거 */
+.canvas-box::-webkit-scrollbar {
+  display: none;
+}
+
+
 /* 새 stage: 좌상단(0,0) 기준 고정, 크기는 도면 픽셀 크기 */
 .seat-stage {
   position: absolute;
