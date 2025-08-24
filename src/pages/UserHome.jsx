@@ -79,50 +79,47 @@ const UserHome = () => {
   }, [isDragging, dragY]);
 
   return (
-    <div className="user-home-page">
-      {/* 새 프레임 컨테이너 */}
-      <div className="app-frame">
-        {/* 헤더 */}
-        <header className="header">
-          <div className="header-content">
-            <div className="logo">
-              <span className="logo-text">Bean</span>
-            </div>
-            <button className="menu-button">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"
-                  fill="#391d0a"
-                />
-              </svg>
-            </button>
+    <div className="app-frame">
+      {/* 헤더 */}
+      <header className="header">
+        <div className="header-content">
+          <div className="logo">
+            <span className="logo-text">Bean</span>
           </div>
-        </header>
+          <button className="menu-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"
+                fill="#391d0a"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
 
-        {/* 메인 콘텐츠 */}
-        <main className="map-main-content">
-          <Kakaomap />
-        </main>
+      {/* 메인 콘텐츠 */}
+      <main className="map-main-content">
+        <Kakaomap />
+      </main>
 
-        {/* Bottom Sheet */}
-        <div
-          ref={bottomSheetRef}
-          className="bottom-sheet"
-          style={{
-            transform: `translateY(${dragY}px)`,
-            transition: isDragging ? "none" : "transform 0.25s ease",
-          }}
-          onMouseDown={handleDragStart}
-          onMouseUp={handleDragEndFn}        
-          onTouchStart={handleDragStart}
-          onTouchEnd={handleDragEndFn}  
-        >
-          <div className="drag-handle">
-            <div className="handle-bar"></div>
-          </div>
-          <div className="bottom-sheet-content">
-            <UserSearch />
-          </div>
+      {/* Bottom Sheet */}
+      <div
+        ref={bottomSheetRef}
+        className="bottom-sheet"
+        style={{
+          transform: `translateY(${dragY}px)`,
+          transition: isDragging ? "none" : "transform 0.25s ease",
+        }}
+        onMouseDown={handleDragStart}
+        onMouseUp={handleDragEndFn}        
+        onTouchStart={handleDragStart}
+        onTouchEnd={handleDragEndFn}  
+      >
+        <div className="drag-handle">
+          <div className="handle-bar"></div>
+        </div>
+        <div className="bottom-sheet-content">
+          <UserSearch />
         </div>
       </div>
     </div>
