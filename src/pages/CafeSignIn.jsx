@@ -21,6 +21,10 @@ const CafeSignIn = () => {
     password: "",
   });
 
+  const handleLogoClick = () => {
+    navigate("/cafe-landing");
+  };
+
   const handleSignInData = (e) => {
     // 로그인 입력값 변경 핸들러
     const { id, value } = e.target;
@@ -33,12 +37,20 @@ const CafeSignIn = () => {
     const result = await signIn(signInData); // 200 이어야 통과 (쿠키 세팅)
     // 선택: 쿠키 적용 확인(권장)
     if (result.status === 200) {
-      const ownerResult = await getLoginInfo(); 
+      const ownerResult = await getLoginInfo();
       const owner = ownerResult.data;
       const cafes = await getOwnerCafes(owner.id);
       const cafeId = cafes[0]?.id;
-      const floorPlan = await listCafeFloorPlans(cafeId);
-      const floorPlanId = floorPlan[0]?.id;
+      let floorPlanId = null;
+      try {
+        const floorPlan = await listCafeFloorPlans(cafeId);
+        floorPlanId =
+          Array.isArray(floorPlan) && floorPlan.length > 0
+            ? floorPlan[0].id
+            : null;
+      } catch (e) {
+        floorPlanId = null;
+      }
       navigate("/cafe-update", { state: { cafeId, floorPlanId } });
     } else {
       alert(result.message);
@@ -54,7 +66,7 @@ const CafeSignIn = () => {
     <div className="cafe-signin">
       {/* ===== 헤더 영역 ===== */}
       <header className="cafe-fixed-header">
-        <div className="cafe-header-content">
+        <div className="cafe-header-content" onClick={handleLogoClick}>
           <img src="/logo.png" alt="Bean Logo" className="cafe-header-logo" />
           <h1 className="cafe-header-text">Bean</h1>
         </div>

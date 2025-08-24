@@ -13,6 +13,11 @@ const CafeRegister2 = () => {
     name: "",
     address: "",
     description: "",
+    photo_urls: [
+      "/data/cafe_images/1.jpg",
+      "/data/cafe_images/2.jpg",
+      "/data/cafe_images/3.jpg",
+    ],
   });
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -51,9 +56,14 @@ const CafeRegister2 = () => {
       const result = await createCafe(cafeData);
       const cafeId = result.data.id;
 
-      // 3) 성공 시 이동
-      alert("업체 등록이 완료되었습니다.");
-      navigate("/cafe-signin", { state: { cafeId } });
+      if (result.status !== 201) {
+        alert("업체 등록에 실패했습니다. 다시 시도해주세요.");
+        return;
+      } else {
+        // 3) 성공 시 이동
+        alert("업체 등록이 완료되었습니다.");
+        navigate("/cafe-signin", { state: { cafeId } });
+      }
     }
   };
 
