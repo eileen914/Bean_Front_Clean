@@ -11,11 +11,32 @@ const MAX_DRAG_Y = SHEET_HEIGHT;
 const UserHome = () => {
   const [dragY, setDragY] = useState(INITIAL_DRAG_Y); 
   const [isDragging, setIsDragging] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false); // 바텀시트 오픈 상태
   const bottomSheetRef = useRef(null);
 
   const startYRef = useRef(0); 
   const initialYRef = useRef(dragY);
-  
+
+  // 바깥 클릭 핸들러
+  useEffect(() => {
+    if (!isSheetOpen) return;
+    const handleOutsideClick = (e) => {
+      if (
+        bottomSheetRef.current &&
+        !bottomSheetRef.current.contains(e.target)
+      ) {
+        setIsSheetOpen(false);
+        setDragY(INITIAL_DRAG_Y); // 부드럽게 원래 위치로
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("touchstart", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("touchstart", handleOutsideClick);
+    };
+  }, [isSheetOpen]);
+
   // 공통: 좌표 추출
   const getClientY = (e) => {
     if (e.touches && e.touches[0]) return e.touches[0].clientY;
@@ -26,19 +47,23 @@ const UserHome = () => {
 
   // 드래그 시작
   const handleDragStart = (e) => {
+    e.preventDefault();
     setIsDragging(true);
     startYRef.current = getClientY(e);
     initialYRef.current = dragY;
   };
 
   // 드래그 종료(스냅)
-  const handleDragEndFn = () => {
+  const handleDragEndFn = (e) => {
+    if (e) e.preventDefault();
     setIsDragging(false);
     const snapThreshold = INITIAL_DRAG_Y / 2;
     if (dragY < snapThreshold) {
       setDragY(0);
+      setIsSheetOpen(true);
     } else {
       setDragY(INITIAL_DRAG_Y);
+      setIsSheetOpen(false);
     }
   };
   const handleDragEnd = useRef(handleDragEndFn);
@@ -78,6 +103,12 @@ const UserHome = () => {
     };
   }, [isDragging, dragY]);
 
+  // 바텀시트 클릭 시 오픈
+  const handleSheetClick = () => {
+    setIsSheetOpen(true);
+    setDragY(0);
+  };
+
   return (
     <div className="app-frame">
       {/* 헤더 */}
@@ -108,12 +139,15 @@ const UserHome = () => {
         className="bottom-sheet"
         style={{
           transform: `translateY(${dragY}px)`,
-          transition: isDragging ? "none" : "transform 0.25s ease",
+          transition: isDragging ? "none" : "transform 0.5s cubic-bezier(0.4,0,0.2,1)",
         }}
         onMouseDown={handleDragStart}
-        onMouseUp={handleDragEndFn}        
+        onMouseUp={handleDragEndFn}
         onTouchStart={handleDragStart}
-        onTouchEnd={handleDragEndFn}  
+        onTouchEnd={handleDragEndFn}
+        onClick={() => {
+          if (!isSheetOpen) handleSheetClick();
+        }}
       >
         <div className="drag-handle">
           <div className="handle-bar"></div>
