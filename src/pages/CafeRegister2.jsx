@@ -13,6 +13,11 @@ const CafeRegister2 = () => {
     name: "",
     address: "",
     description: "",
+    photo_urls: [
+      "/data/cafe_images/1.jpg",
+      "/data/cafe_images/2.jpg",
+      "/data/cafe_images/3.jpg",
+    ],
   });
   const [errorMsg, setErrorMsg] = useState("");
 

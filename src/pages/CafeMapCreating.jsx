@@ -52,7 +52,7 @@ const CafeMapCreating = () => {
         const { class: className, confidence, x, y, width, height } = detection;
         const firstClass = getFirstClass(className);
 
-        if (firstClass === "chair" || firstClass === "sofa") {
+        if (firstClass === "chair" || firstClass.substring(0, 4) === "sofa") {
           const chairRequest = {
             width: width,
             height: height,
