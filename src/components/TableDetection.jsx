@@ -24,14 +24,12 @@ const TableDetection = ({
   const classNames = [
     styles.tableBox,
     shape === "circle" ? styles.circle : "",
-    selected ? styles.selected : ""
-  ].filter(Boolean).join(" ");
+    selected ? styles.selected : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
   return (
-    <div
-      className={classNames}
-      style={style}
-      onClick={onClick}
-    >
+    <div className={classNames} style={style} onClick={onClick}>
       <span className={styles.tableBoxLabel}>{table_idx + 1}</span>
     </div>
   );

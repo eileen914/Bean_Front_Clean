@@ -18,6 +18,12 @@ const CafeMapCreating = () => {
     return className.split("-")[0];
   };
 
+  const getSecondClass = (className) => {
+    if (typeof className !== "string") return "";
+    if (className.split("-")[1] === "round") return "circle";
+    else return "rectangle";
+  };
+
   useEffect(() => {
     console.log("Floor plan complete:", floorPlanComplete);
     setFloorPlanResult(floorPlanComplete);
@@ -77,6 +83,7 @@ const CafeMapCreating = () => {
             height: height,
             x_position: x,
             y_position: y,
+            shape: getSecondClass(className) || "rectangle",
             floor_plan: floorPlanId,
           };
           const result = await createTable(tableRequest);
