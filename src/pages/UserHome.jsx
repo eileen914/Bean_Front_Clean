@@ -4,7 +4,7 @@ import Kakaomap from "../components/Kakaomap";
 import "./UserHome.css";
 
 const SHEET_HEIGHT = 349; 
-const INITIAL_VISIBLE = 170;  //원래 110
+const INITIAL_VISIBLE = 110;  
 const INITIAL_DRAG_Y = SHEET_HEIGHT - INITIAL_VISIBLE;
 
 const UserHome = () => {

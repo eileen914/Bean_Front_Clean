@@ -18,10 +18,10 @@ const UserLanding = () => {
       <div className="overlap-group-wrapper">
         <div className="overlap-group">
           {/* 메인 이미지 */}
-          <img className="group" alt="Group" src={group1} />
+          <img className="user-landing-group" alt="Group" src={group1} />
 
           {/* 로그인/회원가입 버튼 */}
-          <div className="frame">
+          <div className="user-landing-frame">
             <div className="div-wrapper" onClick={handleLogin}>
               <div className="text-wrapper">로그인</div>
             </div>
@@ -35,7 +35,7 @@ const UserLanding = () => {
             <div className="rectangle-wrapper">
               <div className="rectangle" />
             </div>
-            <img src="/logo.png" alt="로고" className="img" />
+            <img src="/logo.png" alt="로고" className="landing-logo" />
           </div>
 
           {/* 슬로건 */}
