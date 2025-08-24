@@ -159,27 +159,96 @@
   margin-left: 10px;
 }
 
+/* ...기존 코드... */
+
 @media (max-width: 480px) {
   .frame-336 {
-    width: 100%;
-    max-width: 420px;
-    height: 100vh;
-    max-height: 319px;
+    width: 100vw;
+    max-width: 100vw;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
   }
   
   .search-container {
+    width: 100vw;
+    max-width: 100vw;
+    height: auto;
+    min-height: 0;
+    gap: 16px;
+    box-sizing: border-box;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .search-bar {
     width: 100%;
-    max-width: 370px;
+    min-width: 0;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .search-input {
+    flex: 1;
+    min-width: 0;
+    font-size: 15px;
+    padding: 8px 0;
+    text-align: center;
+    background: none;
+    border: none;
+    outline: none;
+    color: #f0eee7;
+  }
+  
+  .search-section {
+    width: 100%;
+    gap: 12px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
   }
   
   .search-terms {
+    width: 100%;
     flex-wrap: wrap;
+    gap: 8px;
     height: auto;
-    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
   }
   
   .search-term-btn {
-    min-width: 100px;
-    height: 35px;
+    min-width: 90px;
+    height: 32px;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    box-sizing: border-box;
   }
-} 
+  
+  .section-title {
+    width: auto;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+  }
+  
+  .title-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ebe9e4;
+  }
+}
