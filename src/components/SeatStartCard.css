@@ -72,7 +72,6 @@
 
 .ss-options {
   display: flex;
-  /* justify-content: center; */
   gap: 16px;
   margin-bottom: 12px;
   flex-wrap: wrap;

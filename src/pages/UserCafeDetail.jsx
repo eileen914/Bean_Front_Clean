@@ -1,19 +1,17 @@
 /**
  * UserCafeDetail 페이지
- * - props: location.state로 전달받는 cafeId, ownerId, cafeName, cafeAddress, cafeImages
+ * - props: location.state로 전달받는 cafeId, cafeName, cafeAddress, cafeImages
  * - 카페 정보, 지도, 좌석 현황, 탭, 이미지 슬라이더, 바텀시트 UI
  */
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./UserCafeDetail.css";
-import testdraft from "../assets/test_draft.png";
 import locationIcon from "../assets/ion_detail.svg";
 import clockIcon from "../assets/mdi_clock_detail.svg";
 import starRating from "../assets/star_rating.svg";
 import coffeeIcon from "../assets/material-symbols-light_coffee.svg";
 import arrowIcon from "../assets/ep_arrow-up.svg";
 import menuVector from "../assets/menu-vector.svg";
-import ZoomPanUser from "../components/ZoomPanUser";
 import TakenSeat from "../components/TakenSeat"; // 점유된 자리
 import UntakenSeat from "../components/UntakenSeat"; // 점유되지 않은 자리
 import RatingTag from "../components/RatingTag/RatingTag";
@@ -30,7 +28,6 @@ const UserCafeDetail = () => {
   const location = useLocation();
   const {
     cafeId = "1",
-    ownerId = "1",
     cafeName = "마인드멜드",
     cafeAddress = "서울 관악구 관악로13길 20",
     cafeImages = [],
@@ -40,8 +37,6 @@ const UserCafeDetail = () => {
   const [activeTab, setActiveTab] = useState("home"); // 현재 선택된 탭
   const [showUnTaken, setShowUnTaken] = useState(false); // 좌석 오버레이 표시 여부
   const [showTaken, setShowTaken] = useState(false); // 좌석 오버레이 표시 여부
-  const toggleTaken = () => setShowTaken((v) => !v); // 좌석 오버레이 토글
-  const toggleUnTaken = () => setShowUnTaken((v) => !v); // 좌석 오버레이 토글
 
   const [floorPlan, setFloorPlan] = useState(null);
   const [floorPlanId, setFloorPlanId] = useState(null);
@@ -51,15 +46,9 @@ const UserCafeDetail = () => {
 
   const [selectedTaken, setSelectedTaken] = useState(false);
   const [selectedUnTaken, setSelectedUnTaken] = useState(false);
-  const [selectedChairIdx, setSelectedChairIdx] = useState(null); // 선택된 의자 인덱스
 
   const [chair, setChair] = useState(null);
 
-  // 선택 핸들러: 이미 선택된 의자면 해제, 아니면 선택
-  const handleSelectChair = (idx, chair) => {
-    console.log("handleSelectChair: ", idx, chair);
-    setSelectedChairIdx((prev) => (prev === idx ? null : idx));
-  };
 
   const handleChairClick = (idx, chair) => {
     console.log("handleChairClick: ", idx, chair);
@@ -131,15 +120,6 @@ const UserCafeDetail = () => {
   }, [floorPlan]);
 
   useEffect(() => {
-    console.log("chairs updated:", chairs);
-    console.log("tables updated:", tables);
-    console.log("isSet:", isSet);
-    console.log("floorPlan:", floorPlan);
-    console.log("scaledChairs:", scaledChairs);
-    console.log("scaledTables:", scaledTables);
-  }, [isSet]);
-
-  useEffect(() => {
     if (!chair) return;
     console.log("chair updated:", chair);
   }, [chair]);
@@ -188,7 +168,7 @@ const UserCafeDetail = () => {
           <div className="user-cafe-tags">
             <RatingTag />
             <div className="rating">
-              <img src={starRating} className="star-icon" />
+              <img src={starRating} alt="star-rating" className="star-icon" />
               <span>4.9(1,067)</span>
             </div>
           </div>

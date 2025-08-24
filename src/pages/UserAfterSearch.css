@@ -17,19 +17,20 @@ body {
 }
 
 /* === 1. 메인 레이아웃 === */
-.home-page {
+.after-home-page {
   width: 100vw;
   height: 100vh;
-  background-color: #ffffff;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;      
   position: relative;
+  background-color: #ffffff;
 }
 
 .main-content {
   width: 420px;
   height: 747px;
+  margin: auto;
   position: fixed;
   top: 97px;
   left: 50%;
@@ -160,11 +161,11 @@ body {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   scrollbar-width: none;       
-  -ms-overflow-style: none;    /* IE/Edge 구버전 */
+  -ms-overflow-style: none;    
 }
 
 .after-search-frame .after-search-container::-webkit-scrollbar {
-  display: none;               /* Chrome, Safari, Edge */
+  display: none;               
 }
 
 

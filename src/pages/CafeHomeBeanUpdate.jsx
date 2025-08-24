@@ -2,10 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./CafeHomeBeanUpdate.css";
 import MenuDropdown from "../components/MenuDropdown";
-import whitecursor from "../assets/white-cursor.svg";
-import testDraft from "../assets/test_draft.png";
-import ZoomPan from "../components/ZoomPan";
-import { getCookie, removeCookie } from "../utils/cookie";
 import {
   signOut,
   listCafeFloorPlans,
@@ -60,7 +56,7 @@ const CafeHomeBeanUpdate = () => {
         checkinAt: chair.entry_time,
         expectedOutAt: new Date(
           new Date(chair.entry_time).getTime() + 90 * 60_000
-        ), // 1시간 30분 후
+        ),
       });
     } else {
       setOccupiedSeat(null);
@@ -143,22 +139,18 @@ const CafeHomeBeanUpdate = () => {
     fetchChairs();
   }, [occupiedSeat]);
 
-  // 1) 원본 도면의 폭/높이(있으면 그대로, 없으면 의자/테이블에서 추정)
   const bbox = useBBoxFromItems(chairs, tables);
   const originalW = floorPlan?.width ?? bbox.w;
   const originalH = floorPlan?.height ?? bbox.h;
 
-  // 2) "원본 height → 630px"이 되도록 배율 계산
   const scale = useMemo(() => {
-    const h = originalH || TARGET_H; // 0/undefined 방어
-    return TARGET_H / h; // 확대/축소 모두 허용
+    const h = originalH || TARGET_H;
+    return TARGET_H / h;
   }, [originalH]);
 
-  // 3) 스테이지(도면) 화면상 크기
   const stageW = Math.round(originalW * scale);
-  const stageH = TARGET_H; // 정확히 630으로 고정
+  const stageH = TARGET_H;
 
-  // 4) 좌표/크기 값 자체를 스케일링
   const scaledChairs = useMemo(
     () => scaleItems(chairs, scale),
     [chairs, scale]

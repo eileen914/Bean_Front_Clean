@@ -1,7 +1,6 @@
 // 카페 등록 1단계 페이지
 // - 서비스 소개, 혜택 안내, 등록 버튼 등으로 구성
 
-import React from "react";
 import "./CafeRegister1.css";
 import { useNavigate } from "react-router-dom";
 

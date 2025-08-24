@@ -193,13 +193,11 @@
   display: none;
 }
 
-
-/* 새 stage: 좌상단(0,0) 기준 고정, 크기는 도면 픽셀 크기 */
 .seat-stage {
   position: absolute;
   left: 0;
   top: 0;
-  transform-origin: top left; /* scale 써도 좌표가 안틀어지게 */
+  transform-origin: top left;
   display: flex;
   flex-wrap: wrap;
 }

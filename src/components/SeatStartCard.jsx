@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./SeatStartCard.css";
-import { updateChair, listChairs, getChair } from "../apis/api";
+import { updateChair, getChair } from "../apis/api";
 
 /**
  * SeatStartCard
