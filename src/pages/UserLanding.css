@@ -11,8 +11,8 @@
 }
 
 .landing-page-before {
-  align-items: start;
-  background-color: #ffffff;
+  align-items: center;
+  /*background-color: #ffffff;*/
   display: grid;
   height: 100%;
   justify-items: center;
@@ -21,7 +21,7 @@
 }
 
 .landing-page-before .overlap-group-wrapper {
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
   height: 832px;
   width: 1280px;
 }
@@ -29,9 +29,11 @@
 .landing-page-before .overlap-group {
   height: 842px;
   left: 434px;
+  justify-items: center;
   position: relative;
   top: -10px;
   width: 420px;
+  min-height: 100vh;
 }
 
 .landing-page-before .group {
@@ -42,7 +44,7 @@
   width: 420px;
 }
 
-.landing-page-before .frame {
+.landing-page-before .user-landing-frame {
   align-items: center;
   display: inline-flex;
   gap: 15px;
@@ -108,12 +110,12 @@
   align-items: flex-end;
   display: flex;
   gap: 10px;
-  height: 170px;
+  height: 150px;
   left: 29px;
-  padding: 20px;
+  padding: 0px 20px 20px 0px;
   position: absolute;
   top: 0;
-  width: 130px;
+  width: 110px;
 }
 
 .landing-page-before .rectangle-wrapper {
@@ -121,7 +123,6 @@
   display: inline-flex;
   gap: 10px;
   left: 0;
-  padding: 10px;
   position: absolute;
   top: 0;
 }
@@ -134,10 +135,11 @@
   width: 110px;
 }
 
-.landing-page-before .img {
+.landing-page-before .landing-logo {
   height: 100px;
   position: relative;
-  width: 88px;
+  width: 110px;
+  padding-left: 13px;
 }
 
 .landing-page-before .frame-3 {
@@ -201,4 +203,125 @@
   margin-top: -16.5px;
   position: relative;
   width: fit-content;
+}
+
+
+@media (max-width: 480px) {
+  html, body {
+    width: 100%;
+    height: 100vh;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden; /* 스크롤 제거 */
+    background: transparent;
+  }
+  .landing-page-before {
+    min-width: 0;
+    width: 100%;
+    height: 100vh;
+    justify-items: center;
+    align-items: start;
+    overflow: hidden;
+    background: transparent;
+    box-sizing: border-box;
+  }
+  .landing-page-before .overlap-group-wrapper {
+    width: 100%;
+    min-width: 0;
+    height: 100vh;
+    overflow: hidden;
+    box-sizing: border-box;
+    left: 0;
+    position: relative;
+  }
+
+  .landing-page-before .overlap-group {
+    width: 100%;
+    min-width: 0;
+    left: 0;
+    position: relative;
+    top: 0;
+    height: 100vh; /* 화면에 꽉 차게 */
+    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* 세로 중앙 정렬 */
+    box-sizing: border-box;
+  }
+  .user-landing-group {
+    width: 100%;
+    max-width: 100vw;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .user-landing-frame {
+    width: 100vw;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    position: absolute;
+    transform: translateX(-25%);
+    bottom: 100px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .frame-2 {
+    width: 100vw;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    box-sizing: border-box;
+  }
+  .rectangle-wrapper {
+    display: none; /* 모바일에서 로고 배경 숨김 */
+  }
+  .img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+  .frame-3 {
+    width: 100vw;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    box-sizing: border-box;
+  }
+  .frame-4 .p {
+    font-size: 18px;
+    text-align: center;
+    margin: 0;
+    padding: 0 8px;
+  }
+
+  .div-wrapper,
+  .div {
+    width: 120px;
+    padding: 12px;
+    font-size: 18px;
+    margin: 0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .frame-5 .text-wrapper-3 {
+    font-size: 64px;
+    text-align: center;
+    margin-bottom: 12px;
+  }
 }
