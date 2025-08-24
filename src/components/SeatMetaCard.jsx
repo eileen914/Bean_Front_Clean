@@ -1,6 +1,5 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import "./SeatMetaCard.css";
-// import "./SeatStartCard.css";
 import { updateChair } from "../apis/api";
 
 /**
@@ -36,7 +35,7 @@ export default function SeatMetaCard({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  // 기타 입력을 features에 합쳐 보내려고
+  // 기타 입력을 features에 합쳐 보내기
   const getEffectiveFeatures = () => {
     const base = Array.from(selFeats);
     return featEtc?.trim() ? [...base, featEtc.trim()] : base;
@@ -82,8 +81,10 @@ export default function SeatMetaCard({
       const payload = toChairPayload();
       const { status, data } = await updateChair(chairId, payload);
 
-      if (status !== 200) throw { status, data, message: "Unexpected status" };
-      else console.log("[seat save] ok", data);
+      if (status !== 200) {
+        // eslint-disable-next-line no-throw-literal
+        throw new Error(`Unexpected status: ${status}, data: ${JSON.stringify(data)}`);
+      } else console.log("[seat save] ok", data);
       onSaved?.();
     } catch (e) {
       console.error("[seat save error]", e);

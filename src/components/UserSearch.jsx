@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './UserSearch.css';
 import { useNavigate } from 'react-router-dom';
 import majesticons from '../assets/majesticons_search.svg';

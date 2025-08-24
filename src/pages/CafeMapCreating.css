@@ -13,7 +13,7 @@
   padding-top: 100px;
 }
 
-/* FIXED 헤더 */
+/* 헤더 */
 .cafe-fixed-header {
   position: fixed;
   top: 0;
@@ -50,7 +50,6 @@
   margin: 0;
 }
 
-/* 중앙 콘텐트 래퍼 */
 .creating-center {
   text-align: center;
   display: flex;

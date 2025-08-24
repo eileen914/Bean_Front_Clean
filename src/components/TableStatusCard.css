@@ -23,7 +23,7 @@
   padding: 28px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 위/아래 균등 배치 */
+  justify-content: space-between; 
 }
 
 .ts-header {

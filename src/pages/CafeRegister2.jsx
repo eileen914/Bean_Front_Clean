@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./CafeRegister2.css";
 import { useNavigate } from "react-router-dom";
 import { signUp, createCafe } from "../apis/api";
@@ -29,7 +29,7 @@ const CafeRegister2 = () => {
     e.preventDefault();
     setErrorMsg("");
 
-    // 간단한 검증n
+    // 간단한 검증
     if (!signUpData.username.trim() || !signUpData.password.trim()) {
       setErrorMsg("아이디와 비밀번호를 입력해주세요.");
       return;

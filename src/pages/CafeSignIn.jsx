@@ -1,7 +1,7 @@
 // 카페 점주 로그인 페이지
 // - 로그인 폼, 회원가입 이동, 인증 처리 등
 
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import "./CafeSignIn.css";
 import { useNavigate } from "react-router-dom";
 import {

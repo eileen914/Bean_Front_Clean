@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import "./SeatStartCard.css"; // 기존 CSS 재사용 + 아래 추가 CSS 몇 줄 필요
+import { useMemo, useState } from "react";
+import "./SeatStartCard.css";
 import { updateTable } from "../apis/api";
 
 /**
@@ -53,7 +53,7 @@ export default function TableMetaCard({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  // onChange로 바깥에 알려줄 때, 호환성을 위해 types:[selType, ...(기타?)] 유지
+  // onChange로 바깥에 알려줄 때, 호환성을 위해 types 유지
   const getTypesForEmit = () => {
     const arr = selType ? [selType] : [];
     return typeEtc?.trim() ? [...arr, typeEtc.trim()] : arr;

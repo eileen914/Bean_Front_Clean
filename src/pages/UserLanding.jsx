@@ -4,7 +4,6 @@
  * - props: 없음
  * - 메인 이미지, 로고, 로그인/회원가입 버튼 UI
  */
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserLanding.css";
 import group1 from "../assets/user-landing.png";
