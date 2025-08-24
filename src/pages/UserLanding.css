@@ -206,178 +206,124 @@
 }
 
 /* ...기존 코드... */
-
-/* ...기존 코드... */
-
 @media (max-width: 480px) {
   html, body {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     min-width: 0;
     min-height: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     background: transparent;
-    box-sizing: border-box;
   }
   .landing-page-before {
-    width: 100vw;
     min-width: 0;
+    width: 100%;
     height: 100vh;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    box-sizing: border-box;
+    justify-items: center;
+    align-items: start;
+    overflow: auto;
     background: transparent;
     box-sizing: border-box;
-    overflow: hidden;
   }
-  .overlap-group-wrapper {
-    width: 100vw;
+  
+  .landing-page-before .overlap-group-wrapper {
+    width: 100%;
     min-width: 0;
     height: 100vh;
-    min-height: 0;
-    position: relative;
+    overflow: auto;
     box-sizing: border-box;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .overlap-group {
-    width: 100vw;
-    min-width: 0;
-    height: 100vh;
-    min-height: 0;
-    position: relative;
     left: 0;
+    position: relative;
+  }
+
+  .landing-page-before .overlap-group {
+    width: 100%;
+    min-width: 0;
+    left: 0;
+    position: relative;
     top: 0;
+    height: 100vh; /* 화면에 꽉 차게 */
+    justify-items: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* 세로 중앙 정렬 */
     box-sizing: border-box;
-    overflow: hidden;
   }
   .user-landing-group {
-    width: 100vw;
+    width: 100%;
     max-width: 100vw;
-    height: 40vh;
+    height: auto;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
   }
-  .frame-2 {
-    width: 100vw;
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: 0;
-    position: relative;
-    margin-top: 24px;
-    z-index: 2;
-  }
-  .rectangle-wrapper {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .rectangle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 80px;
-    height: 80px;
-    background-color: #f9f8f4;
-    border-radius: 0 0 40px 40px;
-    z-index: 1;
-  }
-  .landing-logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 56px;
-    height: 56px;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    object-fit: contain;
-    pointer-events: none;
-  }
+
   .user-landing-frame {
     width: 100vw;
+    max-width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 24px;
+    gap: 32px;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 80px;
-    z-index: 3;
+    transform: translateX(-25%);
+    bottom: 100px;
+    margin: 0;
+    box-sizing: border-box;
   }
+
+  .frame-2 {
+    width: 100vw;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    box-sizing: border-box;
+  }
+  .rectangle-wrapper {
+    display: none; /* 모바일에서 로고 배경 숨김 */
+  }
+  .img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+  .frame-3 {
+    width: 100vw;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    box-sizing: border-box;
+  }
+  .frame-4 .p {
+    font-size: 18px;
+    text-align: center;
+    margin: 0;
+    padding: 0 8px;
+  }
+
   .div-wrapper,
   .div {
-    width: 110px;
+    width: 120px;
     padding: 12px;
-    font-size: 16px;
+    font-size: 18px;
     margin: 0;
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
   }
-  .frame-3 {
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 44vh;
-    z-index: 2;
-  }
-  .frame-4 {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #fff;
-    margin-bottom: 8px;
-  }
-  .p {
-    width: 90vw;
-    font-size: 18px;
-    margin: 0;
+
+  .frame-5 .text-wrapper-3 {
+    font-size: 64px;
     text-align: center;
-    color: #fff;
-    font-family: "HomemadeApple", Helvetica;
-  }
-  .frame-5 {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .text-wrapper-3 {
-    font-size: 48px;
-    text-align: center;
-    color: #fff;
-    font-family: "Outfit", Helvetica;
-    margin: 0;
-    width: fit-content;
+    margin-bottom: 12px;
   }
 }
