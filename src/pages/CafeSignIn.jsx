@@ -37,12 +37,20 @@ const CafeSignIn = () => {
     const result = await signIn(signInData); // 200 이어야 통과 (쿠키 세팅)
     // 선택: 쿠키 적용 확인(권장)
     if (result.status === 200) {
-      const ownerResult = await getLoginInfo(); 
+      const ownerResult = await getLoginInfo();
       const owner = ownerResult.data;
       const cafes = await getOwnerCafes(owner.id);
       const cafeId = cafes[0]?.id;
-      const floorPlan = await listCafeFloorPlans(cafeId);
-      const floorPlanId = floorPlan[0]?.id;
+      let floorPlanId = null;
+      try {
+        const floorPlan = await listCafeFloorPlans(cafeId);
+        floorPlanId =
+          Array.isArray(floorPlan) && floorPlan.length > 0
+            ? floorPlan[0].id
+            : null;
+      } catch (e) {
+        floorPlanId = null;
+      }
       navigate("/cafe-update", { state: { cafeId, floorPlanId } });
     } else {
       alert(result.message);
