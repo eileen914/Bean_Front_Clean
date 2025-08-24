@@ -2,13 +2,13 @@ import axios from "axios";
 import { getCookie } from "../utils/cookie";
 
 // baseURL, credential, 헤더 세팅
-axios.defaults.baseURL = "http://beanzari.co.kr/api";
+axios.defaults.baseURL = "https://api.beanzari.co.kr/api";
 //axios.defaults.withCredentials = true;
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.common["X-CSRFToken"] = getCookie("csrftoken");
 
 const common = {
-  baseURL: "http://beanzari.co.kr/api",
+  baseURL: "https://api.beanzari.co.kr/api",
   withCredentials: true, // << 쿠키 동봉
   headers: { "Content-Type": "application/json" },
 };
