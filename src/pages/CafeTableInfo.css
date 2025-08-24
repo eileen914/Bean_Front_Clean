@@ -13,7 +13,7 @@
   --panel: #ffffff;
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   --header-h: 100px;
-  --header-gap: 24px; /* 헤더 밑 여유 간격 */
+  --header-gap: 24px;
 }
 
 /* 전체 레이아웃 */
@@ -29,7 +29,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100px;
+  height: var(--header-h);
   background: var(--bg);
   border-bottom: 1px solid var(--border);
   display: flex;
@@ -37,20 +37,10 @@
   z-index: 1000;
 }
 
-/* .update-header-content {
-  width: 1200px;
-  max-width: calc(100% - 48px);
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-} */
-
 .update-header-content {
   width: 100%;
-  max-width: none;
   margin: 0;
-  padding: 0 103px; /* 좌우 여백 16px씩 */
+  padding: 0 103px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -95,7 +85,6 @@
   background: rgba(0, 0, 0, 0.04);
 }
 
-/* 햄버거 & 드롭다운 */
 .menu-wrap {
   position: relative;
 }
@@ -148,7 +137,6 @@
 /* 본문 컨테이너 */
 .page-container {
   width: 100%;
-  max-width: none;
   margin: 24px auto 80px;
   padding: 0 150px;
 }
@@ -193,18 +181,17 @@
   overflow-x: auto;
 }
 
-/* 새 stage: 좌상단(0,0) 기준 고정, 크기는 도면 픽셀 크기 */
 .seat-stage {
   position: absolute;
   left: 0;
   top: 0;
-  transform-origin: top left; /* scale 써도 좌표가 안틀어지게 */
+  transform-origin: top left;
   overflow-y: hidden;
 }
 
 /* 반응형 */
 @media (max-width: 768px) {
-  .header-text {
+  .update-header-text {
     font-size: 1.6rem;
   }
   .canvas-box {

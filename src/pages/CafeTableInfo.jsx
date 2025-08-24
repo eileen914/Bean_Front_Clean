@@ -1,7 +1,7 @@
 // 카페 테이블 정보 수정 페이지
 // - 헤더, 로그아웃, 메뉴, 테이블 정보, 좌석 배치도 등 UI 구성
 
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./CafeHomeBeanUpdate.css";
 import MenuDropdown from "../components/MenuDropdown";
@@ -79,22 +79,18 @@ const CafeHomeBeanUpdate = () => {
     }
   };
 
-  // 1) 원본 도면의 폭/높이(있으면 그대로, 없으면 의자/테이블에서 추정)
   const bbox = useBBoxFromItems(chairs, tables);
   const originalW = floorPlan?.width ?? bbox.w;
   const originalH = floorPlan?.height ?? bbox.h;
 
-  // 2) "원본 height → 630px"이 되도록 배율 계산
   const scale = useMemo(() => {
-    const h = originalH || TARGET_H; // 0/undefined 방어
-    return TARGET_H / h; // 확대/축소 모두 허용
+    const h = originalH || TARGET_H; 
+    return TARGET_H / h; 
   }, [originalH]);
 
-  // 3) 스테이지(도면) 화면상 크기
   const stageW = Math.round(originalW * scale);
-  const stageH = TARGET_H; // 정확히 630으로 고정
+  const stageH = TARGET_H;
 
-  // 4) 좌표/크기 값 자체를 스케일링
   const scaledChairs = useMemo(
     () => scaleItems(chairs, scale),
     [chairs, scale]
@@ -189,7 +185,6 @@ const CafeHomeBeanUpdate = () => {
                 className="seat-stage"
                 style={{ width: stageW, height: stageH }}
               >
-                {/*<ZoomPan min={0.5} max={4} step={0.2}> */}
                 {scaledChairs.map((chair, idx) => (
                   <ChairDetection
                     width={chair.width - 8}
@@ -219,7 +214,6 @@ const CafeHomeBeanUpdate = () => {
                     onClick={() => handleSelectTable(idx)}
                   />
                 ))}
-                {/*</ZoomPan> */}
                 {selectedTableIdx !== null &&
                   (() => {
                     const table = scaledTables[selectedTableIdx];
@@ -233,21 +227,17 @@ const CafeHomeBeanUpdate = () => {
                     const tableH = table.height - 5;
                     let left = tableCenterX + tableW / 2 + 30;
                     let top = tableCenterY - cardHeight / 2 + tableH / 2;
-                    // 오른쪽 경계 보정
+                    // 경계 보정
                     if (left + cardWidth > stageW - margin) {
                       left = tableCenterX - tableW / 2 - cardWidth - 50;
                       if (left < margin) left = margin;
                     }
-                    // 왼쪽 경계 보정
                     if (left < margin) {
                       left = margin;
                     }
-
-                    // 상단 경계 보정 (최소 20px)
                     if (top < margin) {
                       top = margin;
                     }
-                    // 하단 경계 보정 (최소 20px)
                     if (top + cardHeight > stageH - margin) {
                       top = stageH - cardHeight - margin;
                     }
@@ -283,16 +273,13 @@ const CafeHomeBeanUpdate = () => {
                     const chairH = chair.height - 8;
                     let left = chairCenterX + chairW / 2 + 30;
                     let top = chairCenterY - cardHeight / 2 + chairH / 2;
-                    // 오른쪽 경계 보정
+                    // 경계 보정
                     if (left + cardWidth > stageW - margin) {
                       left = chairCenterX - chairW / 2 - cardWidth - 50;
                       if (left < margin) left = margin;
                     }
-                    // 왼쪽 경계 보정
                     if (left < margin) left = margin;
-                    // 상단 경계 보정 (최소 20px)
                     if (top < margin) top = margin;
-                    // 하단 경계 보정 (최소 40px)
                     if (top + cardHeight > stageH - bottomMargin) {
                       top = stageH - cardHeight - bottomMargin;
                     }

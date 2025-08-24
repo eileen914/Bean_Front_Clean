@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import "./UntakenSeat.css";
 import line12 from "../assets/Line7.png";
 

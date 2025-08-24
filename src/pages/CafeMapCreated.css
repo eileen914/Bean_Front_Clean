@@ -34,8 +34,7 @@
 .success-icon {
   width: 120px;
   height: 120px;
-  /*background: linear-gradient(45deg, #6c5f46, #4a3410); */
-  background-color: rgba(104, 93, 74, 0.93);
+    background-color: rgba(104, 93, 74, 0.93);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -198,7 +197,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* 아이콘 이미지 */
 .feature-icon {
   width: 28px;
   height: 28px;
@@ -243,7 +241,6 @@
 }
 
 .primary-btn {
-  /*background: linear-gradient(45deg, #4a3410, #3a290d);*/
   background-color: rgba(104, 93, 74, 0.93);
   color: white;
   box-shadow: 0 4px 15px rgba(74, 52, 16, 0.4);

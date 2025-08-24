@@ -4,16 +4,15 @@
 //   1. 업로드된 도면 이미지 정보: { imageUrl, imageSize, ... }
 //   2. 테이블/좌석 감지 결과: [{ tableId, x, y, width, height, ... }]
 //   3. 업로드 상태 및 에러 메시지
-// props 예시: CafeUpload({ floorPlan, detections, uploadStatus, ... }
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./CafeRegister2.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   uploadImageAndGetDetections,
   getLoginInfo,
   getOwnerCafes,
-} from "../apis/api"; // API 호출 함수 임포트
+} from "../apis/api";
 
 const CafeUpload = () => {
   // ===== 라우터 이동 =====
@@ -178,10 +177,3 @@ const CafeUpload = () => {
 };
 
 export default CafeUpload;
-
-// 여기 참고: https://as-you-say.tistory.com/380
-
-// 백엔드 연동 시 다음 부분을 서버로 전달하도록 수정 필요:
-// 1. uploadedFiles 상태를 서버로 POST 요청으로 전송
-// 2. 파일 업로드를 위한 API endpoint (예: /api/upload) 구현 및 axios 또는 fetch 사용
-// 3. drag & drop 또는 input 변경 시 서버와 실시간 연동이 필요하다면 업로드 직후 handleFileChange 안에서 서버 호출

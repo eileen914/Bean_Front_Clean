@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import line12 from "../assets/Line7.png";
 import "./TakenSeat.css";
 import { fmtDuration, fmtHHMM } from "../utils/dateTime";
