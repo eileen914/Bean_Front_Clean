@@ -4,18 +4,12 @@ import Kakaomap from "../components/Kakaomap";
 import "./UserHome.css";
 
 const SHEET_HEIGHT = 349; 
-const INITIAL_VISIBLE = 110;
+const INITIAL_VISIBLE = 170;  //원래 110
 const INITIAL_DRAG_Y = SHEET_HEIGHT - INITIAL_VISIBLE;
-const MAX_DRAG_Y = SHEET_HEIGHT; 
 
 const UserHome = () => {
-  const [dragY, setDragY] = useState(INITIAL_DRAG_Y); 
-  const [isDragging, setIsDragging] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false); // 바텀시트 오픈 상태
   const bottomSheetRef = useRef(null);
-
-  const startYRef = useRef(0); 
-  const initialYRef = useRef(dragY);
 
   // 바깥 클릭 핸들러
   useEffect(() => {
@@ -26,7 +20,6 @@ const UserHome = () => {
         !bottomSheetRef.current.contains(e.target)
       ) {
         setIsSheetOpen(false);
-        setDragY(INITIAL_DRAG_Y); // 부드럽게 원래 위치로
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
@@ -37,76 +30,9 @@ const UserHome = () => {
     };
   }, [isSheetOpen]);
 
-  // 공통: 좌표 추출
-  const getClientY = (e) => {
-    if (e.touches && e.touches[0]) return e.touches[0].clientY;
-    if (e.changedTouches && e.changedTouches[0])
-      return e.changedTouches[0].clientY;
-    return e.clientY;
-  };
-
-  // 드래그 시작
-  const handleDragStart = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
-    startYRef.current = getClientY(e);
-    initialYRef.current = dragY;
-  };
-
-  // 드래그 종료(스냅)
-  const handleDragEndFn = (e) => {
-    if (e) e.preventDefault();
-    setIsDragging(false);
-    const snapThreshold = INITIAL_DRAG_Y / 2;
-    if (dragY < snapThreshold) {
-      setDragY(0);
-      setIsSheetOpen(true);
-    } else {
-      setDragY(INITIAL_DRAG_Y);
-      setIsSheetOpen(false);
-    }
-  };
-  const handleDragEnd = useRef(handleDragEndFn);
-
-  // 전역 드래그 처리
-  useEffect(() => {
-    const handleMove = (e) => {
-      if (!isDragging) return;
-      const currentY = getClientY(e);
-      const deltaY = currentY - startYRef.current;
-      const next = Math.min(
-        Math.max(initialYRef.current + deltaY, 0),
-        MAX_DRAG_Y
-      );
-      setDragY(next);
-    };
-
-    const handleUp = () => {
-      if (!isDragging) return;
-      handleDragEnd.current();
-    };
-
-    if (isDragging) {
-      document.addEventListener("mousemove", handleMove, { passive: false });
-      document.addEventListener("mouseup", handleUp, { passive: false });
-      document.addEventListener("touchmove", handleMove, { passive: false });
-      document.addEventListener("touchend", handleUp, { passive: false });
-      document.addEventListener("touchcancel", handleUp, { passive: false });
-    }
-
-    return () => {
-      document.removeEventListener("mousemove", handleMove);
-      document.removeEventListener("mouseup", handleUp);
-      document.removeEventListener("touchmove", handleMove);
-      document.removeEventListener("touchend", handleUp);
-      document.removeEventListener("touchcancel", handleUp);
-    };
-  }, [isDragging, dragY]);
-
   // 바텀시트 클릭 시 오픈
   const handleSheetClick = () => {
     setIsSheetOpen(true);
-    setDragY(0);
   };
 
   return (
@@ -136,15 +62,13 @@ const UserHome = () => {
       {/* Bottom Sheet */}
       <div
         ref={bottomSheetRef}
-        className="bottom-sheet"
+        className={`bottom-sheet${isSheetOpen ? " open" : ""}`}
         style={{
-          transform: `translateY(${dragY}px)`,
-          transition: isDragging ? "none" : "transform 0.5s cubic-bezier(0.4,0,0.2,1)",
+          transform: isSheetOpen
+            ? "translateY(0)"
+            : `translateY(${INITIAL_DRAG_Y}px)`,
+          transition: "transform 0.5s cubic-bezier(0.4,0,0.2,1)",
         }}
-        onMouseDown={handleDragStart}
-        onMouseUp={handleDragEndFn}
-        onTouchStart={handleDragStart}
-        onTouchEnd={handleDragEndFn}
         onClick={() => {
           if (!isSheetOpen) handleSheetClick();
         }}
