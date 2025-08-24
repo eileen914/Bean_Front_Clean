@@ -142,19 +142,21 @@ body {
 /* Bottom Sheet */
 .bottom-sheet {
   position: absolute;
-  left: 0; 
+  left: 0;
   bottom: 0;
   width: 100%;
+  max-width: 420px;
+  min-width: 280px;
   height: 349px;
-  background-color: rgba(104, 93, 74, 0.93);
-  border-radius: 50px 50px 0 0;
-  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.12);
-  overflow: visible;
-  z-index: 20;
+  background: #fff;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.08);
+  z-index: 100;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
   display: flex;
   flex-direction: column;
-  user-select: none;
-  touch-action: none;
+  cursor: pointer;
 }
 
 /* Drag Handle */
@@ -240,12 +242,6 @@ body {
 
 /* 반응형 디자인 */
 @media (max-width: 480px) {
-  .app-frame {
-    width: 100vw;
-    height: 100vh;
-    border-radius: 0;
-    margin: auto;
-  }
   .map-main-content {
     bottom: 0;
   }
@@ -283,9 +279,6 @@ body {
     height: 844px;
   }
 
-  .bottom-sheet.open {
-    transform: translateY(calc(100vh - 389px));
-  }
 
   .bottom-sheet-content {
     padding: 0;
