@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './UserSearch.css';
 import { useNavigate } from 'react-router-dom';
 import majesticons from '../assets/majesticons_search.svg';
@@ -14,15 +14,22 @@ const UserSearch = () => {
   // 검색어 상태 관리
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   // 검색 결과 페이지로 이동
   const goAfterSearch = () => {
-    navigate('/user-after-search', { state: { query: searchQuery } });
+    const query = inputRef.current?.value || "";
+    if (query.trim()) {
+      navigate('/user-after-search', { state: { query } });
+    }
   };
 
   // 추천/최근 검색어 버튼 클릭 시 검색어 입력란에 반영
   const handleSearchTermClick = (term) => {
     setSearchQuery(term);
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
   };
 
   // UI 렌더링
@@ -42,12 +49,18 @@ const UserSearch = () => {
             type="text"
             placeholder="나만의 맞춤 카페를 찾아보세요."
             value={searchQuery}
+            ref={inputRef}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={(e) => (e.target.placeholder = '')}
             onBlur={(e) => {
               if (!searchQuery) e.target.placeholder = '나만의 맞춤 카페를 찾아보세요.';
             }}
             className="search-input"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && e.target.value.trim()) {
+                goAfterSearch();
+              }
+            }}
           />
           <img
             className="search-icon"
