@@ -22,16 +22,6 @@ body {
   background-color: #ffffff;
 }
 
-/* 전체 페이지 */
-.user-home-page {
-  width: 100%;
-  min-height: 100dvh; 
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 0;
-}
 
 /* 모바일 프레임(고정 폭/높이) */
 .app-frame {
@@ -153,12 +143,13 @@ body {
 .bottom-sheet {
   position: absolute;
   left: 0; 
-  bottom: 0; 
+  bottom: 0;
   width: 100%;
   height: 349px;
   background-color: rgba(104, 93, 74, 0.93);
   border-radius: 50px 50px 0 0;
   box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.12);
+  overflow: visible;
   z-index: 20;
   display: flex;
   flex-direction: column;
@@ -236,19 +227,22 @@ body {
 /* Bottom Sheet Content */
 .bottom-sheet-content {
   flex: 1;
-  overflow: hidden;
+  overflow-y: auto;           /* 내부 스크롤 허용 */
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;     /* 세로 정렬 */
+  justify-content: flex-start;
+  align-items: stretch;       /* 내부 요소가 꽉 차게 */
   background-color: transparent;
   padding: 0;
+  min-height: 0;              /* flex 내부에서 높이 깨짐 방지 */
+  min-width: 0;               /* flex 내부에서 너비 깨짐 방지 */
 }
 
 /* 반응형 디자인 */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .app-frame {
-    width: 100%;
-    height: 100dvh;
+    width: 100vw;
+    height: 100vh;
     border-radius: 0;
     margin: auto;
   }
@@ -256,7 +250,12 @@ body {
     bottom: 0;
   }
   .bottom-sheet {
-    width: 100%;
+    max-width: 100vw;
+    min-width: 0;
+    left: 0;
+    border-radius: 20px 20px 0 0;
+    height: 40vh;
+    min-height: 110px;
   }
   .main-container {
     width: 100%;
@@ -290,6 +289,10 @@ body {
 
   .bottom-sheet-content {
     padding: 0;
+    min-height: 0;
+    min-width: 0;
+    overflow-y: auto;
+    align-items: stretch;
   }
 
   .drag-handle {
