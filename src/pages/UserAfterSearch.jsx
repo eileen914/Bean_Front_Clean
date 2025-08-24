@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Kakaomap from "../components/Kakaomap";
 import majesticons from "../assets/majesticons_search.svg";
@@ -9,10 +9,10 @@ import CafeList from "../components/CafeList";
 import { getChatbot } from "../apis/api";
 
 // 바텀시트 관련 상수
-const SHEET_HEIGHT = 746; // 풀오픈 높이
-const MIN_VISIBLE = 80; // 접었을 때 상단에 남길 높이
+const SHEET_HEIGHT = 746;
+const MIN_VISIBLE = 80; 
 const COLLAPSED_DRAG_Y = SHEET_HEIGHT - MIN_VISIBLE;
-const INITIAL_DRAG_Y = 0; // 초기: 풀오픈
+const INITIAL_DRAG_Y = 0;
 
 const UserAfterSearch = () => {
   // ===== 라우터 및 위치 정보 =====
@@ -74,12 +74,12 @@ const UserAfterSearch = () => {
   };
 
   // 드래그 종료(스냅)
-  const handleDragEnd = () => {
+  const handleDragEnd = useCallback(() => {
     setIsDragging(false);
     const threshold = COLLAPSED_DRAG_Y / 2;
     if (dragY < threshold) setDragY(0); 
     else setDragY(COLLAPSED_DRAG_Y); 
-  };
+  }, [dragY]);
 
   // 드래그 이동 처리 (마우스/터치)
   useEffect(() => {
@@ -113,10 +113,10 @@ const UserAfterSearch = () => {
       document.removeEventListener("touchend", handleUp);
       document.removeEventListener("touchcancel", handleUp);
     };
-  }, [isDragging, dragY]);
+  }, [isDragging, dragY, handleDragEnd]);
 
   return (
-    <div className="home-page">
+    <div className="after-home-page">
       {/* 헤더 */}
       <header className="header">
         <div className="header-content">

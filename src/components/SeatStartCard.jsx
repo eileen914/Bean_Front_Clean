@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./SeatStartCard.css";
-import { updateChair, listChairs, getChair } from "../apis/api";
+import { updateChair, getChair } from "../apis/api";
 
 /**
  * SeatStartCard
@@ -115,8 +115,8 @@ export default function SeatStartCard({
       onStart?.({
         tableNo: displayNo,
         minutes,
-        checkinAt,
-        expectedOutAt,
+        checkinAt: new Date(checkinAt).getTime() - 9 * 60 * 60 * 1000,
+        expectedOutAt: new Date(expectedOutAt).getTime() - 9 * 60 * 60 * 1000,
         response: data,
         chairId: chairId,
       });

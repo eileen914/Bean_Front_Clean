@@ -90,7 +90,6 @@
   display: flex;
   width: 100%;
   background-color: #f9f8f4;
-  padding: 0 20px;
   position: relative;
   border-bottom: 1px solid #ddd;
 }
@@ -126,8 +125,7 @@
 .tab-underline {
   position: absolute;
   bottom: 0;
-  left: 20px;
-  width: calc((100% - 40px) / 4);
+  width: 105px;
   height: 2px;
   background: #000;
   transition: transform 0.25s ease;

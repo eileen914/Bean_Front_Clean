@@ -2,10 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./CafeHomeBeanUpdate.css";
 import MenuDropdown from "../components/MenuDropdown";
-import whitecursor from "../assets/white-cursor.svg";
-import testDraft from "../assets/test_draft.png";
-import ZoomPan from "../components/ZoomPan";
-import { getCookie, removeCookie } from "../utils/cookie";
 import {
   signOut,
   listCafeFloorPlans,
@@ -39,9 +35,9 @@ const CafeHomeBeanUpdate = () => {
   const [seatNumber, setSeatNumber] = useState(0);
   const [emptySeatNumber, setEmptySeatNumber] = useState(0);
   const [occupiedSeat, setOccupiedSeat] = useState(null);
-  const [trigger, setTrigger] = useState(false);
 
-  const handleLogoClick = () => navigate("/cafe-landing");
+  const handleLogoClick = () =>
+    navigate("/cafe-landing", { state: { cafeId, floorPlanId } });
   const handleMenuToggle = () => setMenuOpen((v) => !v);
   const handleGoto = (path) =>
     navigate(path, { state: { cafeId, floorPlanId } });
@@ -60,7 +56,7 @@ const CafeHomeBeanUpdate = () => {
         checkinAt: chair.entry_time,
         expectedOutAt: new Date(
           new Date(chair.entry_time).getTime() + 90 * 60_000
-        ), // 1시간 30분 후
+        ),
       });
     } else {
       setOccupiedSeat(null);
@@ -95,7 +91,7 @@ const CafeHomeBeanUpdate = () => {
   };
 
   const handleStart = (data) => {
-    setTrigger(data);
+    setOccupiedSeat(data);
     setEmptySeatNumber((prev) => prev - 1);
   };
 
@@ -113,7 +109,12 @@ const CafeHomeBeanUpdate = () => {
     if (!floorPlan) return; // floorPlan이 없으면 실행하지 않음
     setChairs(floorPlan.chairs || []);
     setSeatNumber(floorPlan.chairs.length);
-    setEmptySeatNumber(floorPlan.chairs.length);
+
+    const emptyCount = chairs.filter(
+      (chair) => chair.occupied === false
+    ).length;
+    setEmptySeatNumber(emptyCount);
+
     setTables(floorPlan.tables || []);
     setIsSet(true);
   }, [floorPlan]);
@@ -138,43 +139,18 @@ const CafeHomeBeanUpdate = () => {
     fetchChairs();
   }, [occupiedSeat]);
 
-  useEffect(() => {
-    const fetchOccupiedSeat = async () => {
-      if (!trigger) return;
-      const result = await getChair(trigger.chairId);
-      if (!result || !result.id) return;
-
-      console.log("갱신된 의자 정보", result);
-
-      setOccupiedSeat({
-        chairId: result.id,
-        tableNo: trigger.tableNo,
-        minutes: trigger.minutes,
-        checkinAt: result.entry_time,
-        expectedOutAt: new Date(
-          new Date(result.entry_time).getTime() + trigger.minutes * 60_000
-        ),
-      });
-    };
-    fetchOccupiedSeat();
-  }, [trigger]);
-
-  // 1) 원본 도면의 폭/높이(있으면 그대로, 없으면 의자/테이블에서 추정)
   const bbox = useBBoxFromItems(chairs, tables);
   const originalW = floorPlan?.width ?? bbox.w;
   const originalH = floorPlan?.height ?? bbox.h;
 
-  // 2) "원본 height → 630px"이 되도록 배율 계산
   const scale = useMemo(() => {
-    const h = originalH || TARGET_H; // 0/undefined 방어
-    return TARGET_H / h; // 확대/축소 모두 허용
+    const h = originalH || TARGET_H;
+    return TARGET_H / h;
   }, [originalH]);
 
-  // 3) 스테이지(도면) 화면상 크기
   const stageW = Math.round(originalW * scale);
-  const stageH = TARGET_H; // 정확히 630으로 고정
+  const stageH = TARGET_H;
 
-  // 4) 좌표/크기 값 자체를 스케일링
   const scaledChairs = useMemo(
     () => scaleItems(chairs, scale),
     [chairs, scale]

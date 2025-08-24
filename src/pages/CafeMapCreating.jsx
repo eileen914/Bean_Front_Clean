@@ -1,5 +1,5 @@
 // - 일정 시간 후 자동 화면 전환, 헤더, 로딩 스피너, 안내 텍스트 등으로 구성
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { createFloorPlan, createChair, createTable } from "../apis/api"; // API 호출 함수 임포트
 import "./CafeMapCreating.css";

@@ -1,7 +1,7 @@
 // 카페 점주 로그인 페이지
 // - 로그인 폼, 회원가입 이동, 인증 처리 등
 
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import "./CafeSignIn.css";
 import { useNavigate } from "react-router-dom";
 import {
@@ -20,6 +20,10 @@ const CafeSignIn = () => {
     username: "",
     password: "",
   });
+
+  const handleLogoClick = () => {
+    navigate("/cafe-landing");
+  };
 
   const handleSignInData = (e) => {
     // 로그인 입력값 변경 핸들러
@@ -54,7 +58,7 @@ const CafeSignIn = () => {
     <div className="cafe-signin">
       {/* ===== 헤더 영역 ===== */}
       <header className="cafe-fixed-header">
-        <div className="cafe-header-content">
+        <div className="cafe-header-content" onClick={handleLogoClick}>
           <img src="/logo.png" alt="Bean Logo" className="cafe-header-logo" />
           <h1 className="cafe-header-text">Bean</h1>
         </div>

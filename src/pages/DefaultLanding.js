@@ -1,11 +1,8 @@
 // 서비스 첫 진입(랜딩) 페이지
 // - 이용자/점주 선택, 헤더/메인 UI, 라우팅 등
 
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./DefaultLanding.css";
-import axios from "axios";
-
 
 const DefaultLanding = () => {
   // ===== 라우터 이동 =====
