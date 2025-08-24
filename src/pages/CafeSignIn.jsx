@@ -21,6 +21,10 @@ const CafeSignIn = () => {
     password: "",
   });
 
+  const handleLogoClick = () => {
+    navigate("/cafe-landing");
+  };
+
   const handleSignInData = (e) => {
     // 로그인 입력값 변경 핸들러
     const { id, value } = e.target;
@@ -54,7 +58,7 @@ const CafeSignIn = () => {
     <div className="cafe-signin">
       {/* ===== 헤더 영역 ===== */}
       <header className="cafe-fixed-header">
-        <div className="cafe-header-content">
+        <div className="cafe-header-content" onClick={handleLogoClick}>
           <img src="/logo.png" alt="Bean Logo" className="cafe-header-logo" />
           <h1 className="cafe-header-text">Bean</h1>
         </div>
