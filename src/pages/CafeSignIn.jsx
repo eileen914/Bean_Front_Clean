@@ -37,7 +37,7 @@ const CafeSignIn = () => {
     const result = await signIn(signInData); // 200 이어야 통과 (쿠키 세팅)
     // 선택: 쿠키 적용 확인(권장)
     if (result.status === 200) {
-      const ownerResult = await getLoginInfo(); // 200 이어야 통과
+      const ownerResult = await getLoginInfo(); 
       const owner = ownerResult.data;
       const cafes = await getOwnerCafes(owner.id);
       const cafeId = cafes[0]?.id;
