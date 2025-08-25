@@ -53,8 +53,7 @@ npm start
 - **백엔드 저장소 (Django REST API)** → [Bean Backend](https://github.com/ajy121650/beanBack)  
 - **모바일 앱 저장소 (React Native / Expo)** → (추가 예정)
 
-> ⚠️ 프론트엔드 실행 시 반드시 백엔드 서버가 실행 중이어야 하며,  
-> `.env` 파일의 `VITE_API_URL`을 해당 백엔드 서버 주소로 설정해야 합니다.
+> ⚠️ 프론트엔드 실행 시 반드시 백엔드 서버가 실행 중이어야 합니다.
 
 
 ## 📁 프로젝트 구조
