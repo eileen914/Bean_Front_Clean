@@ -116,15 +116,17 @@ flowchart TD
     D -->|업체 등록 완료| E[Cafe SignIn]
     E -->|로그인| F[Cafe Upload]
     F -->|배치도 생성 및 관리| G[Cafe Map Creating / Created]
-
+```
 
 ### 이용자측
+```mermaid
 flowchart TD
     A[Default Landing] -->|카페를 찾는 이용자입니다| B[User Landing]
     B -->|로그인| C[User Home]
     C -->|Bean AI 검색| D[User After Search]
     D -->|특정 카페 클릭| E[User Cafe Detail]
     E -->|좌석 현황 확인| F[좌석 예약]
+```
 
 ## 📄 라이선스
 
