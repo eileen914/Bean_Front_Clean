@@ -9,8 +9,9 @@ import CafeList from "../components/CafeList";
 import { getChatbot } from "../apis/api";
 
 // 바텀시트 관련 상수
+const isMobile = window.innerWidth <= 480;
 const SHEET_HEIGHT = 746;
-const MIN_VISIBLE = 80; 
+const MIN_VISIBLE = isMobile ? 230 : 80;
 const COLLAPSED_DRAG_Y = SHEET_HEIGHT - MIN_VISIBLE;
 const INITIAL_DRAG_Y = 0;
 
@@ -149,7 +150,7 @@ const UserAfterSearch = () => {
           className="after-search-bottom"
           ref={bottomRef}
           style={{
-            transform: `translateX(-50%) translateY(${dragY}px)`,
+            transform: `${isMobile ? '' : 'translateX(-50%) '}translateY(${dragY}px)`,
             transition: isDragging ? "none" : "transform 0.3s ease",
           }}
           onMouseDown={handleDragStart}

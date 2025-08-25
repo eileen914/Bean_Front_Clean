@@ -403,6 +403,17 @@
   border-color: #827A6A
 }
 
+.service-ready-message {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  color: #685d49;
+  text-align: center;
+}
+
 /* Responsive Design */
 @media (max-width: 480px) {
   .cafe-detail-container {
@@ -419,6 +430,12 @@
 
   .tab-content {
     padding: 15px;
+  }
+
+  .tab-underline {
+    width: 25vw; 
+    min-width: 40px;
+    max-width: 100px;
   }
 
   .legend-items {

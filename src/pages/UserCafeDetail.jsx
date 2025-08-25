@@ -342,7 +342,7 @@ const UserCafeDetail = () => {
           className="detail-nav-tab"
           onClick={() => handleTabChange("review")}
         >
-          리뷰 1,503
+          리뷰
         </button>
 
         <span
@@ -370,7 +370,16 @@ const UserCafeDetail = () => {
 
       {/* 탭 콘텐츠 영역 */}
       <div className="tab-content">
-        {activeTab === "home" ? renderHomeTab() : renderSeatingTab()}
+        {activeTab === "home"
+    ? renderHomeTab()
+    : activeTab === "seating"
+    ? renderSeatingTab()
+    : (
+      <div className="service-ready-message">
+        해당 서비스는 준비 중입니다.
+      </div>
+    )
+  }
       </div>
       {/* 바텀시트(좌석 오버레이) 영역 */}
       <div
