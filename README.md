@@ -31,6 +31,7 @@ React 기반으로 개발되었으며, Django REST API 백엔드와 연동됩니
 ---
 
 ## 🚀 실행 방법
+```bash
 # 저장소 클론
 git clone https://github.com/cho58/bean-frontend.git
 cd bean-frontend
@@ -106,6 +107,7 @@ Bean_Front_Clean/
 
 ## 📝 라우팅 흐름
 ### 점주측
+```mermaid
 flowchart TD
     A[Default Landing] -->|카페를 운영하는 점주입니다| B[Cafe Landing]
     B -->|업체 등록하기| C[Cafe Register 1]
