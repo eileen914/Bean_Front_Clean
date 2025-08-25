@@ -36,7 +36,7 @@ function Kakaomap({ cafeList = [] }) {
     });
     const bounds = new kakao.maps.LatLngBounds();
 
-    // 좌석 정보 파싱 함수 (예시: "3/10" → { available:3, total:10 })
+    // 좌석 정보 파싱 함수
     const parseSeats = (s) => {
       if (!s || typeof s !== "string") return { available: 0, total: 0 };
       const [a, b] = s.split("/");

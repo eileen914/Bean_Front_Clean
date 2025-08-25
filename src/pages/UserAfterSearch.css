@@ -541,7 +541,7 @@ body {
     flex-direction: column;
     align-items: center;    /* 가로 중앙정렬 */
     justify-content: center;/* 세로 중앙정렬 */
-    --list-height: 38vh;
+    --list-height: 50vh;
     max-height: var(--list-height);
     height: var(--list-height);
     width: 100vw;
@@ -561,9 +561,9 @@ body {
     box-sizing: border-box;
   }
   .after-search-frame .user-div-wrapper {
-    width: 100vw;
+    width: auto;
     max-width: 100vw;
-    padding: 0 8vw 12px 8vw;
+    padding: 0 8vw;
     gap: 8px;
     box-sizing: border-box;
   }
