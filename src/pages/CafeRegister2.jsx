@@ -45,26 +45,47 @@ const CafeRegister2 = () => {
     }
 
     // 1) 회원가입
-    console.log("회원가입 데이터:", signUpData);
-    const result = await signUp(signUpData); // 토큰/유저ID 반환 가정
-    console.log("회원가입 결과:", result);
+    try {
+      console.log("회원가입 데이터:", signUpData);
+      const res = await signUp(signUpData);
+      if (res.status !== 201) {
+        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+        return;
+      }
+    } catch (err) {
+      console.error("signup error:", err);
 
-    if (result.status !== 201) {
-      setErrorMsg("회원가입에 실패했습니다. 다시 시도해주세요.");
+      if (err?.status === 400) {
+        const d = err.data;
+        let msg = "이미 존재하는 아이디입니다";
+        if (d?.username?.[0])
+          msg = /이미|exist|already/i.test(d.username[0])
+            ? "이미 존재하는 아이디입니다"
+            : d.username[0];
+        else if (typeof d?.detail === "string") msg = d.detail;
+
+        alert(msg);
+      } else {
+        alert("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      }
       return;
-    } else {
-      const result = await createCafe(cafeData);
-      const cafeId = result.data.id;
-      console.log(result.data);
+    } 
 
-      if (result.status !== 201) {
+    // 2) 카페 생성
+    try {
+      const cafeRes = await createCafe(cafeData);
+      if (cafeRes.status !== 201) {
         alert("업체 등록에 실패했습니다. 다시 시도해주세요.");
         return;
-      } else {
-        // 3) 성공 시 이동
-        alert("업체 등록이 완료되었습니다.");
-        navigate("/cafe-signin", { state: { cafeId } });
       }
+      const cafeId = cafeRes.data.id;
+      console.log(cafeRes.data);
+
+      alert("업체 등록이 완료되었습니다.");
+      navigate("/cafe-signin", { state: { cafeId } });
+    } catch (err) {
+      console.error("createCafe error:", err);
+      alert("업체 등록 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
   };
 
