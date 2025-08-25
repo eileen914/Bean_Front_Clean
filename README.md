@@ -70,7 +70,7 @@ Bean_Front_Clean/
 │   │   ├── ChairDetection.*     # 도면 제작을 위한 의자 요소 감지 컴포넌트
 │   │   ├── DetailMap.jsx        # 개별 카페 위치 나타내는 지도 컴포넌트
 │   │   ├── Kakaomap.jsx         # 검색된 카페 위치 나타내는 지도 컴포넌트
-│   │   ├── MenuDropdown.jsx     # Cafe측에서 사용하는 메뉴 드롭다운
+│   │   ├── MenuDropdown.jsx     # 점주측에서 사용하는 메뉴 드롭다운
 │   │   ├── SeatMetaCard.*       # 좌석 정보 기입 컴포넌트
 │   │   ├── SeatStartCard.*      # 좌석 점유 설정 컴포넌트
 │   │   ├── TableDetection.*     # 도면 제작을 위한 테이블 요소 감지 컴포넌트
