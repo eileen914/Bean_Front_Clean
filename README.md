@@ -3,7 +3,6 @@
 카페 큐레이팅 서비스 **Bean(빈자리)** 의 프론트엔드 저장소입니다.  
 React 기반으로 개발되었으며, Django REST API 백엔드와 연동됩니다.  
 
----
 
 ## ✨ 주요 기능
 
@@ -18,7 +17,6 @@ React 기반으로 개발되었으며, Django REST API 백엔드와 연동됩니
 - 실시간 좌석 상태 확인
 - 빈 좌석 예약
 
----
 
 ## 🛠️ 기술 스택
 
@@ -31,19 +29,23 @@ React 기반으로 개발되었으며, Django REST API 백엔드와 연동됩니
 ---
 
 ## 🚀 실행 방법
+
+### 저장소 클론
 ```bash
-# 저장소 클론
 git clone https://github.com/cho58/bean-frontend.git
 cd bean-frontend
-
-# 패키지 설치
-npm install
-
-# 개발 서버 실행
-npm run dev
-
 ```
----
+
+### 패키지 설치
+```bash
+npm install
+```
+
+### 개발 서버 실행
+```bash
+npm run dev
+```
+
 
 ## 🔗 연동 안내
 
@@ -106,27 +108,31 @@ Bean_Front_Clean/
 └── README.md
 ```
 
+
 ## 📝 라우팅 흐름
 ### 점주측
 ```mermaid
 flowchart TD
-    A[Default Landing] -->|카페를 운영하는 점주입니다| B[Cafe Landing]
+    A[Default Landing] -->|점주 선택| B[Cafe Landing]
     B -->|업체 등록하기| C[Cafe Register 1]
     C -->|업체 등록하기| D[Cafe Register 2]
     D -->|업체 등록 완료| E[Cafe SignIn]
     E -->|로그인| F[Cafe Upload]
-    F -->|배치도 생성 및 관리| G[Cafe Map Creating / Created]
+    F -->|배치도 생성| G[Cafe Map Creating]
+    G -->|잠시 대기| H[Cafe Map Created]
+    H -->|빈자리 보러가기| I[Cafe Tables Info]
 ```
 
 ### 이용자측
 ```mermaid
 flowchart TD
-    A[Default Landing] -->|카페를 찾는 이용자입니다| B[User Landing]
+    A[Default Landing] -->|이용자 선택| B[User Landing]
     B -->|로그인| C[User Home]
     C -->|Bean AI 검색| D[User After Search]
     D -->|특정 카페 클릭| E[User Cafe Detail]
     E -->|좌석 현황 확인| F[좌석 예약]
 ```
+
 
 ## 📄 라이선스
 
