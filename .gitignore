@@ -50,4 +50,6 @@ psd
 thumb
 sketch
 
+/.git_backup_badref_/
+
 # End of https://www.toptal.com/developers/gitignore/api/react
