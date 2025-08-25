@@ -26,7 +26,6 @@ React 기반으로 개발되었으며, Django REST API 백엔드와 연동됩니
 ![react-cookie](https://img.shields.io/badge/react--cookie-8.0.1-FF9800?logo=react&logoColor=white)
 ![cookies](https://img.shields.io/badge/cookies-0.9.1-795548?logo=npm&logoColor=white)
 
----
 
 ## 🚀 실행 방법
 
