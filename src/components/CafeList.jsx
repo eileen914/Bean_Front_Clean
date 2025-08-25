@@ -26,6 +26,9 @@ const CafeList = ({
     navigate("/user-cafe-detail", {
       state: { cafeId, ownerId, cafeName, cafeAddress, cafeImages },
     });
+  
+  const total = Math.floor(Math.random() * 11) + 10;
+  const available = Math.floor(Math.random() * (total + 1));
 
   return (
     <div className="cafe-list" onClick={handleEachCafe}>
@@ -42,8 +45,8 @@ const CafeList = ({
                 </div>
               </div>
               <p className="list-element">
-                <span className="list-span">2 </span>
-                <span className="list-text-wrapper-2">/ 10</span>
+                <span className="list-span">{`${available}`} </span>
+                <span className="list-text-wrapper-2">/ {`${total}`}</span>
               </p>
             </div>
           </div>

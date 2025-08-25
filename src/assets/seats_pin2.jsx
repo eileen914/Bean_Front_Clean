@@ -1,6 +1,4 @@
-import mappin from "../assets/mappin.svg";
 import filled_bean_pin from "../assets/fillbeanpin.png";
-import final_pin from "../assets/final_pin.png";
 
 export default function MapPins(text = "", palette = {}, options = {}) {
   const { injectStyle = true, pinSize = 23, fontSize = 13 } = options || {};
