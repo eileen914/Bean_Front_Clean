@@ -5,13 +5,19 @@
  * - 카카오맵을 렌더링하고, cafeList의 위치에 커스텀 핀(마커)을 표시
  * - 마커 클릭 시 해당 카페 상세 페이지로 이동
  */
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import MapPins from "../assets/seats_pin2.jsx";
 
 function Kakaomap({ cafeList = [] }) {
   const mapRef = useRef(null); // 지도 DOM 참조
   const navigate = useNavigate(); // 페이지 이동 함수
+
+  function getRandomSeats() {
+    const right = Math.floor(Math.random() * 11) + 10;
+    const left = Math.floor(Math.random() * (right + 1));
+    return `${left}/${right}`;
+  }
 
   useEffect(() => {
     // 카카오맵 SDK가 window에 로드되어 있는지 확인
@@ -48,9 +54,9 @@ function Kakaomap({ cafeList = [] }) {
     cafeList.forEach(async (cafe) => {
       try {
         // 카페명으로 좌표 검색 (카카오 장소 검색 API)
-        const q = encodeURIComponent(cafe.name);
+        const q = encodeURIComponent(cafe.address);
         const res = await fetch(
-          `https://dapi.kakao.com/v2/local/search/keyword.json?query=${q}`,
+          `https://dapi.kakao.com/v2/local/search/address.json?query=${q}`,
           {
             headers: {
               Authorization: "KakaoAK 85343d921113ffdf032722fcc089ebec",
@@ -71,7 +77,7 @@ function Kakaomap({ cafeList = [] }) {
         bounds.extend(pos);
 
         // 좌석 정보(예시값) 및 색상 팔레트
-        const { available, total } = parseSeats("3/10");
+        const { available, total } = parseSeats(getRandomSeats());
         const palette = paletteFor(available);
 
         // 커스텀 핀 DOM 생성 및 클릭 핸들러 등록

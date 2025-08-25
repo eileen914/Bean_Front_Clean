@@ -3,8 +3,9 @@ import UserSearch from "../components/UserSearch";
 import Kakaomap from "../components/Kakaomap";
 import "./UserHome.css";
 
+const isMobile = window.innerWidth <= 480;
 const SHEET_HEIGHT = 349; 
-const INITIAL_VISIBLE = 110;  
+const INITIAL_VISIBLE = isMobile ? 170 : 110;  
 const INITIAL_DRAG_Y = SHEET_HEIGHT - INITIAL_VISIBLE;
 
 const UserHome = () => {

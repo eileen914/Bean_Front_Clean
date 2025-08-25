@@ -55,6 +55,7 @@ const CafeRegister2 = () => {
     } else {
       const result = await createCafe(cafeData);
       const cafeId = result.data.id;
+      console.log(result.data);
 
       if (result.status !== 201) {
         alert("업체 등록에 실패했습니다. 다시 시도해주세요.");
