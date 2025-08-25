@@ -22,11 +22,8 @@ const UserLanding = () => {
 
           {/* 로그인/회원가입 버튼 */}
           <div className="user-landing-frame">
-            <div className="div-wrapper" onClick={handleLogin}>
-              <div className="text-wrapper">로그인</div>
-            </div>
-            <div className="div" onClick={handleLogin}>
-              <div className="text-wrapper-2">회원가입</div>
+            <div className="land-div-wrapper" onClick={handleLogin}>
+              <div className="text-wrapper">홈으로 이동하기</div>
             </div>
           </div>
 
