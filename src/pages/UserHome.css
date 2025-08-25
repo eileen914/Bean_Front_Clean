@@ -31,7 +31,6 @@ body {
   position: relative;
   background: #fff;
   overflow: hidden;
-  border-radius: 8px;
   box-shadow: 0 0 0 transparent;
   display: flex;
   flex-direction: column;

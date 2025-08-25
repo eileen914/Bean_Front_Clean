@@ -11,23 +11,21 @@
 }
 
 .landing-page-before {
-  align-items: center;
-  /*background-color: #ffffff;*/
+  align-items: flex-start;
+  justify-items: center;
   display: grid;
   height: 100%;
-  justify-items: center;
   min-height: 100vh;
   width: 100vw;
 }
 
 .landing-page-before .overlap-group-wrapper {
-  /*background-color: #ffffff;*/
-  height: 832px;
+  height: 844px;
   width: 1280px;
 }
 
 .landing-page-before .overlap-group {
-  height: 842px;
+  height: 844px;
   left: 434px;
   justify-items: center;
   position: relative;
@@ -36,8 +34,8 @@
   min-height: 100vh;
 }
 
-.landing-page-before .group {
-  height: 832px;
+.landing-page-before .user-landing-group {
+  height: 844px;
   left: 0;
   position: absolute;
   top: 10px;
@@ -50,20 +48,20 @@
   gap: 15px;
   left: 102px;
   position: absolute;
-  top: 647px;
+  top: 670px;
 }
 
-.landing-page-before .div-wrapper {
+.landing-page-before .land-div-wrapper {
   align-items: center;
   border: 1px solid;
   border-color: #ffffff;
-  border-radius: 5px;
+  border-radius: 10px;
   display: flex;
   gap: 10px;
   justify-content: center;
   padding: 10px;
   position: relative;
-  width: 100px;
+  width: 200px;
 }
 
 .landing-page-before .text-wrapper {
@@ -309,7 +307,7 @@
     padding: 0 8px;
   }
 
-  .div-wrapper,
+  .land-div-wrapper,
   .div {
     width: 120px;
     padding: 12px;
