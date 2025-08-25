@@ -43,7 +43,7 @@ npm install
 
 ### 개발 서버 실행
 ```bash
-npm run dev
+npm start
 ```
 
 
@@ -111,6 +111,7 @@ Bean_Front_Clean/
 
 ## 📝 라우팅 흐름
 ### 점주측
+---
 ```mermaid
 flowchart TD
     A[Default Landing] -->|점주 선택| B[Cafe Landing]
@@ -122,8 +123,9 @@ flowchart TD
     G -->|잠시 대기| H[Cafe Map Created]
     H -->|빈자리 보러가기| I[Cafe Tables Info]
 ```
-
+---
 ### 이용자측
+---
 ```mermaid
 flowchart TD
     A[Default Landing] -->|이용자 선택| B[User Landing]
@@ -132,6 +134,7 @@ flowchart TD
     D -->|특정 카페 클릭| E[User Cafe Detail]
     E -->|좌석 현황 확인| F[좌석 예약]
 ```
+---
 
 
 ## 📄 라이선스
