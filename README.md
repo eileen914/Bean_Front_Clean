@@ -31,8 +31,6 @@ React 기반으로 개발되었으며, Django REST API 백엔드와 연동됩니
 ---
 
 ## 🚀 실행 방법
-
-```bash
 # 저장소 클론
 git clone https://github.com/cho58/bean-frontend.git
 cd bean-frontend
@@ -43,6 +41,8 @@ npm install
 # 개발 서버 실행
 npm run dev
 
+---
+
 ## 🔗 연동 안내
 
 이 프론트엔드 프로젝트는 백엔드 API 서버 및 모바일 앱과 연동되어 동작합니다.
@@ -52,6 +52,7 @@ npm run dev
 
 > ⚠️ 프론트엔드 실행 시 반드시 백엔드 서버가 실행 중이어야 하며,  
 > `.env` 파일의 `VITE_API_URL`을 해당 백엔드 서버 주소로 설정해야 합니다.
+
 
 ## 📁 프로젝트 구조
 
