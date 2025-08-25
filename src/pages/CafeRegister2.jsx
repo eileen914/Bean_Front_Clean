@@ -69,7 +69,7 @@ const CafeRegister2 = () => {
         alert("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
       }
       return;
-    }
+    } 
 
     // 2) 카페 생성
     try {
@@ -79,6 +79,7 @@ const CafeRegister2 = () => {
         return;
       }
       const cafeId = cafeRes.data.id;
+      console.log(cafeRes.data);
 
       alert("업체 등록이 완료되었습니다.");
       navigate("/cafe-signin", { state: { cafeId } });

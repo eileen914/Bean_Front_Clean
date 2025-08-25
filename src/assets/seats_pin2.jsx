@@ -1,9 +1,7 @@
-import mappin from "../assets/mappin.svg";
 import filled_bean_pin from "../assets/fillbeanpin.png";
-import final_pin from "../assets/final_pin.png";
 
 export default function MapPins(text = "", palette = {}, options = {}) {
-  const { injectStyle = true, pinSize = 23, fontSize = 15 } = options || {};
+  const { injectStyle = true, pinSize = 23, fontSize = 13 } = options || {};
 
   if (injectStyle) injectPinStyleOnce();
 
@@ -80,7 +78,7 @@ function injectPinStyleOnce() {
 
   /* 프레임 폭 = 아이콘폭 + 여백 */
   width: calc(var(--pin-size, 22px) + 10px);
-  padding: 2px 3px;
+  padding: 2px 4px;
   pointer-events: auto;
   user-select: none;
   transform: translateZ(0);
@@ -91,8 +89,8 @@ function injectPinStyleOnce() {
   font-family: "Inter", "Lexend", Helvetica, Arial, sans-serif;
   font-size: var(--pin-font, 13px);
   background-color: #ffffff;
-  border-radius: 8px;
-  padding: 1px 3px;
+  border-radius: 7px;
+  padding: 2px 4px;
   font-weight: 600;
   line-height: 1;
   margin-top: -1px;
