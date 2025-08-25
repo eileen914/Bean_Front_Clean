@@ -107,15 +107,23 @@ const CafeHomeBeanUpdate = () => {
 
   useEffect(() => {
     if (!floorPlan) return; // floorPlan이 없으면 실행하지 않음
-    setChairs(floorPlan.chairs || []);
-    setSeatNumber(floorPlan.chairs.length);
 
-    const emptyCount = chairs.filter(
+    const fpChairs = floorPlan.chairs || [];
+    const fpTables = floorPlan.tables || [];
+    setChairs(fpChairs);
+    setSeatNumber(fpChairs.length);
+
+    console.log("seatNumber:", seatNumber);
+    console.log("floorPlan.chairs:", floorPlan.chairs);
+
+    const emptyCount = fpChairs.filter(
       (chair) => chair.occupied === false
     ).length;
+
+    console.log(emptyCount);
     setEmptySeatNumber(emptyCount);
 
-    setTables(floorPlan.tables || []);
+    setTables(fpTables);
     setIsSet(true);
   }, [floorPlan]);
 
@@ -213,8 +221,7 @@ const CafeHomeBeanUpdate = () => {
           <>
             <div className="meta-row">
               <div className="meta-left">
-                전체 좌석 수: <b>{seatNumber}</b> / 현재 빈 자리:{" "}
-                <b>{emptySeatNumber}</b>
+                현재 빈 자리: <b>{emptySeatNumber}</b> / 전체 좌석 수: <b>{seatNumber}</b>
               </div>
               <div className="meta-right status-live">* 현재 사용중</div>
             </div>
