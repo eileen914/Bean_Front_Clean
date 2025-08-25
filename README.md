@@ -71,71 +71,7 @@ Bean_Front_Clean/
 │   │   ├── DetailMap.jsx        # 개별 카페 위치 나타내는 지도 컴포넌트
 │   │   ├── Kakaomap.jsx         # 검색된 카페 위치 나타내는 지도 컴포넌트
 │   │   ├── MenuDropdown.jsx     # 점주측에서 사용하는 메뉴 드롭다운
-│   │   ├── SeatMetaCard.*       # 좌석 정보 기입 컴포넌트
-│   │   ├── SeatStartCard.*      # 좌석 점유 설정 컴포넌트
-│   │   ├── TableDetection.*     # 도면 제작을 위한 테이블 요소 감지 컴포넌트
-│   │   ├── TableMetaCard.jsx    # 테이블 정보 기입 컴포넌트
-│   │   ├── TableStatusCard.*    # 의자 점유 상태 나타내는 컴포넌트
-│   │   ├── TakenSeat.*          # 점유된 좌석 예약하기 컴포넌트
-│   │   ├── UntakenSeat.*        # 비어있는 좌석 예약하기 컴포넌트
-│   │   └── UserSearch.*         # 챗봇 초기 검색창 컴포넌트
-│   │
-│   ├── pages/                   # 주요 라우팅 페이지
-│   │   ├── CafeHomeBeanUpdate.* # 빈자리 배치도 만들기 페이지
-│   │   ├── CafeLanding.*        # 점주 측 랜딩 페이지
-│   │   ├── CafeMapCreated.*     # 도면 제작 완료 페이지
-│   │   ├── CafeMapCreating.*    # 도면 제작 중 페이지
-│   │   ├── CafeRegister1.*      # 업체 등록 설명 페이지
-│   │   ├── CafeRegister2.*      # 회원가입 밎 업체 등록 페이지
-│   │   ├── CafeSignIn.*         # 점주 측 로그인 페이지
-│   │   ├── CafeTableInfo.*      # 테이블 정보 수정 페이지
-│   │   ├── CafeUpload.jsx       # 배치도 업로드 페이지
-│   │   ├── DefaultLanding.*     # 랜딩 페이지
-│   │   ├── UserAfterSearch.*    # 챗봇 검색 결과 페이지
-│   │   ├── UserCafeDetail.*     # 유저측 카페 상세 페이지
-│   │   ├── UserHome.*           # 지도 및 챗봇 페이지
-│   │   └── UserLanding.*        # 유저측 첫 페이지
-│   │
-│   ├── utils/                   # 유틸 함수 모음
-│   ├── App.js                   # 앱 엔트리 / 라우터 설정
-│   ├── index.js                 # React DOM 엔트리
-│   └── index.css                # 글로벌 스타일
-│
-├── package.json                 # 프로젝트 설정 및 의존성
-├── package-lock.json
-└── README.md
-```
-
-
-## 라우팅 흐름
-### 점주측
----
-```mermaid
-flowchart TD
-    A[Default Landing] -->|점주 선택| B[Cafe Landing]
-    B -->|업체 등록하기| C[Cafe Register 1]
-    C -->|업체 등록하기| D[Cafe Register 2]
-    D -->|업체 등록 완료하기| E[Cafe SignIn]
-    E -->|로그인| F[Cafe Upload]
-    F -->|배치도 생성| G[Cafe Map Creating]
-    G -->|잠시 대기| H[Cafe Map Created]
-    H -->|빈자리 보러가기| I[Cafe Tables Info]
-```
----
-### 이용자측
----
-```mermaid
-flowchart TD
-    A[Default Landing] -->|이용자 선택| B[User Landing]
-    B -->|로그인| C[User Home]
-    C -->|Bean AI 검색| D[User After Search]
-    D -->|특정 카페 클릭| E[User Cafe Detail]
-    E -->|좌석 현황 확인| F[좌석 예약]
-```
----
-
-
-## 라이센스
+│   │   ├── SeatMetaCard.선스
 
 본 프로젝트의 모든 권리는 프로젝트 팀 **조미유양반김** 에게 있습니다.  
 무단 복제 및 배포를 금지합니다.
